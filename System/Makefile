@@ -1,3 +1,9 @@
+ifeq ($(CC),9c) 
+    $(error Use mk to enable plan9port features)
+endif
+ifeq ($(LD),9l)
+    $(error Use mk to enable plan9port features)
+endif
 # We need to make this as simple as possible
 # Add folders that contain makefiles here
 SUBDIRS = Core Platform 

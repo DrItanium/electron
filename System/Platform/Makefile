@@ -1,6 +1,11 @@
-########### LINUX MAKEFILE FOR ISA-CLIPS ###########
-### FLAGS ###
-# CFLAGS - additional cflags to pass to the compiler
+####################################################
+# Sanity Checks
+ifeq ($(CC),9c)
+     $(error Use mk to enable plan9port features)
+endif
+ifeq ($(LD),9l)
+     $(error Use mk to enable plan9port features)
+endif
 ####################################################
 OBJS = ArchitectureDetection.o OSDetection.o \
 		 HardwareDetection.o Platform.o

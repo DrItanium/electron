@@ -7,6 +7,14 @@ LD := cc
 OUTPUT = electron
 SUBDIRS = System
 
+ifeq ($(CC),9c)
+    $(error Use mk to enable plan9port features)
+endif
+
+ifeq ($(LD),9l)
+   $(error Use mk to enable plan9port features)
+endif
+
 # I really need to fix this one of these days...dohwell we'll fix this at some
 # point
 OBJS = System/Core/agenda.o System/Core/analysis.o System/Core/argacces.o System/Core/bload.o System/Core/bmathfun.o System/Core/bsave.o \
@@ -43,7 +51,6 @@ OBJS = System/Core/agenda.o System/Core/analysis.o System/Core/argacces.o System
 
 program: subdirs 
 	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) -lm -lncurses
-
 
 .PHONY: clean sub-clean subdirs $(SUBDIRS)
 

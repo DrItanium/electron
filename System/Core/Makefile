@@ -1,4 +1,13 @@
-########### MAKEFILE FOR THE ADVENTURE ENGINE ###########
+########### MAKEFILE FOR ELECTRON #######################
+# -std=c99 causes compilation to fail for 9c so this    #
+# file is for standard make                             #
+#########################################################
+ifeq ($(CC),9c) 
+     $(error Use mk to enable plan9port features)
+endif
+ifeq ($(LD),9l)
+     $(error Use mk to enable plan9port features)
+endif
 progroot ?= $(CURDIR)
 srcroot ?= $(progroot)/../
 OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
