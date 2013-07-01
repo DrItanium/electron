@@ -499,6 +499,17 @@
 #define USE_PLAN9_EXTENSIONS 0
 #endif
 
+#if USE_PLAN9_EXTENSIONS
+#include <u.h>
+#else
+typedef signed char schar;
+typedef unsigned char uchar;
+typedef unsigned int uint;
+typedef unsigned long ulong;
+typedef unsigned long long uvlong;
+typedef long long vlong;
+#endif
+
 /***************************/
 /* Environment Definitions */
 /***************************/
