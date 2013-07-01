@@ -132,6 +132,32 @@
 #else
 #define CAN_USE_PLAN9_FEATURES 0
 #endif
+
+/******************************************************************************/
+/* Plan 9 Extensions.                                                         */
+/* Enables the use of plan 9 from user space extensions.                      */
+/* The p9p libraries will be statically linked into the electron executable   */
+/* automatically by 9c. This only works on unix and unix-like platforms.      */
+/******************************************************************************/
+#ifndef USE_PLAN9_EXTENSIONS 
+#define USE_PLAN9_EXTENSIONS 1
+#endif
+
+#if ! CAN_USE_PLAN9_FEATURES 
+#undef USE_PLAN9_EXTENSIONS
+#define USE_PLAN9_EXTENSIONS 0
+#endif
+
+#if USE_PLAN9_EXTENSIONS
+#include <u.h>
+#else
+typedef signed char schar;
+typedef unsigned char uchar;
+typedef unsigned int uint;
+typedef unsigned long ulong;
+typedef unsigned long long uvlong;
+typedef long long vlong;
+#endif
 /***********************************************/
 /* Some definitions for use with declarations. */
 /***********************************************/
@@ -484,31 +510,6 @@
 #define Bogus(x)
 #endif
 
-/******************************************************************************/
-/* Plan 9 Extensions.                                                         */
-/* Enables the use of plan 9 from user space extensions.                      */
-/* The p9p libraries will be statically linked into the electron executable   */
-/* automatically by 9c. This only works on unix and unix-like platforms.      */
-/******************************************************************************/
-#ifndef USE_PLAN9_EXTENSIONS 
-#define USE_PLAN9_EXTENSIONS 1
-#endif
-
-#if ! CAN_USE_PLAN9_FEATURES 
-#undef USE_PLAN9_EXTENSIONS
-#define USE_PLAN9_EXTENSIONS 0
-#endif
-
-#if USE_PLAN9_EXTENSIONS
-#include <u.h>
-#else
-typedef signed char schar;
-typedef unsigned char uchar;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-typedef unsigned long long uvlong;
-typedef long long vlong;
-#endif
 
 /***************************/
 /* Environment Definitions */
