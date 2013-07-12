@@ -42,7 +42,7 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
  	utility.o watch.o main.o binops.o ArchitectureDetection.o \
-	OSDetection.o HardwareDetection.o Platform.o System.o
+	OSDetection.o HardwareDetection.o Platform.o 
 
 
 all: $(OBJS)
@@ -1262,8 +1262,6 @@ watch.o: watch.c setup.h envrnmnt.h symbol.h usrsetup.h constant.h \
   scanner.h pprint.h symblcmp.h modulpsr.h utility.h argacces.h watch.h
 
 binops.o: binops.c clips.h binops.h
-
-System.o: System.c System.h
 
 ArchitectureDetection.o: ArchitectureDetection.c ArchitectureDetection.h
 

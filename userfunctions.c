@@ -43,7 +43,7 @@
 
 #include "clips.h"
 #include "binops.h"
-#include <System/System.h>
+#include "Platform.h"
 
 void UserFunctions(void);
 void EnvUserFunctions(void *);
@@ -57,10 +57,7 @@ void EnvUserFunctions(void *);
 /*   this function can be deleted from this file and     */
 /*   included in another file.                           */
 /*********************************************************/
-void UserFunctions()
-  {   
-  }
-  
+void UserFunctions() {   }
 /***********************************************************/
 /* EnvUserFunctions: Informs the expert system environment */
 /*   of any user defined functions. In the default case,   */
@@ -70,10 +67,14 @@ void UserFunctions()
 /*   this function can be deleted from this file and       */
 /*   included in another file.                             */
 /***********************************************************/
-void EnvUserFunctions(
-  void *theEnv)
-  {
-     BinaryOperationsFunctionDefinitions(theEnv);
-     InitializeSystem(theEnv);
-  }
+void EnvUserFunctions(void *theEnv) {
+   /*===============================*/
+   /* Initialize Logical Operations.*/
+   /*===============================*/
+   BinaryOperationsFunctionDefinitions(theEnv);
+   /*====================================================*/
+   /* Initialize Improved Platform Description Functions */
+   /*====================================================*/
+   PlatformDetectionFunctionDefinitions(theEnv);
+}
 
