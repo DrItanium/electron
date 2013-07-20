@@ -42,14 +42,15 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
  	utility.o watch.o main.o binops.o ArchitectureDetection.o \
-	OSDetection.o HardwareDetection.o Platform.o 
+ 	OSDetection.o HardwareDetection.o Platform.o ShellVariables.o
 
 
 all: $(OBJS)
 	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) -lm -lncurses
 
 .c.o :
-	$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -std=c99 -Wall -Wundef -Wpointer-arith -Wshadow -Wcast-qual \
+	$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
+		-std=c99 -Wall -Wundef -Wpointer-arith -Wshadow -Wcast-qual \
 	    -Wcast-align -Winline -Wmissing-declarations -Wredundant-decls \
 	    -Wmissing-prototypes -Wnested-externs \
 	    -Wstrict-prototypes -Waggregate-return -Wno-implicit $<
@@ -1270,6 +1271,8 @@ OSDetection.o: OSDetection.c OSDetection.h
 HardwareDetection.o: HardwareDetection.c HardwareDetection.h
 
 Platform.o: Platform.c Platform.h
+
+ShellVariables.o: ShellVariables.c ShellVariables.h
 
 .PHONY: clean 
 

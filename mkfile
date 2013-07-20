@@ -152,6 +152,7 @@ OFILES=\
    rulelhs.$O\
    rulepsr.$O\
    scanner.$O\
+   ShellVariables.$O\
    sortfun.$O\
    strngfun.$O\
    strngrtr.$O\
@@ -330,6 +331,7 @@ HFILES=\
    rulepsr.h\
    scanner.h\
    setup.h\
+   ShellVariables.h\
    sortfun.h\
    strngfun.h\
    strngrtr.h\
