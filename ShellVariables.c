@@ -44,8 +44,8 @@ void ShellVariableQueryFunctions(void* theEnv) {
     EnvDefineFunction2(theEnv,
             (char*)"unset-shell-variable",
             'b',
-            PTIEF UnSetShellVariable,
-            (char*)"UnSetShellVariable",
+            PTIEF UnsetShellVariable,
+            (char*)"UnsetShellVariable",
             "11k");
 }
 
@@ -53,13 +53,13 @@ void* GetShellVariable(void* theEnv) {
     DATA_OBJECT arg0;
     char* result;
     if(EnvArgTypeCheck(theEnv, (char*) "get-shell-variable", 1, SYMBOL_OR_STRING, &arg0) == FALSE) {
-        return EnvAddSymbol("");
+        return EnvAddSymbol(theEnv, "");
     }
     result = getenv(DOToString(arg0));
     if(result != NULL) {
-        return EnvAddSymbol(result);
+        return EnvAddSymbol(theEnv, result);
     } else {
-        return EnvAddSymbol((char*)"nil");
+        return EnvAddSymbol(theEnv, (char*)"nil");
     }
 }
 
