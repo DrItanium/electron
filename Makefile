@@ -46,7 +46,7 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
 
 
 all: $(OBJS)
-	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) -lm -lncurses
+	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) -lm -lncurses -lrt
 
 .c.o :
 	$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
