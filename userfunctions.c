@@ -44,6 +44,7 @@
 #include "clips.h"
 #include "binops.h"
 #include "Platform.h"
+#include "ShellVariables.h"
 
 void UserFunctions(void);
 void EnvUserFunctions(void *);
@@ -76,5 +77,9 @@ void EnvUserFunctions(void *theEnv) {
    /* Initialize Improved Platform Description Functions */
    /*====================================================*/
    PlatformDetectionFunctionDefinitions(theEnv);
+   /*==================================================*/
+   /* Initialize Shell Variable Manipulation Functions */
+   /*==================================================*/
+   ShellVariableQueryFunctions(theEnv);
 }
 
