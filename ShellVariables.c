@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void ShellVariableQueryFunctions(void* theEnv) {
     EnvDefineFunction2(theEnv, 
             (char*)"get-shell-variable",
-            's',
+            'k',
             PTIEF GetShellVariable,
             (char*)"GetShellVariable",
             (char*)"11k");
@@ -49,38 +49,38 @@ void ShellVariableQueryFunctions(void* theEnv) {
             "11k");
 }
 
-void* GetShellVariable(void* theEnv) {
-    DATA_OBJECT arg0;
+void GetShellVariable(void* theEnv, DATA_OBJECT_PTR ret) {
     char* result;
-    if(EnvArgTypeCheck(theEnv, (char*) "get-shell-variable", 1, SYMBOL_OR_STRING, &arg0) == FALSE) {
-        return EnvAddSymbol(theEnv, "");
-    }
-    result = getenv(DOToString(arg0));
+    result = getenv((const char*)EnvRtnLexeme(theEnv, 1));
     if(result != NULL) {
-        return EnvAddSymbol(theEnv, result);
+        ret->type = STRING;
+        ret->value = EnvAddSymbol(theEnv, result);
     } else {
-        return EnvAddSymbol(theEnv, (char*)"nil");
+        ret->type = SYMBOL;
+        ret->value = EnvFalseSymbol(theEnv);
     }
 }
 
-void* SetShellVariable(void* theEnv) {
+int SetShellVariable(void* theEnv) {
     int result;
     result = setenv((const char*)EnvRtnLexeme(theEnv,1),
             (const char*)EnvRtnLexeme(theEnv,2),
             (int)EnvRtnLong(theEnv,3));
+
     if(result != -1) {
-        return EnvTrueSymbol(theEnv);
+        return 1;
     } else {
-        return EnvFalseSymbol(theEnv);
+        return 0;
     }
 }
 
-void* UnsetShellVariable(void* theEnv) {
+int UnsetShellVariable(void* theEnv) {
     int result;
     result = unsetenv((const char*)EnvRtnLexeme(theEnv,1));
+
     if(result != -1) {
-        return EnvTrueSymbol(theEnv);
+        return 1;
     } else {
-        return EnvFalseSymbol(theEnv);
+        return 0;
     }
 }

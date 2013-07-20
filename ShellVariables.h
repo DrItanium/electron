@@ -28,8 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef _SHELL_VARIABLES_H
 #define _SHELL_VARIABLES_H
+#include "clips.h" 
 extern void ShellVariableQueryFunctions(void* theEnv);
-extern void* GetShellVariable(void* theEnv);
-extern void* SetShellVariable(void* theEnv);
-extern void* UnsetShellVariable(void* theEnv);
+extern void GetShellVariable(void* theEnv, DATA_OBJECT_PTR ret);
+extern int SetShellVariable(void* theEnv);
+extern int UnsetShellVariable(void* theEnv);
 #endif
