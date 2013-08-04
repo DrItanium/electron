@@ -26,6 +26,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "clips.h"
+#if !WIN_MVC
 #include "ShellVariables.h"
 #include <stdlib.h>
 void ShellVariableQueryFunctions(void* theEnv) {
@@ -84,3 +85,4 @@ int UnsetShellVariable(void* theEnv) {
         return 0;
     }
 }
+#endif

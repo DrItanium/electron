@@ -249,14 +249,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /* Operating System Specific Defines */
-#if defined(_WIN32) 
+#if defined(_WIN32) && !defined(_WIN64)
 #define OS_WIN32 1
 #define OS_NAME "Windows32"
 #else
 #define OS_WIN32 0
 #endif
 
-#if defined(_WIN64)
+#if defined(_WIN64) && defined(_WIN32)
 #define OS_WIN64 1
 #define OS_NAME "Windows64"
 #else 

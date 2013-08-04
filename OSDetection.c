@@ -170,7 +170,6 @@ int OSIsWindows64(void* theEnv) {
 }
 int OSIsWindows32(void* theEnv) {
 #if OS_WIN32
-#warning "WIN32 is defined"
    return TRUE;
 #else
    return FALSE;

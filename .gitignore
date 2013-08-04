@@ -1,8 +1,11 @@
 #ignore the electron executable and the object files
 electron
+electron.exe
+
 *.o
 *.swp
 .deps/
 obj/
 libs/
 *.class
+*.obj
