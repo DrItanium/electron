@@ -69,7 +69,7 @@ int HardwarePlatformIsGeneric(void* theEnv) {
 }
 
 int HardwarePlatformIsIPhone(void* theEnv) {
-#if PLATFORM_IPHONE
+#if PLATFORM_APPLE_IOS
    return TRUE;
 #else
    return FALSE;
@@ -116,7 +116,7 @@ int HardwarePlatformIsXbox360(void* theEnv) {
 }
 
 int HardwarePlatformIsApple(void* theEnv) {
-#if PLATFORM_APPLE && (! PLATFORM_IPHONE) 
+#if PLATFORM_APPLE && (! PLATFORM_APPLE_IOS) 
 	return TRUE;
 #else
 	return FALSE;
