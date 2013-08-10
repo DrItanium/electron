@@ -1,11 +1,8 @@
 #include "clips.h" 
 #include "binops.h"
 
-//private definitions
-//typedef unsigned long long longlong;
-//typedef long long clipslonglong;
 
-uvlong Slice(uvlong w, uvlong s, uvlong e);
+static uvlong Slice(uvlong w, uvlong s, uvlong e);
 
 
 
@@ -25,104 +22,47 @@ extern void BinaryOperationsFunctionDefinitions(void* theEnv) {
 //use unsigned long long to ensure that logical shift is used instead of
 //arithmetic shift
 extern long long RightShiftFunction(void* theEnv) {
-   DATA_OBJECT arg0, arg1;
    uvlong a, b;
-   if(EnvArgCountCheck(theEnv,"right-shift",EXACTLY,2) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"right-shift",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
-
-   if(EnvArgTypeCheck(theEnv,"right-shift",2,INTEGER,&arg1) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
-   b = DOToLong(arg1);
+	
+	a = EnvRtnLong(theEnv, 1);
+	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a >> b);
 }
 extern long long LeftShiftFunction(void* theEnv) {
-
-   DATA_OBJECT arg0, arg1;
    uvlong a, b;
-   if(EnvArgCountCheck(theEnv,"left-shift",EXACTLY,2) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"left-shift",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
 
-   if(EnvArgTypeCheck(theEnv,"left-shift",2,INTEGER,&arg1) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
-   b = DOToLong(arg1);
+	a = EnvRtnLong(theEnv, 1);
+	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a << b);
 
 }
 extern long long BinaryAndFunction(void* theEnv) {
-   DATA_OBJECT arg0, arg1;
    uvlong a, b;
-   if(EnvArgCountCheck(theEnv,"binary-and",EXACTLY,2) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"binary-and",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
 
-   if(EnvArgTypeCheck(theEnv,"binary-and",2,INTEGER,&arg1) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
-   b = DOToLong(arg1);
+	a = EnvRtnLong(theEnv, 1);
+	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a & b);
 
 }
 extern long long BinaryOrFunction(void* theEnv) {
-   DATA_OBJECT arg0, arg1;
    uvlong a, b;
-   if(EnvArgCountCheck(theEnv,"binary-or",EXACTLY,2) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"binary-or",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
 
-   if(EnvArgTypeCheck(theEnv,"binary-or",2,INTEGER,&arg1) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
-   b = DOToLong(arg1);
+	a = EnvRtnLong(theEnv, 1);
+	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a | b);
 
 }
 extern long long BinaryXorFunction(void* theEnv) {
-   DATA_OBJECT arg0, arg1;
    uvlong a, b;
-   if(EnvArgCountCheck(theEnv,"binary-xor",EXACTLY,2) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"binary-xor",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
 
-   if(EnvArgTypeCheck(theEnv,"binary-xor",2,INTEGER,&arg1) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
-   b = DOToLong(arg1);
+	a = EnvRtnLong(theEnv, 1);
+	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a ^ b);
 }
 extern long long BinaryNotFunction(void* theEnv) {
-   DATA_OBJECT arg0;
    uvlong a;
-   if(EnvArgCountCheck(theEnv,"binary-not",EXACTLY,1) == -1) {
-      return 0LL;
-   } 
-   if(EnvArgTypeCheck(theEnv,"binary-not",1,INTEGER,&arg0) == FALSE) {
-      return 0LL;
-   }
-   a = DOToLong(arg0);
+
+	a = EnvRtnLong(theEnv, 1);
    return (uvlong)(~a);
 }
 uvlong Slice(uvlong w, uvlong s, uvlong e) {
@@ -150,24 +90,11 @@ uvlong Slice(uvlong w, uvlong s, uvlong e) {
 }
 
 extern long long SliceFunction(void* theEnv) {
-   DATA_OBJECT arg0, arg1, arg2;
    uvlong w, s, e;
-   if(EnvArgCountCheck(theEnv, "slice", EXACTLY, 3) == -1) {
-      return 0LL;
-   }
-   if(EnvArgTypeCheck(theEnv, "slice", 1, INTEGER, &arg0) == FALSE) {
-      return 0LL;
-   }
-   if(EnvArgTypeCheck(theEnv, "slice", 2, INTEGER, &arg1) == FALSE) {
-      return 0LL;
-   }
-   if(EnvArgTypeCheck(theEnv, "slice", 3, INTEGER, &arg2) == FALSE) {
-      return 0LL;
-   }
 
-   w = DOToLong(arg0);
-   s = DOToLong(arg1);
-   e = DOToLong(arg2);
+	w = EnvRtnLong(theEnv, 1);
+	s = EnvRtnLong(theEnv, 2);
+	e = EnvRtnLong(theEnv, 3);
    return (vlong)Slice(w,s,e);
 }
 
@@ -176,18 +103,10 @@ extern long long SliceFunction(void* theEnv) {
 SetMFValue(multifield, index, EnvAddLong(theEnv, (vlong)Slice(value, from, to)))
 
 extern void Slice8Function(void* theEnv, DATA_OBJECT_PTR retVal) {
-   DATA_OBJECT arg0;
    void* multifield;
    uvlong value;
-   if(EnvArgCountCheck(theEnv, "slice8", EXACTLY, 1) == -1) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   } 
-   if(EnvArgTypeCheck(theEnv, "slice8", 1, INTEGER, &arg0) == FALSE) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   }
-   value = DOToLong(arg0); 
+
+	value = EnvRtnLong(theEnv, 1);
    multifield = EnvCreateMultifield(theEnv, 8);
    SetMultifieldSlot(1, 0LL, 8LL);
    SetMultifieldSlot(2, 8LL, 16LL);
@@ -206,18 +125,10 @@ extern void Slice8Function(void* theEnv, DATA_OBJECT_PTR retVal) {
 }
 
 extern void Slice4Function(void* theEnv, DATA_OBJECT_PTR retVal) {
-   DATA_OBJECT arg0;
    void* multifield;
    uvlong value;
-   if(EnvArgCountCheck(theEnv, "slice4", EXACTLY, 1) == -1) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   } 
-   if(EnvArgTypeCheck(theEnv, "slice4", 1, INTEGER, &arg0) == FALSE) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   }
-   value = DOToLong(arg0); 
+
+	value = EnvRtnLong(theEnv, 1);
    multifield = EnvCreateMultifield(theEnv, 4);
    SetMultifieldSlot(1, 0LL, 16LL);
    SetMultifieldSlot(2, 16LL, 32LL);
@@ -231,18 +142,10 @@ extern void Slice4Function(void* theEnv, DATA_OBJECT_PTR retVal) {
    SetpDOEnd(retVal, 4);
 }
 extern void Slice2Function(void* theEnv, DATA_OBJECT_PTR retVal) {
-   DATA_OBJECT arg0;
    void* multifield;
    uvlong value;
-   if(EnvArgCountCheck(theEnv, "slice2", EXACTLY, 1) == -1) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   } 
-   if(EnvArgTypeCheck(theEnv, "slice2", 1, INTEGER, &arg0) == FALSE) {
-      EnvSetMultifieldErrorValue(theEnv, retVal);
-      return;
-   }
-   value = DOToLong(arg0); 
+
+   value = EnvRtnLong(theEnv, 1); 
    multifield = EnvCreateMultifield(theEnv, 2);
    SetMultifieldSlot(1, 0LL, 32LL);
    SetMultifieldSlot(2, 32LL, 64LL);
@@ -266,6 +169,7 @@ extern long long MergeFunction(void* theEnv) {
    if(EnvArgTypeCheck(theEnv, "merge", 1, MULTIFIELD, &arg0) == FALSE) {
       return 0LL;
    }
+
    length = (uvlong)GetDOLength(arg0);
    multifield = GetValue(arg0);
    result = 0LL;
