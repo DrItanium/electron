@@ -42,7 +42,8 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
  	utility.o watch.o main.o binops.o ArchitectureDetection.o \
- 	OSDetection.o HardwareDetection.o Platform.o ShellVariables.o
+ 	OSDetection.o HardwareDetection.o Platform.o ShellVariables.o \
+	FileSystemManipulation.o
 
 
 all: $(OBJS)
@@ -1274,8 +1275,9 @@ Platform.o: Platform.c Platform.h
 
 ShellVariables.o: ShellVariables.c ShellVariables.h
 
-.PHONY: clean 
+FileSystemManipulation.o: FileSystemManipulation.c FileSystemManipulation.h
 
+.PHONY: clean 
 
 clean: 
 	rm -f *.o

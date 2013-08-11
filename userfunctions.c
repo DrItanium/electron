@@ -46,6 +46,7 @@
 #include "Platform.h"
 #if !WIN_MVC
 #include "ShellVariables.h"
+#include "FileSystemManipulation.h"
 #endif
 
 void UserFunctions(void);
@@ -84,6 +85,10 @@ void EnvUserFunctions(void *theEnv) {
    /* Initialize Shell Variable Manipulation Functions */
    /*==================================================*/
    ShellVariableQueryFunctions(theEnv);
+   /*===============================================*/
+   /* Initialize File System Manipulation Functions */
+   /*===============================================*/
+   FileSystemManipulationFunctions(theEnv);
 #endif
 }
 

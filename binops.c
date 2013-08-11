@@ -21,14 +21,14 @@ extern void BinaryOperationsFunctionDefinitions(void* theEnv) {
 }
 //use unsigned long long to ensure that logical shift is used instead of
 //arithmetic shift
-extern long long RightShiftFunction(void* theEnv) {
+extern vlong RightShiftFunction(void* theEnv) {
    uvlong a, b;
 	
 	a = EnvRtnLong(theEnv, 1);
 	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a >> b);
 }
-extern long long LeftShiftFunction(void* theEnv) {
+extern vlong LeftShiftFunction(void* theEnv) {
    uvlong a, b;
 
 	a = EnvRtnLong(theEnv, 1);
@@ -36,7 +36,7 @@ extern long long LeftShiftFunction(void* theEnv) {
    return (uvlong)(a << b);
 
 }
-extern long long BinaryAndFunction(void* theEnv) {
+extern vlong BinaryAndFunction(void* theEnv) {
    uvlong a, b;
 
 	a = EnvRtnLong(theEnv, 1);
@@ -44,7 +44,7 @@ extern long long BinaryAndFunction(void* theEnv) {
    return (uvlong)(a & b);
 
 }
-extern long long BinaryOrFunction(void* theEnv) {
+extern vlong BinaryOrFunction(void* theEnv) {
    uvlong a, b;
 
 	a = EnvRtnLong(theEnv, 1);
@@ -52,14 +52,14 @@ extern long long BinaryOrFunction(void* theEnv) {
    return (uvlong)(a | b);
 
 }
-extern long long BinaryXorFunction(void* theEnv) {
+extern vlong BinaryXorFunction(void* theEnv) {
    uvlong a, b;
 
 	a = EnvRtnLong(theEnv, 1);
 	b = EnvRtnLong(theEnv, 2);
    return (uvlong)(a ^ b);
 }
-extern long long BinaryNotFunction(void* theEnv) {
+extern vlong BinaryNotFunction(void* theEnv) {
    uvlong a;
 
 	a = EnvRtnLong(theEnv, 1);
@@ -89,7 +89,7 @@ uvlong Slice(uvlong w, uvlong s, uvlong e) {
    }
 }
 
-extern long long SliceFunction(void* theEnv) {
+extern vlong SliceFunction(void* theEnv) {
    uvlong w, s, e;
 
 	w = EnvRtnLong(theEnv, 1);
@@ -157,7 +157,7 @@ extern void Slice2Function(void* theEnv, DATA_OBJECT_PTR retVal) {
    SetpDOEnd(retVal, 2);
 }
 
-extern long long MergeFunction(void* theEnv) {
+extern vlong MergeFunction(void* theEnv) {
    DATA_OBJECT arg0;
    uvlong length, result;
    void* multifield;
