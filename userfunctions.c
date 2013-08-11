@@ -46,7 +46,6 @@
 #include "Platform.h"
 #if !WIN_MVC
 #include "ShellVariables.h"
-#include "FileSystemManipulation.h"
 #endif
 
 void UserFunctions(void);
