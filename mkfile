@@ -75,7 +75,6 @@ OFILES=\
    factrhs.$O\
    filecom.$O\
    filertr.$O\
-   FileSystemManipulation.$O\
    generate.$O\
    genrcbin.$O\
    genrccmp.$O\
@@ -252,7 +251,6 @@ HFILES=\
    factrhs.h\
    filecom.h\
    filertr.h\
-   FileSystemManipulation.h\
    generate.h\
    genrcbin.h\
    genrccmp.h\

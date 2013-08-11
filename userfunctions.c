@@ -85,10 +85,6 @@ void EnvUserFunctions(void *theEnv) {
    /* Initialize Shell Variable Manipulation Functions */
    /*==================================================*/
    ShellVariableQueryFunctions(theEnv);
-   /*===============================================*/
-   /* Initialize File System Manipulation Functions */
-   /*===============================================*/
-   FileSystemManipulationFunctions(theEnv);
 #endif
 }
 
