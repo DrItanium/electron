@@ -6,7 +6,7 @@ LD := cc
 OUTPUT = electron
 DESTDIR ?= $(ElectronFSRoot)/sys
 BINDIR ?= bin
-INCDIR ?= include
+INCDIR ?= include/$(OUTPUT)
 LIBDIR ?= lib
 
 ifeq ($(CC),9c)
@@ -47,48 +47,230 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
  	utility.o watch.o binops.o arch.o shellvar.o 
 
+HEADERS = 
 
 .PHONY: clean all
 
 all: program libraries
 
 program: $(OBJS) main.o
-	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lncurses -lrt
+	@echo Building $(OUTPUT)
+	@$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lncurses -lrt
 
 libraries: $(OBJS)
-	$(AR) rcs lib$(OUTPUT).a $(OBJS)
-	$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lncurses -lrt
+	@echo Building lib$(OUTPUT).a
+	@$(AR) rcs lib$(OUTPUT).a $(OBJS)
+	@echo Building lib$(OUTPUT).so
+	@$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lncurses -lrt
 
 install:
-	mkdir -p $(DESTDIR)/$(INCDIR)
-	cp *.h $(DESTDIR)/$(INCDIR)
-	mkdir -p $(DESTDIR)/$(LIBDIR)
-	cp lib$(OUTPUT).so $(DESTDIR)/$(LIBDIR)
-	cp lib$(OUTPUT).a $(DESTDIR)/$(LIBDIR)
-	mkdir -p $(DESTDIR)/$(BINDIR)
-	cp $(OUTPUT) $(DESTDIR)/$(BINDIR)
+	@echo Installing headers to $(DESTDIR)/$(INCDIR)
+	@mkdir -p $(DESTDIR)/$(INCDIR)
+	@cp *.h $(DESTDIR)/$(INCDIR)
+	@echo Installing libraries to $(DESTDIR)/$(LIBDIR)
+	@mkdir -p $(DESTDIR)/$(LIBDIR)
+	@cp lib$(OUTPUT).so $(DESTDIR)/$(LIBDIR)
+	@cp lib$(OUTPUT).a $(DESTDIR)/$(LIBDIR)
+	@echo Installing binaries to $(DESTDIR)/$(BINDIR)
+	@mkdir -p $(DESTDIR)/$(BINDIR)
+	@cp $(OUTPUT) $(DESTDIR)/$(BINDIR)
 
 deinstall uninstall:
-	rm -f $(DESTDIR)/$(INCDIR)/*.h
-	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).so
-	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).a
-	rm -f $(DESTDIR)/$(BINDIR)/$(OUTPUT)
+	@echo Uninstalling...
+	@rm -f $(DESTDIR)/$(INCDIR)/agenda.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/analysis.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/arch.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/argacces.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/binops.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/bload.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/bmathfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/bsave.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classcom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classexm.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classinf.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classini.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/classpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/clips.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/clsltpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cmptblty.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/commline.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/conscomp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/constant.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/constrct.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/constrnt.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/crstrtgy.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrcbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrccmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrccom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrcpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrnbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrnchk.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrncmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrnops.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrnpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/cstrnutl.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/default.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/defins.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/developr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffctbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffctbsc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffctcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffctdef.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffctpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffnxbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffnxcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffnxexe.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffnxfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dffnxpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dfinsbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/dfinscmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/drive.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/emathfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/engine.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/envrnmnt.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/evaluatn.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/expressn.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/exprnbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/exprnops.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/exprnpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/extnfunc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factbld.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factcom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factgen.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/facthsh.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factlhs.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factmch.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factmngr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factprt.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factqpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factqury.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factrete.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/factrhs.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/filecom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/filertr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/generate.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrcbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrccmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrccom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrcexe.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrcfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/genrcpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globlbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globlbsc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globlcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globlcom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globldef.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/globlpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/immthpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/incrrset.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/inherpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/inscom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insfile.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insmngr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insmoddp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insmult.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/inspsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insquery.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/insqypsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/iofun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/lgcldpnd.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/match.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/memalloc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/miscfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/modulbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/modulbsc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/modulcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/moduldef.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/modulpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/modulutl.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/msgcom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/msgfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/msgpass.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/msgpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/multifld.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/multifun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/network.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/object.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtbld.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtfnx.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtgen.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/objrtmch.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/parsefun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/pattern.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/pprint.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/prccode.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/prcdrfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/prcdrpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/prdctfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/prntutil.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/proflfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/reorder.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/reteutil.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/retract.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/router.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulebin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulebld.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulebsc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulecmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulecom.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulecstr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/ruledef.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/ruledlt.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulelhs.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/rulepsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/scanner.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/setup.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/shellvar.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/sortfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/strngfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/strngrtr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/symblbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/symblcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/symbol.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/sysdep.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/textpro.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltbin.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltbsc.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltcmp.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltdef.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltfun.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltlhs.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltpsr.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltrhs.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/tmpltutl.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/userdata.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/usrsetup.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/utility.h 
+	@rm -f $(DESTDIR)/$(INCDIR)/watch.h
+	@rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).so
+	@rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).a
+	@rm -f $(DESTDIR)/$(BINDIR)/$(OUTPUT)
 
 
 clean: 
-	rm -f *.o
-	rm -f $(OUTPUT)
-	rm -f libelectron.so
-	rm -f libelectron.a
+	@echo Cleaning
+	@rm -f *.o
+	@rm -f $(OUTPUT)
+	@rm -f libelectron.so
+	@rm -f libelectron.a
 
 
 .c.o :
-	$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
+	@echo CC $<
+	@$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
 		-std=c99 -Wall -Wundef -Wpointer-arith -Wshadow -Wcast-qual \
 	    -Wcast-align -Winline -Wmissing-declarations -Wredundant-decls \
-	    -Wmissing-prototypes -Wnested-externs -fPIC \
-	    -Wstrict-prototypes -Waggregate-return -Wno-implicit \
-		 -I$(ElectronFSRoot)/lib/native $<
+	    -Wmissing-prototypes -Wnested-externs -Wstrict-prototypes \
+	    -Waggregate-return -Wno-implicit -fPIC $<
 
 agenda.o: agenda.c setup.h envrnmnt.h symbol.h usrsetup.h argacces.h \
   expressn.h exprnops.h exprnpsr.h extnfunc.h userdata.h scanner.h \
