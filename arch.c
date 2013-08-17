@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "clips.h"
-#include "ArchitectureDetection.h"
+#include "arch.h"
 
 static void* GetArchitecture(void* theEnv);
 extern void ArchitectureDetectionFunctionDefinitions(void* theEnv) {

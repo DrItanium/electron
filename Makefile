@@ -45,9 +45,10 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	strngrtr.o symblbin.o symblcmp.o symbol.o sysdep.o textpro.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
- 	utility.o watch.o binops.o ArchitectureDetection.o \
- 	OSDetection.o HardwareDetection.o Platform.o ShellVariables.o 
+ 	utility.o watch.o binops.o arch.o shellvar.o 
 
+
+.PHONY: clean all
 
 all: program libraries
 
@@ -72,6 +73,13 @@ deinstall uninstall:
 	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).so
 	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).a
 	rm -f $(DESTDIR)/$(BINDIR)/$(OUTPUT)
+
+
+clean: 
+	rm -f *.o
+	rm -f $(OUTPUT)
+	rm -f libelectron.so
+	rm -f libelectron.a
 
 
 .c.o :
@@ -1289,22 +1297,10 @@ watch.o: watch.c setup.h envrnmnt.h symbol.h usrsetup.h constant.h \
   userdata.h evaluatn.h expressn.h exprnops.h exprnpsr.h extnfunc.h \
   scanner.h pprint.h symblcmp.h modulpsr.h utility.h argacces.h watch.h
 
+# Electron Additions 
 binops.o: binops.c clips.h binops.h
 
-ArchitectureDetection.o: ArchitectureDetection.c ArchitectureDetection.h
+arch.o: arch.c arch.h
 
-OSDetection.o: OSDetection.c OSDetection.h
+shellvar.o: shellvar.c shellvar.h
 
-HardwareDetection.o: HardwareDetection.c HardwareDetection.h
-
-Platform.o: Platform.c Platform.h
-
-ShellVariables.o: ShellVariables.c ShellVariables.h
-
-.PHONY: clean 
-
-clean: 
-	rm -f *.o
-	rm -f $(OUTPUT)
-	rm -f libelectron.so
-	rm -f libelectron.a

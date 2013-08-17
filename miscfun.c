@@ -34,6 +34,9 @@
 /*                                                           */
 /*            Renamed BOOLEAN macro type to intBool.         */
 /*                                                           */
+/*     Electron: 08/17/2013                                  */
+/*     - Architecture Detection functions are now defined    */
+/*       in this file                                        */
 /*************************************************************/
 
 #define _MISCFUN_SOURCE_
@@ -58,6 +61,7 @@
 #endif
 
 #include "miscfun.h"
+
 
 #define MISCFUN_DATA 9
 
@@ -768,14 +772,6 @@ EnvPrintRouter(theEnv,WDISPLAY,(char*)"Run time module is ");
 #else
   EnvPrintRouter(theEnv,WDISPLAY,(char*)"OFF\n");
 #endif
-
-EnvPrintRouter(theEnv, WDISPLAY,(char*)"Plan 9 extensions are ");
-#if USE_PLAN9_EXTENSIONS
-  EnvPrintRouter(theEnv, WDISPLAY, (char*)"ON\n");
-#else
-  EnvPrintRouter(theEnv, WDISPLAY, (char*)"OFF\n");
-#endif
-  
   }
 
 /***********************************************/
@@ -1431,3 +1427,5 @@ globle double TimerFunction(
 
    return(gentime() - startTime);
   }
+
+/* BEGIN ELECTRON CODE */

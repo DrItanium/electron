@@ -42,11 +42,6 @@
 /***************************************************************************/
 
 #include "clips.h"
-#include "binops.h"
-#include "Platform.h"
-#if !WIN_MVC
-#include "ShellVariables.h"
-#endif
 
 void UserFunctions(void);
 void EnvUserFunctions(void *);
@@ -71,19 +66,5 @@ void UserFunctions() {   }
 /*   included in another file.                             */
 /***********************************************************/
 void EnvUserFunctions(void *theEnv) {
-   /*===============================*/
-   /* Initialize Logical Operations.*/
-   /*===============================*/
-   BinaryOperationsFunctionDefinitions(theEnv);
-   /*====================================================*/
-   /* Initialize Improved Platform Description Functions */
-   /*====================================================*/
-   PlatformDetectionFunctionDefinitions(theEnv);
-#if !WIN_MVC
-   /*==================================================*/
-   /* Initialize Shell Variable Manipulation Functions */
-   /*==================================================*/
-   ShellVariableQueryFunctions(theEnv);
-#endif
 }
 

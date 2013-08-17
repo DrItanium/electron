@@ -143,6 +143,13 @@
 #include "developr.h"
 #endif
 
+/* Electron Includes */
+#include "arch.h"
+#include "binops.h"
+#if !WIN_MVC
+#include "shellvar.h"
+#endif
+
 /***************/
 /* DEFINITIONS */
 /***************/
@@ -301,6 +308,20 @@ globle void EnvInitializeEnvironment(
    /*=========================================================*/
 
    InitializeNonportableFeatures(theEnvironment);
+
+   /* BEGIN ELECTRON */
+
+   /*==================================*/
+   /* Initialize Arch Detect Features. */
+   /*==================================*/
+   ArchitectureDetectionFunctionDefinitions(theEnvironment);
+
+   /*===============================*/
+   /* Initialize Logical Operations.*/
+   /*===============================*/
+   BinaryOperationsFunctionDefinitions(theEnvironment);
+
+   /* END ELECTRON */
 
    /*=============================================*/
    /* Register system and user defined functions. */
@@ -883,6 +904,13 @@ static void InitializeNonportableFeatures(
 
 #if UNIX_V || LINUX || DARWIN || UNIX_7 || WIN_GCC || WIN_MVC
    signal(SIGINT,CatchCtrlC);
+#endif
+
+#if !WIN_MVC
+   /*==================================================*/
+   /* Initialize Shell Variable Manipulation Functions */
+   /*==================================================*/
+   ShellVariableQueryFunctions(theEnv);
 #endif
 
 /*

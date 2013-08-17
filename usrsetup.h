@@ -146,42 +146,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     (! ARCH_ARM64) && (! ARCH_HPPA) && (! ARCH_M68K) && (! ARCH_MIPS) && (!ARCH_SH) && \
     (! ARCH_S390X) && (! ARCH_THEORETICAL)
 #define ARCH_UNKNOWN 1
-#define ARCH_STRING "unknown"
+#define ARCH_STRING "Unknown"
 #else
 #define ARCH_UNKNOWN 0
-#endif
-
-
-/* Hardware Platform Specific Defines */
-
-#if defined(__APPLE__)
-#include "TargetConditionals.h"
-#define PLATFORM_APPLE 1
-#if TARGET_OS_MAC
-    #define PLATFORM_APPLE_OSX 1
-    #define PLATFORM_APPLE_IOS 0
-    #define PLATFORM_HARDWARE_NAME "ApplePC"
-#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    #define PLATFORM_APPLE_OSX 0
-    #define PLATFORM_APPLE_IOS 1
-    #define PLATFORM_HARDWARE_NAME "iPhone"
-#else
-    #define PLATFORM_APPLE_OSX 0
-    #define PLATFORM_APPLE_IOS 0
-    #define PLATFORM_HARDWARE_NAME "AppleUnknown" 
-#endif	
-#else
-    #define PLATFORM_APPLE 0
-    #define PLATFORM_APPLE_OSX 0
-    #define PLATFORM_APPLE_IOS 0
-#endif
-
-
-#if (! PLATFORM_APPLE) 
-#define PLATFORM_GENERIC 1
-#define PLATFORM_HARDWARE_NAME "Generic"
-#else
-#define PLATFORM_GENERIC 0
 #endif
 
 
@@ -249,13 +216,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define OS_ANDROID 0
 #endif
 
-#if PLATFORM_APPLE 
-   #if PLATFORM_APPLE_OSX 
+#if defined(__APPLE__)
+#include "TargetConditionals.h"
+   #if TARGET_OS_MAC
        #define OS_OSX 1
        #define OS_IOS 0
        #define OS_APPLE_UNKNOWN 0
        #define OS_NAME "OSX"
-   #elif PLATFORM_APPLE_IOS
+   #elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
        #define OS_IOS 1
        #define OS_OSX 0
        #define OS_APPLE_UNKNOWN 0
@@ -265,7 +233,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
        #define OS_OSX 0
        #define OS_APPLE_UNKNOWN 1
        #define OS_NAME "AppleUnknown"
-#endif
+   #endif
 #else
        #define OS_IOS 0
        #define OS_OSX 0

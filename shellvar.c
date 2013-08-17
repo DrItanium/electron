@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "clips.h"
 #if !WIN_MVC
-#include "ShellVariables.h"
+#include "shellvar.h"
 #include <stdlib.h>
 void ShellVariableQueryFunctions(void* theEnv) {
     EnvDefineFunction2(theEnv, 
