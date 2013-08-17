@@ -4,10 +4,10 @@ export srcroot ?= $(progroot)
 CC := cc
 LD := cc
 OUTPUT = electron
-DESTDIR ?= $(ElectronFSRoot)
+DESTDIR ?= $(ElectronFSRoot)/native
 BINDIR ?= bin
-INCDIR ?= native/include/$(OUTPUT)
-LIBDIR ?= native/lib
+INCDIR ?= include
+LIBDIR ?= lib
 
 ifeq ($(CC),9c)
     $(error Use mk to enable plan9port features)
