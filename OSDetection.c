@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 //These are function definitions to find out what OS we're on
 
-extern void* OSGetOperatingSystem(void* theEnv);
 extern int OSIsLinux(void* theEnv);
 extern int OSIsWindows64(void* theEnv); 
 extern int OSIsWindows32(void* theEnv);
@@ -49,13 +48,6 @@ extern int OSIsNintendoConsole(void* theEnv);
 extern int OSIsCygwin(void* theEnv);
 
 extern void OSDetectionFunctionDefinitions(void* theEnv) {
-   //capture the standard operating system call
-   EnvDefineFunction2(theEnv,
-         (char*)"operating-system",
-         'w',
-         PTIEF OSGetOperatingSystem,
-         (char*)"OSGetOperatingSystem",
-         (char*)"00a");
    EnvDefineFunction2(theEnv, 
          (char*)"operating-system-is-android", 
          'b',
@@ -140,10 +132,6 @@ extern void OSDetectionFunctionDefinitions(void* theEnv) {
          PTIEF OSIsCygwin, 
          (char*)"OSIsCygwin", 
          (char*)"00a");
-}
-
-void* OSGetOperatingSystem(void* theEnv) {
-   return EnvAddSymbol(theEnv, OS_NAME); 
 }
 
 //These are function definitions to find out what OS we're on

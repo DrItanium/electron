@@ -786,36 +786,7 @@ globle void *OperatingSystemFunction(
   void *theEnv)
   {
    EnvArgCountCheck(theEnv,(char*)"operating-system",EXACTLY,0);
-
-#if GENERIC
-   return(EnvAddSymbol(theEnv,(char*)"UNKNOWN"));
-#endif
-
-#if UNIX_V
-   return(EnvAddSymbol(theEnv,(char*)"UNIX-V"));
-#endif
-
-#if UNIX_7
-   return(EnvAddSymbol(theEnv,(char*)"UNIX-7"));
-#endif
-
-#if LINUX
-   return(EnvAddSymbol(theEnv,(char*)"LINUX"));
-#endif
-
-#if DARWIN
-   return(EnvAddSymbol(theEnv,(char*)"DARWIN"));
-#endif
-
-#if IBM && (! WINDOW_INTERFACE)
-   return(EnvAddSymbol(theEnv,(char*)"DOS"));
-#endif
-
-#if IBM && WINDOW_INTERFACE
-   return(EnvAddSymbol(theEnv,(char*)"WINDOWS"));
-#endif
-
-   return(EnvAddSymbol(theEnv,(char*)"UNKNOWN"));
+   return EnvAddSymbol(theEnv, OS_NAME); 
   }
   
 /********************************************************************
