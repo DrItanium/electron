@@ -1,7 +1,10 @@
 #ignore the electron executable and the object files
 electron
 electron.exe
+libelectron.so
+libelectron.a
 
+*.a
 *.o
 *.swp
 .deps/

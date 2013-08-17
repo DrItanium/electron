@@ -4,6 +4,10 @@ export srcroot ?= $(progroot)
 CC := cc
 LD := cc
 OUTPUT = electron
+DESTDIR ?= $(ElectronFSRoot)
+BINDIR ?= bin
+INCDIR ?= native/include/$(OUTPUT)
+LIBDIR ?= native/lib
 
 ifeq ($(CC),9c)
     $(error Use mk to enable plan9port features)
@@ -41,19 +45,42 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	strngrtr.o symblbin.o symblcmp.o symbol.o sysdep.o textpro.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
- 	utility.o watch.o main.o binops.o ArchitectureDetection.o \
+ 	utility.o watch.o binops.o ArchitectureDetection.o \
  	OSDetection.o HardwareDetection.o Platform.o ShellVariables.o 
 
 
-all: $(OBJS)
-	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) -lm -lncurses -lrt
+all: program libraries
+
+program: $(OBJS) main.o
+	$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lncurses -lrt
+
+libraries: $(OBJS)
+	$(AR) rcs lib$(OUTPUT).a $(OBJS)
+	$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lncurses -lrt
+
+install:
+	mkdir -p $(DESTDIR)/$(INCDIR)
+	cp *.h $(DESTDIR)/$(INCDIR)
+	mkdir -p $(DESTDIR)/$(LIBDIR)
+	cp lib$(OUTPUT).so $(DESTDIR)/$(LIBDIR)
+	cp lib$(OUTPUT).a $(DESTDIR)/$(LIBDIR)
+	mkdir -p $(DESTDIR)/$(BINDIR)
+	cp $(OUTPUT) $(DESTDIR)/$(BINDIR)
+
+deinstall uninstall:
+	rm -f $(DESTDIR)/$(INCDIR)/*.h
+	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).so
+	rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).a
+	rm -f $(DESTDIR)/$(BINDIR)/$(OUTPUT)
+
 
 .c.o :
 	$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
 		-std=c99 -Wall -Wundef -Wpointer-arith -Wshadow -Wcast-qual \
 	    -Wcast-align -Winline -Wmissing-declarations -Wredundant-decls \
-	    -Wmissing-prototypes -Wnested-externs \
-	    -Wstrict-prototypes -Waggregate-return -Wno-implicit $<
+	    -Wmissing-prototypes -Wnested-externs -fPIC \
+	    -Wstrict-prototypes -Waggregate-return -Wno-implicit \
+		 -I$(ElectronFSRoot)/lib/native $<
 
 agenda.o: agenda.c setup.h envrnmnt.h symbol.h usrsetup.h argacces.h \
   expressn.h exprnops.h exprnpsr.h extnfunc.h userdata.h scanner.h \
@@ -1279,3 +1306,5 @@ ShellVariables.o: ShellVariables.c ShellVariables.h
 clean: 
 	rm -f *.o
 	rm -f $(OUTPUT)
+	rm -f libelectron.so
+	rm -f libelectron.a
