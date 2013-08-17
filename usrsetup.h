@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef _CORE_USER_SETUP_H
 #define _CORE_USER_SETUP_H
-#define ARCH_VERSION "Generic"
+
 /* architecture define macros */
 #if defined(__theoretical__)
 #define ARCH_THEORETICAL 1
@@ -177,70 +177,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 
-
-#if defined(__PPU__) || defined(PS3)
-#define PLATFORM_PS3 1
-#define PLATFORM_HARDWARE_NAME "PS3"
-#else
-#define PLATFORM_PS3 0
-#endif
-
-#if defined(PSP) || defined(__psp__) || defined(__PSP__) || defined(_PSP)
-#define PLATFORM_PSP 1
-#define PLATFORM_HARDWARE_NAME "PSP"
-#else
-#define PLATFORM_PSP 0
-#endif
-
-#if PLATFORM_PS3 || PLATFORM_PSP
-#define PLATFORM_SONY 1
-#else
-#define PLATFORM_SONY 0
-#endif
-
-#if defined(__wii__) || defined(_WII) 
-#define PLATFORM_WII 1
-#define PLATFORM_HARDWARE_NAME "Wii"
-#else
-#define PLATFORM_WII 0
-#endif
-
-#if PLATFORM_WII
-#define PLATFORM_NINTENDO 1
-#else
-#define PLATFORM_NINTENDO 0
-#endif
-
-/* TODO: Fix this define abstraction */
-#if defined(_XBOX) 
-#define PLATFORM_MICROSOFT 1
-#define PLATFORM_XBOX_VERSION _XBOX_VER
-#if PLATFORM_XBOX_VERSION < 200
-#define PLATFORM_HARDWARE_NAME "Xbox"
-#define PLATFORM_XBOX1 1
-#define PLATFORM_XBOX360 0
-#define PLATFORM_XBOX_UNKNOWN 0
-#elif PLATFORM_XBOX_VERSION >= 200 
-#define PLATFORM_HARDWARE_NAME "Xbox360"
-#define PLATFORM_XBOX1 0
-#define PLATFORM_XBOX360 1
-#define PLATFORM_XBOX_UNKNOWN 0
-#else
-#define PLATFORM_HARDWARE_NAME "XboxUnknown"
-#define PLATFORM_XBOX1 0
-#define PLATFORM_XBOX360 0
-#define PLATFORM_XBOX_UNKNOWN 1
-#endif
-#else
-#define PLATFORM_MICROSOFT 0
-#define PLATFORM_XBOX_VERSION -1
-#define PLATFORM_XBOX1 0
-#define PLATFORM_XBOX360 0
-#define PLATFORM_XBOX_UNKNOWN 0
-#endif
-
-#if (! PLATFORM_APPLE) && (! PLATFORM_SONY) && (! PLATFORM_NINTENDO) && \
-	 (! PLATFORM_MICROSOFT)
+#if (! PLATFORM_APPLE) 
 #define PLATFORM_GENERIC 1
 #define PLATFORM_HARDWARE_NAME "Generic"
 #else
@@ -335,67 +272,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
        #define OS_APPLE_UNKNOWN 0
 #endif
 
-#if PLATFORM_SONY
-    #if PLATFORM_PS3 || PLATFORM_PSP
-	     #define OS_XMB 1
-		  #define OS_SONY_UNKNOWN 0
-        #define OS_NAME "XMB"
-    #else
-	     #define OS_XMB 0
-		  #define OS_SONY_UNKNOWN 1
-        #define OS_NAME "SonyUnknown"
-#endif
-#else
-	     #define OS_XMB 0
-		  #define OS_SONY_UNKNOWN 0
-#endif
-
-#if PLATFORM_MICROSOFT
-    #if PLATFORM_XBOX_VERSION < 200
-        #define OS_XBOX1 1
-        #define OS_XBOX360 0
-        #define OS_XBOX_UNKNOWN 0
-        #define OS_NAME "Xbox1"
-    #elif PLATFORM_XBOX_VERSION >= 200
-        #define OS_XBOX1 0
-        #define OS_XBOX360 1
-        #define OS_XBOX_UNKNOWN 0
-        #define OS_NAME "Xbox360"
-    #else
-        #define OS_XBOX1 0
-        #define OS_XBOX360 0
-        #define OS_XBOX_UNKNOWN 1
-        #define OS_NAME "XboxUnknown"
-#endif
-#else
-        #define OS_XBOX1 0
-        #define OS_XBOX360 0
-        #define OS_XBOX_UNKNOWN 0
-#endif
-      
-#if PLATFORM_NINTENDO
-    #if PLATFORM_WII
-        #define OS_WII 1
-        #define OS_NINTENDO_UNKNOWN 0
-        #define OS_NAME "Wii"
-    #else
-        #define OS_WII 0
-        #define OS_NINTENDO_UNKNOWN 1
-        #define OS_NAME "NintendoUnknown"
-    #endif
-#else
-        #define OS_WII 0
-        #define OS_NINTENDO_UNKNOWN 0
-#endif
-
    
 
 #if (! OS_WIN32) && (! OS_WIN64) && (! OS_LINUX) && (! OS_FREEBSD) && \
     (! OS_OSX) && (! OS_IOS) && (! OS_APPLE_UNKNOWN) && (! OS_OPENBSD) && \
-    (! OS_NETBSD) && (!OS_XMB) && (!OS_SONY_UNKNOWN) && (! OS_XBOX1) && \
-    (! OS_XBOX360) && (! OS_XBOX_UNKNOWN) && (! OS_WII) && \
-    (! OS_NINTENDO_UNKNOWN) && (! OS_DRAGONFLYBSD) && (! OS_CYGWIN) && \
-    (! OS_ANDROID)
+    (! OS_NETBSD) && (! OS_DRAGONFLYBSD) && (! OS_CYGWIN) && (! OS_ANDROID) 
 #define OS_UNKNOWN 1
 #define OS_NAME "Unknown"
 #else

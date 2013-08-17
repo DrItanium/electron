@@ -37,24 +37,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern void* GetHardwarePlatform(void* theEnv);
 extern int HardwarePlatformIsGeneric(void* theEnv); 
 extern int HardwarePlatformIsIPhone(void* theEnv);
-extern int HardwarePlatformIsPS3(void* theEnv); 
-extern int HardwarePlatformIsPSP(void* theEnv); 
-extern int HardwarePlatformIsWii(void* theEnv); 
-extern int HardwarePlatformIsXbox(void* theEnv);
-extern int HardwarePlatformIsXbox360(void* theEnv);
 extern int HardwarePlatformIsApple(void* theEnv);
 
 //This file contains the code describing specific hardware platforms. 
 extern void HardwareDetectionFunctionDefinitions(void* theEnv) {
    DefinePlatformIdentFunc("hardware", 'w', GetHardwarePlatform);
    DefinePlatformIdentFunc("hardware-is-generic", 'b', HardwarePlatformIsGeneric);
-	DefinePlatformIdentFunc("hardware-is-apple", 'b', HardwarePlatformIsApple);
+   DefinePlatformIdentFunc("hardware-is-apple", 'b', HardwarePlatformIsApple);
    DefinePlatformIdentFunc("hardware-is-iphone", 'b', HardwarePlatformIsIPhone);
-   DefinePlatformIdentFunc("hardware-is-ps3", 'b', HardwarePlatformIsPS3);
-   DefinePlatformIdentFunc("hardware-is-psp", 'b', HardwarePlatformIsPSP);
-   DefinePlatformIdentFunc("hardware-is-wii", 'b', HardwarePlatformIsWii);
-   DefinePlatformIdentFunc("hardware-is-xbox", 'b', HardwarePlatformIsXbox);
-   DefinePlatformIdentFunc("hardware-is-xbox360", 'b', HardwarePlatformIsXbox360);
 }
 
 void* GetHardwarePlatform(void* theEnv) {
@@ -70,45 +60,6 @@ int HardwarePlatformIsGeneric(void* theEnv) {
 
 int HardwarePlatformIsIPhone(void* theEnv) {
 #if PLATFORM_APPLE_IOS
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-
-int HardwarePlatformIsPS3(void* theEnv) {
-#if PLATFORM_PS3
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-int HardwarePlatformIsPSP(void* theEnv) {
-#if PLATFORM_PSP
-   return TRUE;
-#else 
-   return FALSE;
-#endif
-}
-
-int HardwarePlatformIsWii(void* theEnv) {
-#if PLATFORM_WII
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-
-int HardwarePlatformIsXbox(void* theEnv) {
-#if PLATFORM_XBOX1
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-
-int HardwarePlatformIsXbox360(void* theEnv) {
-#if PLATFORM_XBOX360
    return TRUE;
 #else
    return FALSE;

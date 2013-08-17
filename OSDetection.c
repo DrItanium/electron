@@ -42,9 +42,6 @@ extern int OSIsFreeBSD(void* theEnv);
 extern int OSIsOpenBSD(void* theEnv);
 extern int OSIsNetBSD(void* theEnv);
 extern int OSIsDragonFlyBSD(void* theEnv);
-extern int OSIsMicrosoftConsole(void* theEnv);
-extern int OSIsSonyConsole(void* theEnv);
-extern int OSIsNintendoConsole(void* theEnv);
 extern int OSIsCygwin(void* theEnv);
 
 extern void OSDetectionFunctionDefinitions(void* theEnv) {
@@ -107,24 +104,6 @@ extern void OSDetectionFunctionDefinitions(void* theEnv) {
          'b',
          PTIEF OSIsIOS, 
          (char*)"OSIsIOS", 
-         (char*)"00a");
-   EnvDefineFunction2(theEnv, 
-         (char*)"operating-system-is-microsoft-console", 
-         'b', 
-         PTIEF OSIsMicrosoftConsole, 
-         (char*)"OSIsMicrosoftConsole", 
-         (char*) "00a");
-   EnvDefineFunction2(theEnv, 
-         (char*)"operating-system-is-sony-console", 
-         'b',
-         PTIEF OSIsSonyConsole, 
-         (char*)"OSIsSonyConsole", 
-         (char*)"00a");
-   EnvDefineFunction2(theEnv, 
-         (char*)"operating-system-is-nintendo-console", 
-         'b', 
-         PTIEF OSIsNintendoConsole, 
-         (char*)"OSIsNintendoConsole", 
          (char*)"00a");
    EnvDefineFunction2(theEnv, 
          (char*)"operating-system-is-cygwin", 
@@ -214,35 +193,3 @@ int OSIsDragonFlyBSD(void* theEnv) {
    return FALSE;
 #endif
 }
-
-/* 
- * These are for consoles...by default these will return FALSE
- * I use these generic names because there are many devices (future and 
- * current) that are a part of this class of operating systems. We use the
- * platform detection functions to figure out what platform we are on
- */
-int OSIsMicrosoftConsole(void* theEnv) {
-   //Microsoft's console is easy
-#if PLATFORM_MICROSOFT 
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-int OSIsSonyConsole(void* theEnv) {
-   //Playstation 2 isn't supported
-#if PLATFORM_SONY
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-int OSIsNintendoConsole(void* theEnv) {
-   //GameCube isn't supported...not enough RAM!
-#if PLATFORM_NINTENDO
-   return TRUE;
-#else
-   return FALSE;
-#endif
-}
-

@@ -29,25 +29,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "clips.h"
 #include "ArchitectureDetection.h"
 
-#define str(x) #x
-#define DefineArchIdentFunc(kn, r, cn) \
-   EnvDefineFunction2(theEnv, (char*)kn, r, PTIEF cn, (char*) str(cn), "00a")
-
-extern void* GetArchitectureVersion(void* theEnv); 
-extern void* GetArchitecture(void* theEnv);
+static void* GetArchitecture(void* theEnv);
 extern void ArchitectureDetectionFunctionDefinitions(void* theEnv) {
-   DefineArchIdentFunc("architecture", 'w', GetArchitecture);
-   DefineArchIdentFunc("architecture-version", 'w', GetArchitectureVersion);
-}
-
-void* GetArchitectureVersion(void* theEnv) {
-   return EnvAddSymbol(theEnv, ARCH_VERSION);
+   EnvDefineFunction2(theEnv,
+         (char*)"architecture",
+         'w',
+         PTIEF GetArchitecture,
+         (char*)"GetArchitecture",
+         "00a");
 }
 
 void* GetArchitecture(void* theEnv) {
    return EnvAddSymbol(theEnv, ARCH_STRING);
 }
-
-
-#undef str
-#undef DefineArchIdentFunc
