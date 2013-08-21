@@ -93,7 +93,6 @@ deinstall uninstall:
 	@rm -f $(DESTDIR)/$(INCDIR)/classpsr.h 
 	@rm -f $(DESTDIR)/$(INCDIR)/clips.h 
 	@rm -f $(DESTDIR)/$(INCDIR)/clsltpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cmptblty.h 
 	@rm -f $(DESTDIR)/$(INCDIR)/commline.h 
 	@rm -f $(DESTDIR)/$(INCDIR)/conscomp.h 
 	@rm -f $(DESTDIR)/$(INCDIR)/constant.h 
