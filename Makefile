@@ -55,13 +55,13 @@ all: program libraries
 
 program: $(OBJS) main.o
 	@echo Building $(OUTPUT)
-	@$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lncurses -lrt
+	@$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lrt
 
 libraries: $(OBJS)
 	@echo Building lib$(OUTPUT).a
 	@$(AR) rcs lib$(OUTPUT).a $(OBJS)
 	@echo Building lib$(OUTPUT).so
-	@$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lncurses -lrt
+	@$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lrt
 
 install:
 	@echo Installing headers to $(DESTDIR)/$(INCDIR)
