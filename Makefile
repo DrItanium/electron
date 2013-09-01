@@ -9,14 +9,6 @@ BINDIR ?= bin
 INCDIR ?= include/$(OUTPUT)
 LIBDIR ?= lib
 
-ifeq ($(CC),9c)
-    $(error Use mk to enable plan9port features)
-endif
-
-ifeq ($(LD),9l)
-   $(error Use mk to enable plan9port features)
-endif
-
 OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	classcom.o classexm.o classfun.o classinf.o classini.o \
 	classpsr.o clsltpsr.o commline.o conscomp.o constrct.o \
@@ -46,8 +38,6 @@ OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
  	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
  	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
  	utility.o watch.o binops.o arch.o shellvar.o 
-
-HEADERS = 
 
 .PHONY: clean all
 
