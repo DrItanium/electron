@@ -626,9 +626,9 @@ static void ValidateRuleBetaMemoriesAction(
   void *theEnv,
   struct constructHeader *theConstruct,
   void *buffer) {
-   struct defrule *rulePtr, *tmpPtr;
+   struct defrule *rulePtr;
 
-   for (rulePtr = (struct defrule *) theConstruct, tmpPtr = rulePtr;
+   for (rulePtr = (struct defrule *) theConstruct;
         rulePtr != NULL;
         rulePtr = rulePtr->disjunct) {
       TraverseBetaMemories(theEnv,rulePtr->lastJoin);
