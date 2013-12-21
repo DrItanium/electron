@@ -1,43 +1,37 @@
 ########### MAKEFILE FOR ELECTRON ###########
-export progroot ?= $(CURDIR)
-export srcroot ?= $(progroot)
-CC := cc
-LD := cc
-OUTPUT = electron
-DESTDIR ?= $(ElectronFSRoot)/sys
-BINDIR ?= bin
-INCDIR ?= include/$(OUTPUT)
-LIBDIR ?= lib
+include config.mk
 
-OBJS = agenda.o analysis.o argacces.o bload.o bmathfun.o bsave.o \
- 	classcom.o classexm.o classfun.o classinf.o classini.o \
-	classpsr.o clsltpsr.o commline.o conscomp.o constrct.o \
- 	constrnt.o crstrtgy.o cstrcbin.o cstrccom.o cstrcpsr.o \
- 	cstrnbin.o cstrnchk.o cstrncmp.o cstrnops.o cstrnpsr.o \
- 	cstrnutl.o default.o defins.o developr.o dffctbin.o dffctbsc.o \
- 	dffctcmp.o dffctdef.o dffctpsr.o dffnxbin.o dffnxcmp.o \
-	dffnxexe.o dffnxfun.o dffnxpsr.o dfinsbin.o dfinscmp.o drive.o \
-	emathfun.o engine.o envrnmnt.o evaluatn.o expressn.o exprnbin.o exprnops.o \
- 	exprnpsr.o extnfunc.o factbin.o factbld.o factcmp.o factcom.o \
- 	factfun.o factgen.o facthsh.o factlhs.o factmch.o factmngr.o \
- 	factprt.o factqpsr.o factqury.o factrete.o factrhs.o filecom.o \
- 	filertr.o generate.o genrcbin.o genrccmp.o genrccom.o genrcexe.o \
- 	genrcfun.o genrcpsr.o globlbin.o globlbsc.o globlcmp.o globlcom.o \
- 	globldef.o globlpsr.o immthpsr.o incrrset.o inherpsr.o \
- 	inscom.o insfile.o insfun.o insmngr.o insmoddp.o insmult.o \
- 	inspsr.o insquery.o insqypsr.o iofun.o lgcldpnd.o \
- 	memalloc.o miscfun.o modulbin.o modulbsc.o modulcmp.o moduldef.o \
- 	modulpsr.o modulutl.o msgcom.o msgfun.o msgpass.o msgpsr.o \
- 	multifld.o multifun.o objbin.o objcmp.o objrtbin.o objrtbld.o \
- 	objrtcmp.o objrtfnx.o objrtgen.o objrtmch.o parsefun.o pattern.o \
- 	pprint.o prccode.o prcdrfun.o prcdrpsr.o prdctfun.o prntutil.o \
- 	proflfun.o reorder.o reteutil.o retract.o router.o rulebin.o \
- 	rulebld.o rulebsc.o rulecmp.o rulecom.o rulecstr.o ruledef.o \
- 	ruledlt.o rulelhs.o rulepsr.o scanner.o sortfun.o strngfun.o \
- 	strngrtr.o symblbin.o symblcmp.o symbol.o sysdep.o textpro.o \
- 	tmpltbin.o tmpltbsc.o tmpltcmp.o tmpltdef.o tmpltfun.o tmpltlhs.o \
- 	tmpltpsr.o tmpltrhs.o tmpltutl.o userdata.o userfunctions.o \
- 	utility.o watch.o binops.o arch.o shellvar.o 
+SRC = agenda.c analysis.c argacces.c bload.c bmathfun.c bsave.c \
+ 	classcom.c classexm.c classfun.c classinf.c classini.c \
+	classpsr.c clsltpsr.c commline.c conscomp.c constrct.c \
+ 	constrnt.c crstrtgy.c cstrcbin.c cstrccom.c cstrcpsr.c \
+ 	cstrnbin.c cstrnchk.c cstrncmp.c cstrnops.c cstrnpsr.c \
+ 	cstrnutl.c default.c defins.c developr.c dffctbin.c dffctbsc.c \
+ 	dffctcmp.c dffctdef.c dffctpsr.c dffnxbin.c dffnxcmp.c \
+	dffnxexe.c dffnxfun.c dffnxpsr.c dfinsbin.c dfinscmp.c drive.c \
+	emathfun.c engine.c envrnmnt.c evaluatn.c expressn.c exprnbin.c exprnops.c \
+ 	exprnpsr.c extnfunc.c factbin.c factbld.c factcmp.c factcom.c \
+ 	factfun.c factgen.c facthsh.c factlhs.c factmch.c factmngr.c \
+ 	factprt.c factqpsr.c factqury.c factrete.c factrhs.c filecom.c \
+ 	filertr.c generate.c genrcbin.c genrccmp.c genrccom.c genrcexe.c \
+ 	genrcfun.c genrcpsr.c globlbin.c globlbsc.c globlcmp.c globlcom.c \
+ 	globldef.c globlpsr.c immthpsr.c incrrset.c inherpsr.c \
+ 	inscom.c insfile.c insfun.c insmngr.c insmoddp.c insmult.c \
+ 	inspsr.c insquery.c insqypsr.c iofun.c lgcldpnd.c \
+ 	memalloc.c miscfun.c modulbin.c modulbsc.c modulcmp.c moduldef.c \
+ 	modulpsr.c modulutl.c msgcom.c msgfun.c msgpass.c msgpsr.c \
+ 	multifld.c multifun.c objbin.c objcmp.c objrtbin.c objrtbld.c \
+ 	objrtcmp.c objrtfnx.c objrtgen.c objrtmch.c parsefun.c pattern.c \
+ 	pprint.c prccode.c prcdrfun.c prcdrpsr.c prdctfun.c prntutil.c \
+ 	proflfun.c reorder.c reteutil.c retract.c router.c rulebin.c \
+ 	rulebld.c rulebsc.c rulecmp.c rulecom.c rulecstr.c ruledef.c \
+ 	ruledlt.c rulelhs.c rulepsr.c scanner.c sortfun.c strngfun.c \
+ 	strngrtr.c symblbin.c symblcmp.c symbol.c sysdep.c textpro.c \
+ 	tmpltbin.c tmpltbsc.c tmpltcmp.c tmpltdef.c tmpltfun.c tmpltlhs.c \
+ 	tmpltpsr.c tmpltrhs.c tmpltutl.c userdata.c userfunctions.c \
+ 	utility.c watch.c binops.c arch.c shellvar.c 
+
+OBJS = ${SRC:.c=.o}
 
 .PHONY: clean all
 
@@ -54,195 +48,195 @@ libraries: $(OBJS)
 	@$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lrt
 
 install:
-	@echo Installing headers to $(DESTDIR)/$(INCDIR)
-	@mkdir -p $(DESTDIR)/$(INCDIR)
-	@cp *.h $(DESTDIR)/$(INCDIR)
-	@echo Installing libraries to $(DESTDIR)/$(LIBDIR)
-	@mkdir -p $(DESTDIR)/$(LIBDIR)
-	@cp lib$(OUTPUT).so $(DESTDIR)/$(LIBDIR)
-	@cp lib$(OUTPUT).a $(DESTDIR)/$(LIBDIR)
-	@echo Installing binaries to $(DESTDIR)/$(BINDIR)
-	@mkdir -p $(DESTDIR)/$(BINDIR)
-	@cp $(OUTPUT) $(DESTDIR)/$(BINDIR)
+	@echo Installing headers to $(PREFIX)/include
+	@mkdir -p $(PREFIX)/include/$(OUTPUT)
+	@cp *.h $(PREFIX)/include/$(OUTPUT)
+	@echo Installing libraries to $(PREFIX)/lib
+	@mkdir -p $(PREFIX)/lib
+	@cp lib$(OUTPUT).so $(PREFIX)/lib
+	@cp lib$(OUTPUT).a $(PREFIX)/lib
+	@echo Installing binaries to $(PREFIX)/bin
+	@mkdir -p $(PREFIX)/bin
+	@cp $(OUTPUT) $(PREFIX)/bin
 
 deinstall uninstall:
 	@echo Uninstalling...
-	@rm -f $(DESTDIR)/$(INCDIR)/agenda.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/analysis.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/arch.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/argacces.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/binops.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/bload.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/bmathfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/bsave.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classcom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classexm.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classinf.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classini.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/classpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/clips.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/clsltpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/commline.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/conscomp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/constant.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/constrct.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/constrnt.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/crstrtgy.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrcbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrccmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrccom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrcpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrnbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrnchk.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrncmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrnops.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrnpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/cstrnutl.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/default.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/defins.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/developr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffctbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffctbsc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffctcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffctdef.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffctpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffnxbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffnxcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffnxexe.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffnxfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dffnxpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dfinsbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/dfinscmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/drive.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/emathfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/engine.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/envrnmnt.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/evaluatn.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/expressn.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/exprnbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/exprnops.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/exprnpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/extnfunc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factbld.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factcom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factgen.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/facthsh.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factlhs.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factmch.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factmngr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factprt.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factqpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factqury.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factrete.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/factrhs.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/filecom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/filertr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/generate.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrcbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrccmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrccom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrcexe.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrcfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/genrcpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globlbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globlbsc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globlcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globlcom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globldef.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/globlpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/immthpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/incrrset.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/inherpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/inscom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insfile.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insmngr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insmoddp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insmult.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/inspsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insquery.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/insqypsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/iofun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/lgcldpnd.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/match.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/memalloc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/miscfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/modulbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/modulbsc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/modulcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/moduldef.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/modulpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/modulutl.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/msgcom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/msgfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/msgpass.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/msgpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/multifld.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/multifun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/network.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/object.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtbld.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtfnx.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtgen.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/objrtmch.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/parsefun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/pattern.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/pprint.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/prccode.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/prcdrfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/prcdrpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/prdctfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/prntutil.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/proflfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/reorder.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/reteutil.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/retract.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/router.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulebin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulebld.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulebsc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulecmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulecom.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulecstr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/ruledef.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/ruledlt.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulelhs.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/rulepsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/scanner.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/setup.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/shellvar.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/sortfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/strngfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/strngrtr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/symblbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/symblcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/symbol.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/sysdep.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/textpro.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltbin.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltbsc.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltcmp.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltdef.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltfun.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltlhs.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltpsr.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltrhs.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/tmpltutl.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/userdata.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/usrsetup.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/utility.h 
-	@rm -f $(DESTDIR)/$(INCDIR)/watch.h
-	@rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).so
-	@rm -f $(DESTDIR)/$(LIBDIR)/lib$(OUTPUT).a
-	@rm -f $(DESTDIR)/$(BINDIR)/$(OUTPUT)
+	@rm -f $(PREFIX)/include/$(OUTPUT)/agenda.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/analysis.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/arch.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/argacces.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/binops.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/bload.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/bmathfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/bsave.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classcom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classexm.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classinf.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classini.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/classpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/clips.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/clsltpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/commline.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/conscomp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/constant.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/constrct.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/constrnt.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/crstrtgy.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrcbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrccmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrccom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrcpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrnbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrnchk.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrncmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrnops.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrnpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/cstrnutl.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/default.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/defins.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/developr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffctbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffctbsc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffctcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffctdef.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffctpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffnxbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffnxcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffnxexe.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffnxfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dffnxpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dfinsbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/dfinscmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/drive.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/emathfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/engine.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/envrnmnt.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/evaluatn.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/expressn.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/exprnbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/exprnops.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/exprnpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/extnfunc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factbld.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factcom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factgen.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/facthsh.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factlhs.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factmch.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factmngr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factprt.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factqpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factqury.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factrete.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/factrhs.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/filecom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/filertr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/generate.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrcbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrccmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrccom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrcexe.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrcfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/genrcpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globlbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globlbsc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globlcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globlcom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globldef.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/globlpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/immthpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/incrrset.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/inherpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/inscom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insfile.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insmngr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insmoddp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insmult.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/inspsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insquery.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/insqypsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/iofun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/lgcldpnd.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/match.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/memalloc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/miscfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/modulbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/modulbsc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/modulcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/moduldef.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/modulpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/modulutl.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/msgcom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/msgfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/msgpass.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/msgpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/multifld.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/multifun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/network.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/object.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtbld.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtfnx.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtgen.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/objrtmch.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/parsefun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/pattern.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/pprint.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/prccode.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/prcdrfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/prcdrpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/prdctfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/prntutil.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/proflfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/reorder.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/reteutil.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/retract.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/router.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulebin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulebld.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulebsc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulecmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulecom.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulecstr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/ruledef.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/ruledlt.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulelhs.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/rulepsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/scanner.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/setup.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/shellvar.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/sortfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/strngfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/strngrtr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/symblbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/symblcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/symbol.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/sysdep.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/textpro.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltbin.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltbsc.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltcmp.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltdef.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltfun.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltlhs.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltpsr.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltrhs.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/tmpltutl.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/userdata.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/usrsetup.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/utility.h 
+	@rm -f $(PREFIX)/include/$(OUTPUT)/watch.h
+	@rm -f $(PREFIX)/lib/lib$(OUTPUT).so
+	@rm -f $(PREFIX)/lib/lib$(OUTPUT).a
+	@rm -f $(PREFIX)/bin/$(OUTPUT)
 
 
 clean: 
