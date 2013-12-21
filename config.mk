@@ -1,5 +1,6 @@
 CC ?= cc
-LD ?= ld
 OUTPUT ?= electron
 PREFIX ?= /usr/local
+LDFLAGS ?= -lm -lrt
+CFLAGS ?= -Os
 

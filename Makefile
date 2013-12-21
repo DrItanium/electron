@@ -31,7 +31,7 @@ SRC = agenda.c analysis.c argacces.c bload.c bmathfun.c bsave.c \
  	tmpltpsr.c tmpltrhs.c tmpltutl.c userdata.c userfunctions.c \
  	utility.c watch.c binops.c arch.c shellvar.c 
 
-OBJS = ${SRC:.c=.o}
+OBJS=${SRC:.c=.o}
 
 .PHONY: clean all
 
@@ -39,13 +39,13 @@ all: program libraries
 
 program: $(OBJS) main.o
 	@echo Building $(OUTPUT)
-	@$(LD) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lrt
+	@$(CC) $(LDFLAGS) -o $(OUTPUT) $(OBJS) main.o -lm -lrt
 
 libraries: $(OBJS)
 	@echo Building lib$(OUTPUT).a
 	@$(AR) rcs lib$(OUTPUT).a $(OBJS)
 	@echo Building lib$(OUTPUT).so
-	@$(LD) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lrt
+	@$(CC) $(LDFLAGS) -shared -o lib$(OUTPUT).so $(OBJS) -lm -lrt
 
 install:
 	@echo Installing headers to $(PREFIX)/include
