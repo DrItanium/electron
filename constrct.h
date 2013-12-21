@@ -111,7 +111,7 @@ struct constructData
 #define RemoveResetFunction(a) EnvRemoveResetFunction(GetCurrentEnvironment(),a)
 
 #if ALLOW_ENVIRONMENT_GLOBALS
-   LOCALE void                           Clear(void);
+   LOCALE void                           ElectronClear(void);
    LOCALE void                           Reset(void);
    LOCALE int                            Save(char *);
 #endif

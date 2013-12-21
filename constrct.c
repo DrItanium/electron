@@ -493,7 +493,7 @@ globle intBool EnvRemoveResetFunction(
 /*   for the clear command. */
 /****************************/
 #if ALLOW_ENVIRONMENT_GLOBALS
-globle void Clear()
+globle void ElectronClear()
   {
    EnvClear(GetCurrentEnvironment());
   }  
