@@ -249,7 +249,7 @@ clean:
 
 .c.o :
 	@echo CC $<
-	@$(CC) -c $(CFLAGS) -DALLOW_ENVIRONMENT_GLOBALS=0 -D_POSIX_C_SOURCE=200112L \
+	@$(CC) -c $(CFLAGS) -D_POSIX_C_SOURCE=200112L \
 		-std=c99 -Wall -Wundef -Wpointer-arith -Wshadow -Wcast-qual \
 	    -Wcast-align -Winline -Wmissing-declarations -Wredundant-decls \
 	    -Wmissing-prototypes -Wnested-externs -Wstrict-prototypes \
