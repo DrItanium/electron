@@ -46,6 +46,7 @@
 #include "exprnpsr.h"
 #include "filecom.h"
 #include "memalloc.h"
+#include "multifld.h"
 #include "prcdrfun.h"
 #include "prcdrpsr.h"
 #include "router.h"
@@ -486,7 +487,10 @@ globle void CommandLoop(
    EnvPrintRouter(theEnv,WPROMPT,CommandLineData(theEnv)->BannerString);
    SetHaltExecution(theEnv,FALSE);
    SetEvaluationError(theEnv,FALSE);
-   PeriodicCleanup(theEnv,TRUE,FALSE);
+   
+   CleanCurrentGarbageFrame(theEnv,NULL);
+   CallPeriodicTasks(theEnv);
+   
    PrintPrompt(theEnv);
    RouterData(theEnv)->CommandBufferInputCount = 0;
    RouterData(theEnv)->AwaitingInput = TRUE;
@@ -546,7 +550,10 @@ globle void CommandLoopBatch(
   {
    SetHaltExecution(theEnv,FALSE);
    SetEvaluationError(theEnv,FALSE);
-   PeriodicCleanup(theEnv,TRUE,FALSE);
+
+   CleanCurrentGarbageFrame(theEnv,NULL);
+   CallPeriodicTasks(theEnv);
+
    PrintPrompt(theEnv);
    RouterData(theEnv)->CommandBufferInputCount = 0;
    RouterData(theEnv)->AwaitingInput = TRUE;
@@ -655,7 +662,10 @@ globle intBool ExecuteIfCommandComplete(
    SetHaltExecution(theEnv,FALSE);
    SetEvaluationError(theEnv,FALSE);
    FlushCommandString(theEnv);
-   PeriodicCleanup(theEnv,TRUE,FALSE);
+   
+   CleanCurrentGarbageFrame(theEnv,NULL);
+   CallPeriodicTasks(theEnv);
+   
    PrintPrompt(theEnv);
          
    return TRUE;

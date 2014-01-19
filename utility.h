@@ -26,35 +26,56 @@
 #ifndef _H_utility
 #define _H_utility
 
+#ifndef _H_evaluatn
+#include "evaluatn.h"
+#endif
+
 #ifdef LOCALE
 #undef LOCALE
 #endif
 
-struct callFunctionItem {
+struct callFunctionItem
+  {
    char *name;
    void (*func)(void *);
    int priority;
    struct callFunctionItem *next;
    short int environmentAware;
    void *context;
-};
+  };
 
-struct callFunctionItemWithArg {
-   char* name;
-   void (*func)(void*, void*);
+struct callFunctionItemWithArg
+  {
+   char *name;
+   void (*func)(void *,void *);
    int priority;
-   struct callFunctionItemWithArg* next;
+   struct callFunctionItemWithArg *next;
    short int environmentAware;
-   void* context;
-};
+   void *context;
+  };
   
-struct trackedMemory {
+struct trackedMemory
+  {
    void *theMemory;
    struct trackedMemory *next;
    struct trackedMemory *prev;
    size_t memSize;
-};
-  
+  };
+
+struct garbageFrame
+  {
+   short dirty;
+   short topLevel;
+   struct garbageFrame *priorFrame;
+   struct ephemeron *ephemeralSymbolList;
+   struct ephemeron *ephemeralFloatList;
+   struct ephemeron *ephemeralIntegerList;
+   struct ephemeron *ephemeralBitMapList;
+   struct ephemeron *ephemeralExternalAddressList;
+   struct multifield *ListOfMultifields;
+   struct multifield *LastMultifield;
+  };
+
 #define UTILITY_DATA 55
 
 struct utilityData
@@ -62,16 +83,12 @@ struct utilityData
    struct callFunctionItem *ListOfCleanupFunctions;
    struct callFunctionItem *ListOfPeriodicFunctions;
    short GarbageCollectionLocks;
-   short GarbageCollectionHeuristicsEnabled;
    short PeriodicFunctionsEnabled;
    short YieldFunctionEnabled;
-   long EphemeralItemCount;
-   long EphemeralItemSize;
-   long CurrentEphemeralCountMax;
-   long CurrentEphemeralSizeMax;
    void (*YieldTimeFunction)(void);
-   int LastEvaluationDepth ;
    struct trackedMemory *trackList;
+   struct garbageFrame MasterGarbageFrame;
+   struct garbageFrame *CurrentGarbageFrame;
   };
 
 #define UtilityData(theEnv) ((struct utilityData *) GetEnvironmentData(theEnv,UTILITY_DATA))
@@ -92,7 +109,6 @@ struct utilityData
 #define RemovePeriodicFunction(a) EnvRemovePeriodicFunction(GetCurrentEnvironment(),a)
 
    LOCALE void                           InitializeUtilityData(void *);
-   LOCALE void                           PeriodicCleanup(void *,intBool,intBool);
    LOCALE intBool                        AddCleanupFunction(void *,char *,void (*)(void *),int);
    LOCALE intBool                        EnvAddPeriodicFunction(void *,char *,void (*)(void *),int);
    LOCALE intBool                        AddPeriodicFunction(char *,void (*)(void),int);
@@ -123,7 +139,6 @@ struct utilityData
    LOCALE void                           DeallocateCallListWithArg(void *,struct callFunctionItemWithArg *);
    LOCALE unsigned long                  ItemHashValue(void *,unsigned short,void *,unsigned long);
    LOCALE void                           YieldTime(void *);
-   LOCALE short                          SetGarbageCollectionHeuristics(void *,short);
    LOCALE void                           EnvIncrementGCLocks(void *);
    LOCALE void                           EnvDecrementGCLocks(void *);
    LOCALE short                          EnablePeriodicFunctions(void *,short);
@@ -134,7 +149,10 @@ struct utilityData
    LOCALE size_t                         UTF8Offset(char *,size_t);
    LOCALE size_t                         UTF8Length(char *);
    LOCALE size_t                         UTF8CharNum(char *,size_t);
-   
+   LOCALE void                           RestorePriorGarbageFrame(void *,struct garbageFrame *,struct garbageFrame *,struct dataObject *);
+   LOCALE void                           CallCleanupFunctions(void *);
+   LOCALE void                           CallPeriodicTasks(void *);
+   LOCALE void                           CleanCurrentGarbageFrame(void *,struct dataObject *);
 #endif
 
 
