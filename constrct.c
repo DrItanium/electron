@@ -573,11 +573,13 @@ globle void EnvClear(
    /*===========================*/
 
    ConstructData(theEnv)->ClearInProgress = FALSE;
-   
+
+#if DEFRULE_CONSTRUCT 
    if ((DefruleData(theEnv)->RightPrimeJoins != NULL) ||
        (DefruleData(theEnv)->LeftPrimeJoins != NULL))
      { SystemError(theEnv,(char*)"CONSTRCT",1); }
-       
+#endif
+
    /*============================*/
    /* Perform reset after clear. */
    /*============================*/
