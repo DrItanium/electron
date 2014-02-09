@@ -95,7 +95,6 @@ globle int ParseDefrule(
   void *theEnv,
   char *readSource)
   {
-
 #if (! RUN_TIME) && (! BLOAD_ONLY)
    SYMBOL_HN *ruleName;
    struct lhsParseNode *theLHS;
@@ -932,12 +931,8 @@ static void AddToDefruleList(
      { theModuleItem->header.firstItem = (struct constructHeader *) rulePtr; }
    else
      {
-      tempRule = (struct defrule *) theModuleItem->header.lastItem;
-      while (tempRule != NULL)
-        {
-         tempRule->header.next = (struct constructHeader *) rulePtr;
-         tempRule = tempRule->disjunct;
-        }
+      tempRule = (struct defrule *) theModuleItem->header.lastItem; // Note: Only the first disjunct
+      tempRule->header.next = (struct constructHeader *) rulePtr;   // points to the next rule
      }
 
    theModuleItem->header.lastItem = (struct constructHeader *) rulePtr;
@@ -963,7 +958,7 @@ globle void DumpRuleAnalysis(
         
       gensprintf(buffer,"CE %2d (%2d %2d): ",traceNode->whichCE,traceNode->beginNandDepth,traceNode->endNandDepth);
       EnvPrintRouter(theEnv,WDISPLAY,buffer);
-
+      
       PrintExpression(theEnv,WDISPLAY,traceNode->networkTest);
       EnvPrintRouter(theEnv,WDISPLAY,"\n");
 
