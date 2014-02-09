@@ -77,8 +77,8 @@ globle void InitializeMemory(
 
    if (MemoryData(theEnv)->MemoryTable == NULL)
      {
-      PrintErrorID(theEnv,(char*)"MEMORY",1,TRUE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Out of memory.\n");
+      PrintErrorID(theEnv,"MEMORY",1,TRUE);
+      EnvPrintRouter(theEnv,WERROR,"Out of memory.\n");
       EnvExitRouter(theEnv,EXIT_FAILURE);
      }
 
@@ -148,8 +148,8 @@ globle int DefaultOutOfMemoryFunction(
   size_t size)
   {
 
-   PrintErrorID(theEnv,(char*)"MEMORY",1,TRUE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"Out of memory.\n");
+   PrintErrorID(theEnv,"MEMORY",1,TRUE);
+   EnvPrintRouter(theEnv,WERROR,"Out of memory.\n");
    EnvExitRouter(theEnv,EXIT_FAILURE);
    return(TRUE);
   }
@@ -178,8 +178,8 @@ globle int genfree(
 #if BLOCK_MEMORY
    if (ReturnChunk(theEnv,waste,size) == FALSE)
      {
-      PrintErrorID(theEnv,(char*)"MEMORY",2,TRUE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Release error in genfree.\n");
+      PrintErrorID(theEnv,"MEMORY",2,TRUE);
+      EnvPrintRouter(theEnv,WERROR,"Release error in genfree.\n");
       return(-1);
      }
 #else
@@ -279,7 +279,7 @@ globle long int EnvReleaseMem(
    long int amount = 0;
 
    if (printMessage == TRUE)
-     { EnvPrintRouter(theEnv,WDIALOG,(char*)"\n*** DEALLOCATING MEMORY ***\n"); }
+     { EnvPrintRouter(theEnv,WDIALOG,"\n*** DEALLOCATING MEMORY ***\n"); }
 
    for (i = (MEM_TABLE_SIZE - 1) ; i >= (int) sizeof(char *) ; i--)
      {
@@ -299,13 +299,13 @@ globle long int EnvReleaseMem(
       if ((amount > maximum) && (maximum > 0))
         {
          if (printMessage == TRUE)
-           { EnvPrintRouter(theEnv,WDIALOG,(char*)"*** MEMORY  DEALLOCATED ***\n"); }
+           { EnvPrintRouter(theEnv,WDIALOG,"*** MEMORY  DEALLOCATED ***\n"); }
          return(amount);
         }
      }
 
    if (printMessage == TRUE)
-     { EnvPrintRouter(theEnv,WDIALOG,(char*)"*** MEMORY  DEALLOCATED ***\n"); }
+     { EnvPrintRouter(theEnv,WDIALOG,"*** MEMORY  DEALLOCATED ***\n"); }
 
    return(amount);
   }
@@ -408,7 +408,7 @@ globle int rm(
 
    if (size == 0)
      {
-      SystemError(theEnv,(char*)"MEMORY",1);
+      SystemError(theEnv,"MEMORY",1);
       EnvExitRouter(theEnv,EXIT_FAILURE);
      }
 
@@ -436,7 +436,7 @@ globle int rm3(
 
    if (size == 0)
      {
-      SystemError(theEnv,(char*)"MEMORY",1);
+      SystemError(theEnv,"MEMORY",1);
       EnvExitRouter(theEnv,EXIT_FAILURE);
      }
 
@@ -716,7 +716,7 @@ globle void *RequestChunk(
       blockPtr = blockPtr->nextBlock;
      }
 
-   SystemError(theEnv,(char*)"MEMORY",2);
+   SystemError(theEnv,"MEMORY",2);
    EnvExitRouter(theEnv,EXIT_FAILURE);
    return(NULL); /* Unreachable, but prevents warning. */
   }

@@ -122,23 +122,23 @@ globle PACKED_CLASS_LINKS *ParseSuperclasses(
 
    if (GetType(DefclassData(theEnv)->ObjectParseToken) != LPAREN)
      {
-      SyntaxErrorMessage(theEnv,(char*)"defclass inheritance");
+      SyntaxErrorMessage(theEnv,"defclass inheritance");
       return(NULL);
      }
    GetToken(theEnv,readSource,&DefclassData(theEnv)->ObjectParseToken);
    if ((GetType(DefclassData(theEnv)->ObjectParseToken) != SYMBOL) ? TRUE :
        (DefclassData(theEnv)->ObjectParseToken.value != (void *) DefclassData(theEnv)->ISA_SYMBOL))
      {
-      SyntaxErrorMessage(theEnv,(char*)"defclass inheritance");
+      SyntaxErrorMessage(theEnv,"defclass inheritance");
       return(NULL);
      }
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
    GetToken(theEnv,readSource,&DefclassData(theEnv)->ObjectParseToken);
    while (GetType(DefclassData(theEnv)->ObjectParseToken) != RPAREN)
      {
       if (GetType(DefclassData(theEnv)->ObjectParseToken) != SYMBOL)
         {
-         SyntaxErrorMessage(theEnv,(char*)"defclass");
+         SyntaxErrorMessage(theEnv,"defclass");
          goto SuperclassParseError;
         }
       if (FindModuleSeparator(ValueToString(newClassName)))
@@ -148,34 +148,34 @@ globle PACKED_CLASS_LINKS *ParseSuperclasses(
         }
       if (GetValue(DefclassData(theEnv)->ObjectParseToken) == (void *) newClassName)
         {
-         PrintErrorID(theEnv,(char*)"INHERPSR",1,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"A class may not have itself as a superclass.\n");
+         PrintErrorID(theEnv,"INHERPSR",1,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"A class may not have itself as a superclass.\n");
          goto SuperclassParseError;
         }
       for (ctmp = clink ; ctmp != NULL ; ctmp = ctmp->nxt)
         {
          if (GetValue(DefclassData(theEnv)->ObjectParseToken) == (void *) ctmp->cls->header.name)
            {
-            PrintErrorID(theEnv,(char*)"INHERPSR",2,FALSE);
-            EnvPrintRouter(theEnv,WERROR,(char*)"A class may inherit from a superclass only once.\n");
+            PrintErrorID(theEnv,"INHERPSR",2,FALSE);
+            EnvPrintRouter(theEnv,WERROR,"A class may inherit from a superclass only once.\n");
             goto SuperclassParseError;
            }
         }
       sclass = LookupDefclassInScope(theEnv,ValueToString(GetValue(DefclassData(theEnv)->ObjectParseToken)));
       if (sclass == NULL)
         {
-         PrintErrorID(theEnv,(char*)"INHERPSR",3,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"A class must be defined after all its superclasses.\n");
+         PrintErrorID(theEnv,"INHERPSR",3,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"A class must be defined after all its superclasses.\n");
          goto SuperclassParseError;
         }
       if ((sclass == DefclassData(theEnv)->PrimitiveClassMap[INSTANCE_NAME]) ||
           (sclass == DefclassData(theEnv)->PrimitiveClassMap[INSTANCE_ADDRESS]) ||
           (sclass == DefclassData(theEnv)->PrimitiveClassMap[INSTANCE_NAME]->directSuperclasses.classArray[0]))
         {
-         PrintErrorID(theEnv,(char*)"INHERPSR",6,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"A user-defined class cannot be a subclass of ");
+         PrintErrorID(theEnv,"INHERPSR",6,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"A user-defined class cannot be a subclass of ");
          EnvPrintRouter(theEnv,WERROR,EnvGetDefclassName(theEnv,(void *) sclass));
-         EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+         EnvPrintRouter(theEnv,WERROR,".\n");
          goto SuperclassParseError;
         }
       ctmp = get_struct(theEnv,classLink);
@@ -187,18 +187,18 @@ globle PACKED_CLASS_LINKS *ParseSuperclasses(
       ctmp->nxt = NULL;
       cbot = ctmp;
 
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       GetToken(theEnv,readSource,&DefclassData(theEnv)->ObjectParseToken);
      }
    if (clink == NULL)
      {
-      PrintErrorID(theEnv,(char*)"INHERPSR",4,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Must have at least one superclass.\n");
+      PrintErrorID(theEnv,"INHERPSR",4,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Must have at least one superclass.\n");
       return(NULL);
      }
    PPBackup(theEnv);
    PPBackup(theEnv);
-   SavePPBuffer(theEnv,(char*)")");
+   SavePPBuffer(theEnv,")");
    plinks = get_struct(theEnv,packedClassLinks);
    PackClassLinks(theEnv,plinks,clink);
    return(plinks);
@@ -441,8 +441,8 @@ globle PACKED_CLASS_LINKS *FindPrecedenceList(
       ====================================================================== */
    if (po_table != NULL)
      {
-      PrintErrorID(theEnv,(char*)"INHERPSR",5,FALSE);
-      PrintClassLinks(theEnv,WERROR,(char*)"Partial precedence list formed:",ptop);
+      PrintErrorID(theEnv,"INHERPSR",5,FALSE);
+      PrintClassLinks(theEnv,WERROR,"Partial precedence list formed:",ptop);
       PrintPartialOrderLoop(theEnv,po_table);
       while (po_table != NULL)
         {
@@ -794,15 +794,15 @@ static void PrintPartialOrderLoop(
       pop1 = pop1->suc->po;
      }
 
-   EnvPrintRouter(theEnv,WERROR,(char*)"Precedence loop in superclasses:");
+   EnvPrintRouter(theEnv,WERROR,"Precedence loop in superclasses:");
    while (pop1->pre == 1)
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)" ");
+      EnvPrintRouter(theEnv,WERROR," ");
       PrintClassName(theEnv,WERROR,pop1->cls,FALSE);
       pop1->pre = 0;
       pop1 = pop1->suc->po;
      }
-   EnvPrintRouter(theEnv,WERROR,(char*)" ");
+   EnvPrintRouter(theEnv,WERROR," ");
    PrintClassName(theEnv,WERROR,pop1->cls,TRUE);
   }
 
@@ -827,11 +827,11 @@ static void PrintClassLinks(
      EnvPrintRouter(theEnv,logicalName,title);
    while (clink != NULL)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       PrintClassName(theEnv,logicalName,clink->cls,FALSE);
       clink = clink->nxt;
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)"\n");
+   EnvPrintRouter(theEnv,logicalName,"\n");
   }
 
 #endif

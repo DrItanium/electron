@@ -29,10 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static void* GetArchitecture(void* theEnv);
 extern void ArchitectureDetectionFunctionDefinitions(void* theEnv) {
    EnvDefineFunction2(theEnv,
-         (char*)"architecture",
+         "architecture",
          'w',
          PTIEF GetArchitecture,
-         (char*)"GetArchitecture",
+         "GetArchitecture",
          "00a");
 }
 

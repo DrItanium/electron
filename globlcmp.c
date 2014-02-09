@@ -54,7 +54,7 @@ globle void DefglobalCompilerSetup(
   void *theEnv)
   {
    DefglobalData(theEnv)->DefglobalCodeItem = 
-      AddCodeGeneratorItem(theEnv,(char*)"defglobal",0,BeforeDefglobalsToCode,
+      AddCodeGeneratorItem(theEnv,"defglobal",0,BeforeDefglobalsToCode,
                            InitDefglobalsCode,ConstructToCode,2);
   }
 
@@ -122,7 +122,7 @@ static int ConstructToCode(
 
       moduleFile = OpenFileIfNeeded(theEnv,moduleFile,fileName,pathName,fileNameBuffer,fileID,imageID,&fileCount,
                                     moduleArrayVersion,headerFP,
-                                    (char*)"struct defglobalModule",ModulePrefix(DefglobalData(theEnv)->DefglobalCodeItem),
+                                    "struct defglobalModule",ModulePrefix(DefglobalData(theEnv)->DefglobalCodeItem),
                                     FALSE,NULL);
 
       if (moduleFile == NULL)
@@ -141,7 +141,7 @@ static int ConstructToCode(
         {
          defglobalFile = OpenFileIfNeeded(theEnv,defglobalFile,fileName,pathName,fileNameBuffer,fileID,imageID,&fileCount,
                                          defglobalArrayVersion,headerFP,
-                                         (char*)"struct defglobal",ConstructPrefix(DefglobalData(theEnv)->DefglobalCodeItem),
+                                         "struct defglobal",ConstructPrefix(DefglobalData(theEnv)->DefglobalCodeItem),
                                          FALSE,NULL);
          if (defglobalFile == NULL)
            {

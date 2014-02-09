@@ -80,18 +80,18 @@
 globle void DefglobalBasicCommands(
   void *theEnv)
   {
-   AddSaveFunction(theEnv,(char*)"defglobal",SaveDefglobals,40);
-   EnvAddResetFunction(theEnv,(char*)"defglobal",ResetDefglobals,50);
+   AddSaveFunction(theEnv,"defglobal",SaveDefglobals,40);
+   EnvAddResetFunction(theEnv,"defglobal",ResetDefglobals,50);
 
 #if ! RUN_TIME
-   EnvDefineFunction2(theEnv,(char*)"get-defglobal-list",'m',PTIEF GetDefglobalListFunction,(char*)"GetDefglobalListFunction",(char*)"01w");
-   EnvDefineFunction2(theEnv,(char*)"undefglobal",'v',PTIEF UndefglobalCommand,(char*)"UndefglobalCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"defglobal-module",'w',PTIEF DefglobalModuleFunction,(char*)"DefglobalModuleFunction",(char*)"11w");
+   EnvDefineFunction2(theEnv,"get-defglobal-list",'m',PTIEF GetDefglobalListFunction,"GetDefglobalListFunction","01w");
+   EnvDefineFunction2(theEnv,"undefglobal",'v',PTIEF UndefglobalCommand,"UndefglobalCommand","11w");
+   EnvDefineFunction2(theEnv,"defglobal-module",'w',PTIEF DefglobalModuleFunction,"DefglobalModuleFunction","11w");
 
 #if DEBUGGING_FUNCTIONS
-   EnvDefineFunction2(theEnv,(char*)"list-defglobals",'v', PTIEF ListDefglobalsCommand,(char*)"ListDefglobalsCommand",(char*)"01w");
-   EnvDefineFunction2(theEnv,(char*)"ppdefglobal",'v',PTIEF PPDefglobalCommand,(char*)"PPDefglobalCommand",(char*)"11w");
-   AddWatchItem(theEnv,(char*)"globals",0,&WatchGlobals,0,DefglobalWatchAccess,DefglobalWatchPrint);
+   EnvDefineFunction2(theEnv,"list-defglobals",'v', PTIEF ListDefglobalsCommand,"ListDefglobalsCommand","01w");
+   EnvDefineFunction2(theEnv,"ppdefglobal",'v',PTIEF PPDefglobalCommand,"PPDefglobalCommand","11w");
+   AddWatchItem(theEnv,"globals",0,&WatchGlobals,0,DefglobalWatchAccess,DefglobalWatchPrint);
 #endif
 
 #if (BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE)
@@ -156,7 +156,7 @@ static void SaveDefglobals(
 globle void UndefglobalCommand(
   void *theEnv)
   {
-   UndefconstructCommand(theEnv,(char*)"undefglobal",DefglobalData(theEnv)->DefglobalConstruct); 
+   UndefconstructCommand(theEnv,"undefglobal",DefglobalData(theEnv)->DefglobalConstruct); 
   }
 
 /************************************/
@@ -178,7 +178,7 @@ globle void GetDefglobalListFunction(
   void *theEnv,
   DATA_OBJECT_PTR returnValue)
   { 
-   GetConstructListFunction(theEnv,(char*)"get-defglobal-list",returnValue,DefglobalData(theEnv)->DefglobalConstruct); 
+   GetConstructListFunction(theEnv,"get-defglobal-list",returnValue,DefglobalData(theEnv)->DefglobalConstruct); 
   }
 
 /******************************************/
@@ -200,7 +200,7 @@ globle void EnvGetDefglobalList(
 globle void *DefglobalModuleFunction(
   void *theEnv)
   { 
-   return(GetConstructModuleCommand(theEnv,(char*)"defglobal-module",DefglobalData(theEnv)->DefglobalConstruct)); 
+   return(GetConstructModuleCommand(theEnv,"defglobal-module",DefglobalData(theEnv)->DefglobalConstruct)); 
   }
 
 #if DEBUGGING_FUNCTIONS
@@ -212,7 +212,7 @@ globle void *DefglobalModuleFunction(
 globle void PPDefglobalCommand(
   void *theEnv)
   {
-   PPConstructCommand(theEnv,(char*)"ppdefglobal",DefglobalData(theEnv)->DefglobalConstruct); 
+   PPConstructCommand(theEnv,"ppdefglobal",DefglobalData(theEnv)->DefglobalConstruct); 
   }
 
 /*************************************/
@@ -234,7 +234,7 @@ globle int PPDefglobal(
 globle void ListDefglobalsCommand(
   void *theEnv)
   {
-   ListConstructCommand(theEnv,(char*)"list-defglobals",DefglobalData(theEnv)->DefglobalConstruct);
+   ListConstructCommand(theEnv,"list-defglobals",DefglobalData(theEnv)->DefglobalConstruct);
   }
 
 /***************************************/

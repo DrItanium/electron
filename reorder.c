@@ -1711,7 +1711,7 @@ static void IncrementNandDepth(
       /*=====================================*/
 
       else if (theLHS->type == OR_CE)
-        { SystemError(theEnv,(char*)"REORDER",1); }
+        { SystemError(theEnv,"REORDER",1); }
      }
   }
 
@@ -1795,55 +1795,55 @@ static void PrintNodes(
       switch (theNode->type)
         {
          case PATTERN_CE:
-           EnvPrintRouter(theEnv,fileid,(char*)"(");
-           if (theNode->negated) EnvPrintRouter(theEnv,fileid,(char*)"n");
-           if (theNode->exists) EnvPrintRouter(theEnv,fileid,(char*)"x");
-           if (theNode->logical) EnvPrintRouter(theEnv,fileid,(char*)"l");
+           EnvPrintRouter(theEnv,fileid,"(");
+           if (theNode->negated) EnvPrintRouter(theEnv,fileid,"n");
+           if (theNode->exists) EnvPrintRouter(theEnv,fileid,"x");
+           if (theNode->logical) EnvPrintRouter(theEnv,fileid,"l");
            PrintLongInteger(theEnv,fileid,(long long) theNode->beginNandDepth);
-           EnvPrintRouter(theEnv,fileid,(char*)"-");
+           EnvPrintRouter(theEnv,fileid,"-");
            PrintLongInteger(theEnv,fileid,(long long) theNode->endNandDepth);
-           EnvPrintRouter(theEnv,fileid,(char*)" ");
+           EnvPrintRouter(theEnv,fileid," ");
            EnvPrintRouter(theEnv,fileid,ValueToString(theNode->right->bottom->value));
-           EnvPrintRouter(theEnv,fileid,(char*)")");
+           EnvPrintRouter(theEnv,fileid,")");
            break;
 
          case TEST_CE:
-           EnvPrintRouter(theEnv,fileid,(char*)"(test ");
+           EnvPrintRouter(theEnv,fileid,"(test ");
            PrintLongInteger(theEnv,fileid,(long long) theNode->beginNandDepth);
-           EnvPrintRouter(theEnv,fileid,(char*)"-");
+           EnvPrintRouter(theEnv,fileid,"-");
            PrintLongInteger(theEnv,fileid,(long long) theNode->endNandDepth);
-           EnvPrintRouter(theEnv,fileid,(char*)")");
+           EnvPrintRouter(theEnv,fileid,")");
            break;
 
          case NOT_CE:
-           if (theNode->logical) EnvPrintRouter(theEnv,fileid,(char*)"(lnot ");
-           else EnvPrintRouter(theEnv,fileid,(char*)"(not ");;
+           if (theNode->logical) EnvPrintRouter(theEnv,fileid,"(lnot ");
+           else EnvPrintRouter(theEnv,fileid,"(not ");;
            PrintNodes(theEnv,fileid,theNode->right);
-           EnvPrintRouter(theEnv,fileid,(char*)")");
+           EnvPrintRouter(theEnv,fileid,")");
            break;
 
          case OR_CE:
-           if (theNode->logical) EnvPrintRouter(theEnv,fileid,(char*)"(lor ");
-           else EnvPrintRouter(theEnv,fileid,(char*)"(or ");
+           if (theNode->logical) EnvPrintRouter(theEnv,fileid,"(lor ");
+           else EnvPrintRouter(theEnv,fileid,"(or ");
            PrintNodes(theEnv,fileid,theNode->right);
-           EnvPrintRouter(theEnv,fileid,(char*)")");
+           EnvPrintRouter(theEnv,fileid,")");
            break;
 
          case AND_CE:
-           if (theNode->logical) EnvPrintRouter(theEnv,fileid,(char*)"(land ");
-           else EnvPrintRouter(theEnv,fileid,(char*)"(and ");
+           if (theNode->logical) EnvPrintRouter(theEnv,fileid,"(land ");
+           else EnvPrintRouter(theEnv,fileid,"(and ");
            PrintNodes(theEnv,fileid,theNode->right);
-           EnvPrintRouter(theEnv,fileid,(char*)")");
+           EnvPrintRouter(theEnv,fileid,")");
            break;
 
          default:
-           EnvPrintRouter(theEnv,fileid,(char*)"(unknown)");
+           EnvPrintRouter(theEnv,fileid,"(unknown)");
            break;
 
         }
 
       theNode = theNode->bottom;
-      if (theNode != NULL) EnvPrintRouter(theEnv,fileid,(char*)" ");
+      if (theNode != NULL) EnvPrintRouter(theEnv,fileid," ");
      }
 
    return;

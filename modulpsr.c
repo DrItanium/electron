@@ -149,7 +149,7 @@ globle int ParseDefmodule(
    SetPPBufferStatus(theEnv,ON);
    FlushPPBuffer(theEnv);
    SetIndentDepth(theEnv,3);
-   SavePPBuffer(theEnv,(char*)"(defmodule ");
+   SavePPBuffer(theEnv,"(defmodule ");
 
    /*===============================*/
    /* Modules cannot be loaded when */
@@ -159,7 +159,7 @@ globle int ParseDefmodule(
 #if BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE
    if ((Bloaded(theEnv) == TRUE) && (! ConstructData(theEnv)->CheckSyntaxMode))
      {
-      CannotLoadWithBloadMessage(theEnv,(char*)"defmodule");
+      CannotLoadWithBloadMessage(theEnv,"defmodule");
       return(TRUE);
      }
 #endif
@@ -169,13 +169,13 @@ globle int ParseDefmodule(
    /* Remove the defmodule if it already exists.          */
    /*=====================================================*/
 
-   defmoduleName = GetConstructNameAndComment(theEnv,readSource,&inputToken,(char*)"defmodule",
-                                              EnvFindDefmodule,DeleteDefmodule,(char*)"+",
+   defmoduleName = GetConstructNameAndComment(theEnv,readSource,&inputToken,"defmodule",
+                                              EnvFindDefmodule,DeleteDefmodule,"+",
                                               TRUE,TRUE,FALSE);
    if (defmoduleName == NULL) { return(TRUE); }
 
    if (strcmp(ValueToString(defmoduleName),"MAIN") == 0)
-     { redefiningMainModule = (struct defmodule *) EnvFindDefmodule(theEnv,(char*)"MAIN"); }
+     { redefiningMainModule = (struct defmodule *) EnvFindDefmodule(theEnv,"MAIN"); }
 
    /*==============================================*/
    /* Create the defmodule structure if necessary. */
@@ -317,7 +317,7 @@ globle int ParseDefmodule(
    /* Save the pretty print representation. */
    /*=======================================*/
 
-   SavePPBuffer(theEnv,(char*)"\n");
+   SavePPBuffer(theEnv,"\n");
 
    if (EnvGetConserveMemory(theEnv) == TRUE)
      { newDefmodule->ppForm = NULL; }
@@ -403,7 +403,7 @@ static int ParsePortSpecifications(
 
       if (theToken->type != LPAREN)
         {
-         SyntaxErrorMessage(theEnv,(char*)"defmodule");
+         SyntaxErrorMessage(theEnv,"defmodule");
          return(TRUE);
         }
 
@@ -417,7 +417,7 @@ static int ParsePortSpecifications(
 
       if (theToken->type != SYMBOL)
         {
-         SyntaxErrorMessage(theEnv,(char*)"defmodule");
+         SyntaxErrorMessage(theEnv,"defmodule");
          return(TRUE);
         }
 
@@ -431,7 +431,7 @@ static int ParsePortSpecifications(
         }
       else
         {
-         SyntaxErrorMessage(theEnv,(char*)"defmodule");
+         SyntaxErrorMessage(theEnv,"defmodule");
          return(TRUE);
         }
 
@@ -448,7 +448,7 @@ static int ParsePortSpecifications(
         {
          PPBackup(theEnv);
          PPBackup(theEnv);
-         SavePPBuffer(theEnv,(char*)")");
+         SavePPBuffer(theEnv,")");
         }
      }
 
@@ -487,13 +487,13 @@ static int ParseImportSpec(
    /* Look for the module name. */
    /*===========================*/
 
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
 
    GetToken(theEnv,readSource,theToken);
 
    if (theToken->type != SYMBOL)
      {
-      SyntaxErrorMessage(theEnv,(char*)"defmodule import specification");
+      SyntaxErrorMessage(theEnv,"defmodule import specification");
       return(TRUE);
      }
 
@@ -504,7 +504,7 @@ static int ParseImportSpec(
    if ((theModule = (struct defmodule *)
                     EnvFindDefmodule(theEnv,ValueToString(theToken->value))) == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defmodule",ValueToString(theToken->value));
+      CantFindItemErrorMessage(theEnv,"defmodule",ValueToString(theToken->value));
       return(TRUE);
      }
 
@@ -652,12 +652,12 @@ static int ParseExportSpec(
 
    if (importModule != NULL)
      {
-      errorMessage = (char*)"defmodule import specification";
+      errorMessage = "defmodule import specification";
       moduleName = importModule->name;
      }
    else
      {
-      errorMessage = (char*)"defmodule export specification";
+      errorMessage = "defmodule export specification";
       moduleName = NULL;
      }
 
@@ -666,7 +666,7 @@ static int ParseExportSpec(
    /* in the import/export specification.         */
    /*=============================================*/
 
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
    GetToken(theEnv,readSource,theToken);
 
    if (theToken->type == SF_VARIABLE)
@@ -703,7 +703,7 @@ static int ParseExportSpec(
         {
          if (newPort != NULL) rtn_struct(theEnv,portItem,newPort);
          PPBackup(theEnv);
-         SavePPBuffer(theEnv,(char*)" ");
+         SavePPBuffer(theEnv," ");
          SavePPBuffer(theEnv,theToken->printForm);
          SyntaxErrorMessage(theEnv,errorMessage);
          return(TRUE);
@@ -762,7 +762,7 @@ static int ParseExportSpec(
    /* constructs of the specified type will be imported/exported. */
    /*=============================================================*/
 
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
    GetToken(theEnv,readSource,theToken);
 
    if (theToken->type == SF_VARIABLE)
@@ -799,7 +799,7 @@ static int ParseExportSpec(
         {
          if (newPort != NULL) rtn_struct(theEnv,portItem,newPort);
          PPBackup(theEnv);
-         SavePPBuffer(theEnv,(char*)" ");
+         SavePPBuffer(theEnv," ");
          SavePPBuffer(theEnv,theToken->printForm);
          SyntaxErrorMessage(theEnv,errorMessage);
          return(TRUE);
@@ -887,7 +887,7 @@ static int ParseExportSpec(
       /* specification.                    */
       /*===================================*/
 
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       GetToken(theEnv,readSource,theToken);
      }
 
@@ -897,7 +897,7 @@ static int ParseExportSpec(
 
    PPBackup(theEnv);
    PPBackup(theEnv);
-   SavePPBuffer(theEnv,(char*)")");
+   SavePPBuffer(theEnv,")");
 
    /*============================================*/
    /* Return FALSE to indicate the import/export */
@@ -990,7 +990,7 @@ static int FindMultiImportConflict(
                                    &count,FALSE,NULL);
              if (count > 1)
                {
-                ImportExportConflictMessage(theEnv,(char*)"defmodule",EnvGetDefmoduleName(theEnv,theModule),
+                ImportExportConflictMessage(theEnv,"defmodule",EnvGetDefmoduleName(theEnv,theModule),
                                             thePCItem->constructName,
                                             ValueToString((*theConstruct->getConstructNameFunction)
                                                           ((struct constructHeader *) theCItem)));
@@ -1028,27 +1028,27 @@ static void NotExportedErrorMessage(
   char *theConstruct,
   char *theName)
   {
-   PrintErrorID(theEnv,(char*)"MODULPSR",1,TRUE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"Module ");
+   PrintErrorID(theEnv,"MODULPSR",1,TRUE);
+   EnvPrintRouter(theEnv,WERROR,"Module ");
    EnvPrintRouter(theEnv,WERROR,theModule);
-   EnvPrintRouter(theEnv,WERROR,(char*)" does not export ");
+   EnvPrintRouter(theEnv,WERROR," does not export ");
 
-   if (theConstruct == NULL) EnvPrintRouter(theEnv,WERROR,(char*)"any constructs");
+   if (theConstruct == NULL) EnvPrintRouter(theEnv,WERROR,"any constructs");
    else if (theName == NULL)
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)"any ");
+      EnvPrintRouter(theEnv,WERROR,"any ");
       EnvPrintRouter(theEnv,WERROR,theConstruct);
-      EnvPrintRouter(theEnv,WERROR,(char*)" constructs");
+      EnvPrintRouter(theEnv,WERROR," constructs");
      }
    else
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)"the ");
+      EnvPrintRouter(theEnv,WERROR,"the ");
       EnvPrintRouter(theEnv,WERROR,theConstruct);
-      EnvPrintRouter(theEnv,WERROR,(char*)" ");
+      EnvPrintRouter(theEnv,WERROR," ");
       EnvPrintRouter(theEnv,WERROR,theName);
      }
 
-   EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+   EnvPrintRouter(theEnv,WERROR,".\n");
   }
 
 /*************************************************************/

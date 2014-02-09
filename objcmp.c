@@ -155,7 +155,7 @@ globle void SetupObjectsCompiler(
   {
    AllocateEnvironmentData(theEnv,OBJECT_COMPILER_DATA,sizeof(struct objectCompilerData),NULL);
 
-   ObjectCompilerData(theEnv)->ObjectCodeItem = AddCodeGeneratorItem(theEnv,(char*)"objects",0,ReadyObjectsForCode,
+   ObjectCompilerData(theEnv)->ObjectCodeItem = AddCodeGeneratorItem(theEnv,"objects",0,ReadyObjectsForCode,
                                          InitObjectsCode,ObjectsToCode,13);
   }
 
@@ -433,7 +433,7 @@ static int ObjectsToCode(
       itemFiles[MODULEI] =
             OpenFileIfNeeded(theEnv,itemFiles[MODULEI],fileName,pathName,fileNameBuffer,fileID,imageID,&fileCount,
                              itemArrayVersions[MODULEI],headerFP,
-                             (char*)"DEFCLASS_MODULE",ModulePrefix(ObjectCompilerData(theEnv)->ObjectCodeItem),
+                             "DEFCLASS_MODULE",ModulePrefix(ObjectCompilerData(theEnv)->ObjectCodeItem),
                              itemReopenFlags[MODULEI],&itemCodeFiles[MODULEI]);
       if (itemFiles[MODULEI] == NULL)
         goto ObjectCodeError;
@@ -451,7 +451,7 @@ static int ObjectsToCode(
          itemFiles[CLASSI] =
             OpenFileIfNeeded(theEnv,itemFiles[CLASSI],fileName,pathName,fileNameBuffer,fileID,imageID,&fileCount,
                              itemArrayVersions[CLASSI],headerFP,
-                             (char*)"DEFCLASS",ClassPrefix(),
+                             "DEFCLASS",ClassPrefix(),
                              itemReopenFlags[CLASSI],&itemCodeFiles[CLASSI]);
          if (itemFiles[CLASSI] == NULL)
            goto ObjectCodeError;
@@ -554,7 +554,7 @@ static int ClassIDMapToCode(
 
    classIDMapFile = OpenFileIfNeeded(theEnv,classIDMapFile,fileName,pathName,fileNameBuffer,fileID,imageID,fileCount,
                                      classIDMapArrayVersion,headerFP,
-                                     (char*)"DEFCLASS *",ClassIDPrefix(),FALSE,NULL);
+                                     "DEFCLASS *",ClassIDPrefix(),FALSE,NULL);
    if (classIDMapFile == NULL)
      return(FALSE);
    for (classIDMapArrayCount = 0 ;
@@ -603,7 +603,7 @@ static int ClassHashTableToCode(
 
    classHashFile = OpenFileIfNeeded(theEnv,classHashFile,fileName,pathName,fileNameBuffer,fileID,imageID,fileCount,
                                     classHashArrayVersion,headerFP,
-                                    (char*)"DEFCLASS *",ClassHashPrefix(),FALSE,NULL);
+                                    "DEFCLASS *",ClassHashPrefix(),FALSE,NULL);
    if (classHashFile == NULL)
      return(FALSE);
    for (classHashArrayCount = 0 ;
@@ -651,7 +651,7 @@ static int SlotNameHashTableToCode(
    slotNameHashFile = OpenFileIfNeeded(theEnv,slotNameHashFile,fileName,pathName,fileNameBuffer,fileID,
                                        imageID,fileCount,
                                        slotNameHashArrayVersion,headerFP,
-                                       (char*)"SLOT_NAME *",SlotNameHashPrefix(),FALSE,NULL);
+                                       "SLOT_NAME *",SlotNameHashPrefix(),FALSE,NULL);
    if (slotNameHashFile == NULL)
      return(FALSE);
    for (slotNameHashArrayCount = 0 ;
@@ -705,7 +705,7 @@ static int SlotNameEntriesToCode(
          slotNameFile = OpenFileIfNeeded(theEnv,slotNameFile,fileName,pathName,fileNameBuffer,fileID,
                                        imageID,fileCount,
                                        slotNameArrayVersion,headerFP,
-                                       (char*)"SLOT_NAME",SlotNamePrefix(),FALSE,NULL);
+                                       "SLOT_NAME",SlotNamePrefix(),FALSE,NULL);
          if (slotNameFile == NULL)
            return(FALSE);
          fprintf(slotNameFile,"{ %u,1,%d,",snp->hashTableIndex,snp->id);
@@ -993,7 +993,7 @@ static intBool InheritanceLinksToCode(
    *classLinkFile = OpenFileIfNeeded(theEnv,*classLinkFile,fileName,pathName,fileNameBuffer,fileID,
                                       imageID,fileCount,
                                       *classLinkArrayVersion,headerFP,
-                                      (char*)"DEFCLASS *",ClassLinkPrefix(),
+                                      "DEFCLASS *",ClassLinkPrefix(),
                                       *reopenClassLinkFile,classLinkCodeFile);
    if (*classLinkFile == NULL)
      return(FALSE);
@@ -1088,7 +1088,7 @@ static intBool SlotsToCode(
    *slotFile = OpenFileIfNeeded(theEnv,*slotFile,fileName,pathName,fileNameBuffer,fileID,
                                 imageID,fileCount,
                                 *slotArrayVersion,headerFP,
-                                (char*)"SLOT_DESC",SlotPrefix(),
+                                "SLOT_DESC",SlotPrefix(),
                                 *reopenSlotFile,slotCodeFile);
    if (*slotFile == NULL)
      return(FALSE);
@@ -1202,7 +1202,7 @@ static intBool TemplateSlotsToCode(
    *templateSlotFile = OpenFileIfNeeded(theEnv,*templateSlotFile,fileName,pathName,fileNameBuffer,fileID,
                                         imageID,fileCount,
                                         *templateSlotArrayVersion,headerFP,
-                                        (char*)"SLOT_DESC *",TemplateSlotPrefix(),
+                                        "SLOT_DESC *",TemplateSlotPrefix(),
                                         *reopenTemplateSlotFile,templateSlotCodeFile);
    if (*templateSlotFile == NULL)
      return(FALSE);
@@ -1279,7 +1279,7 @@ static intBool OrderedSlotsToCode(
    *orderedSlotFile = OpenFileIfNeeded(theEnv,*orderedSlotFile,fileName,pathName,fileNameBuffer,fileID,
                                         imageID,fileCount,
                                         *orderedSlotArrayVersion,headerFP,
-                                        (char*)"unsigned",OrderedSlotPrefix(),
+                                        "unsigned",OrderedSlotPrefix(),
                                         *reopenOrderedSlotFile,orderedSlotCodeFile);
    if (*orderedSlotFile == NULL)
      return(FALSE);
@@ -1351,7 +1351,7 @@ static intBool HandlersToCode(
    *handlerFile = OpenFileIfNeeded(theEnv,*handlerFile,fileName,pathName,fileNameBuffer,fileID,
                                         imageID,fileCount,
                                         *handlerArrayVersion,headerFP,
-                                        (char*)"HANDLER",HandlerPrefix(),*reopenHandlerFile,
+                                        "HANDLER",HandlerPrefix(),*reopenHandlerFile,
                                         handlerCodeFile);
    if (*handlerFile == NULL)
      return(FALSE);
@@ -1431,7 +1431,7 @@ static intBool OrderedHandlersToCode(
    *orderedHandlerFile = OpenFileIfNeeded(theEnv,*orderedHandlerFile,fileName,pathName,fileNameBuffer,fileID,
                                           imageID,fileCount,
                                           *orderedHandlerArrayVersion,headerFP,
-                                          (char*)"unsigned",OrderedHandlerPrefix(),
+                                          "unsigned",OrderedHandlerPrefix(),
                                           *reopenOrderedHandlerFile,
                                           orderedHandlerCodeFile);
    if (*orderedHandlerFile == NULL)

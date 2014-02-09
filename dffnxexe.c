@@ -52,8 +52,8 @@
                    CONSTANTS
    =========================================
    ***************************************** */
-#define BEGIN_TRACE (char*)">> "
-#define END_TRACE   (char*)"<< "
+#define BEGIN_TRACE ">> "
+#define END_TRACE   "<< "
 
 /* =========================================
    *****************************************
@@ -116,7 +116,7 @@ globle void CallDeffunction(
    EvaluationData(theEnv)->CurrentEvaluationDepth++;
    dptr->executing++;
    PushProcParameters(theEnv,args,CountArguments(args),EnvGetDeffunctionName(theEnv,(void *) dptr),
-                      (char*)"deffunction",UnboundDeffunctionErr);
+                      "deffunction",UnboundDeffunctionErr);
    if (EvaluationData(theEnv)->EvaluationError)
      {
       dptr->executing--;
@@ -185,9 +185,9 @@ globle void CallDeffunction(
 static void UnboundDeffunctionErr(
   void *theEnv)
   {
-   EnvPrintRouter(theEnv,WERROR,(char*)"deffunction ");
+   EnvPrintRouter(theEnv,WERROR,"deffunction ");
    EnvPrintRouter(theEnv,WERROR,EnvGetDeffunctionName(theEnv,(void *) DeffunctionData(theEnv)->ExecutingDeffunction));
-   EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+   EnvPrintRouter(theEnv,WERROR,".\n");
   }
 
 #if DEBUGGING_FUNCTIONS
@@ -208,16 +208,16 @@ static void WatchDeffunction(
   void *theEnv,
   char *tstring)
   {
-   EnvPrintRouter(theEnv,WTRACE,(char*)"DFN ");
+   EnvPrintRouter(theEnv,WTRACE,"DFN ");
    EnvPrintRouter(theEnv,WTRACE,tstring);
    if (DeffunctionData(theEnv)->ExecutingDeffunction->header.whichModule->theModule != ((struct defmodule *) EnvGetCurrentModule(theEnv)))
      {
       EnvPrintRouter(theEnv,WTRACE,EnvGetDefmoduleName(theEnv,(void *)
                         DeffunctionData(theEnv)->ExecutingDeffunction->header.whichModule->theModule));
-      EnvPrintRouter(theEnv,WTRACE,(char*)"::");
+      EnvPrintRouter(theEnv,WTRACE,"::");
      }
    EnvPrintRouter(theEnv,WTRACE,ValueToString(DeffunctionData(theEnv)->ExecutingDeffunction->header.name));
-   EnvPrintRouter(theEnv,WTRACE,(char*)" ED:");
+   EnvPrintRouter(theEnv,WTRACE," ED:");
    PrintLongInteger(theEnv,WTRACE,(long long) EvaluationData(theEnv)->CurrentEvaluationDepth);
    PrintProcParamArray(theEnv,WTRACE);
   }

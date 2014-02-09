@@ -967,7 +967,7 @@ globle int EnvGetStrategy(
 globle void *GetStrategyCommand(
   void *theEnv)
   {
-   EnvArgCountCheck(theEnv,(char*)"get-strategy",EXACTLY,0);
+   EnvArgCountCheck(theEnv,"get-strategy",EXACTLY,0);
 
    return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetStrategyName(EnvGetStrategy(theEnv))));
   }
@@ -989,10 +989,10 @@ globle void *SetStrategyCommand(
    /* Check for the correct number and type of arguments. */
    /*=====================================================*/
 
-   if (EnvArgCountCheck(theEnv,(char*)"set-strategy",EXACTLY,1) == -1)
+   if (EnvArgCountCheck(theEnv,"set-strategy",EXACTLY,1) == -1)
      { return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetStrategyName(EnvGetStrategy(theEnv)))); }
 
-   if (EnvArgTypeCheck(theEnv,(char*)"set-strategy",1,SYMBOL,&argPtr) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"set-strategy",1,SYMBOL,&argPtr) == FALSE)
      { return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetStrategyName(EnvGetStrategy(theEnv)))); }
 
    argument = DOToString(argPtr);
@@ -1017,8 +1017,8 @@ globle void *SetStrategyCommand(
      { EnvSetStrategy(theEnv,RANDOM_STRATEGY); }
    else
      {
-      ExpectedTypeError1(theEnv,(char*)"set-strategy",1,
-      (char*)"symbol with value depth, breadth, lex, mea, complexity, simplicity, or random");
+      ExpectedTypeError1(theEnv,"set-strategy",1,
+      "symbol with value depth, breadth, lex, mea, complexity, simplicity, or random");
       return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetStrategyName(EnvGetStrategy(theEnv))));
      }
 
@@ -1042,28 +1042,28 @@ static char *GetStrategyName(
    switch (strategy)
      {
       case DEPTH_STRATEGY:
-        sname = (char*)"depth";
+        sname = "depth";
         break;
       case BREADTH_STRATEGY:
-        sname = (char*)"breadth";
+        sname = "breadth";
         break;
       case LEX_STRATEGY:
-        sname = (char*)"lex";
+        sname = "lex";
         break;
       case MEA_STRATEGY:
-        sname = (char*)"mea";
+        sname = "mea";
         break;
       case COMPLEXITY_STRATEGY:
-        sname = (char*)"complexity";
+        sname = "complexity";
         break;
       case SIMPLICITY_STRATEGY:
-        sname = (char*)"simplicity";
+        sname = "simplicity";
         break;
       case RANDOM_STRATEGY:
-        sname = (char*)"random";
+        sname = "random";
         break;
       default:
-        sname = (char*)"unknown";
+        sname = "unknown";
         break;
      }
 

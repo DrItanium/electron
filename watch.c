@@ -46,14 +46,14 @@
 #include "extnfunc.h"
 #include "watch.h"
 
-#define sym_all (char*)"all"
-#define sym_watchable_symbol (char*)"watchable symbol"
-#define sym_equalson (char*)" = on\n"
-#define sym_equalsoff (char*)" = off\n"
-#define name_listwatchitems (char*)"list-watch-items"
-#define name_getwatchitem (char*)"get-watch-item"
-#define name_watch (char*)"watch"
-#define name_unwatch (char*)"unwatch"
+#define sym_all "all"
+#define sym_watchable_symbol "watchable symbol"
+#define sym_equalson " = on\n"
+#define sym_equalsoff " = off\n"
+#define name_listwatchitems "list-watch-items"
+#define name_getwatchitem "get-watch-item"
+#define name_watch "watch"
+#define name_unwatch "unwatch"
 /***************************************/
 /* LOCAL INTERNAL FUNCTION DEFINITIONS */
 /***************************************/
@@ -578,10 +578,10 @@ globle int GetWatchItemCommand(
 /*************************************************************/
 /* WatchFunctionDefinitions: Initializes the watch commands. */
 /*************************************************************/
-#define fWatchCommand (char*)"WatchCommand"
-#define fUnwatchCommand (char*)"UnwatchCommand"
-#define fGetWatchItemCommand (char*)"GetWatchItemCommand"
-#define fListWatchItemsCommand (char*)"ListWatchItemsCommand"
+#define fWatchCommand "WatchCommand"
+#define fUnwatchCommand "UnwatchCommand"
+#define fGetWatchItemCommand "GetWatchItemCommand"
+#define fListWatchItemsCommand "ListWatchItemsCommand"
 globle void WatchFunctionDefinitions(
       void *theEnv)
 {
@@ -589,19 +589,19 @@ globle void WatchFunctionDefinitions(
    EnvDefineFunction2(theEnv,name_watch, 'v', 
          PTIEF WatchCommand, 
          fWatchCommand, 
-         (char*)"1**w");
+         "1**w");
    EnvDefineFunction2(theEnv,name_unwatch, 'v', 
          PTIEF UnwatchCommand, 
          fUnwatchCommand, 
-         (char*)"1**w");
+         "1**w");
    EnvDefineFunction2(theEnv, name_getwatchitem, 'b', 
          PTIEF GetWatchItemCommand,  
          fGetWatchItemCommand, 
-         (char*)"11w");
+         "11w");
    EnvDefineFunction2(theEnv,name_listwatchitems, 'v', 
          PTIEF ListWatchItemsCommand,
          fListWatchItemsCommand,
-         (char*)"0**w");
+         "0**w");
 #endif
 
    EnvAddRouter(theEnv,WTRACE,1000,RecognizeWatchRouters,CaptureWatchPrints,

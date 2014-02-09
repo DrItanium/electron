@@ -391,7 +391,7 @@ globle int AddFunctionParser(
    fdPtr = FindFunction(theEnv,functionName);
    if (fdPtr == NULL)
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)"Function parsers can only be added for existing functions.\n");
+      EnvPrintRouter(theEnv,WERROR,"Function parsers can only be added for existing functions.\n");
       return(0);
      }
    fdPtr->restrictions = NULL;
@@ -414,7 +414,7 @@ globle int RemoveFunctionParser(
    fdPtr = FindFunction(theEnv,functionName);
    if (fdPtr == NULL)
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)"Function parsers can only be removed from existing functions.\n");
+      EnvPrintRouter(theEnv,WERROR,"Function parsers can only be removed from existing functions.\n");
       return(0);
      }
 
@@ -438,7 +438,7 @@ globle int FuncSeqOvlFlags(
    fdPtr = FindFunction(theEnv,functionName);
    if (fdPtr == NULL)
      {
-      EnvPrintRouter(theEnv,WERROR,(char*)"Only existing functions can be marked as using sequence expansion arguments/overloadable or not.\n");
+      EnvPrintRouter(theEnv,WERROR,"Only existing functions can be marked as using sequence expansion arguments/overloadable or not.\n");
       return(FALSE);
      }
    fdPtr->sequenceuseok = (short) (seqp ? TRUE : FALSE);
@@ -458,66 +458,66 @@ globle char *GetArgumentTypeName(
    switch ((char) theRestriction)
      {
       case 'a':
-        return((char*)"external address");
+        return("external address");
 
       case 'e':
-        return((char*)"instance address, instance name, or symbol");
+        return("instance address, instance name, or symbol");
 
       case 'd':
       case 'f':
-        return((char*)"float");
+        return("float");
 
       case 'g':
-        return((char*)"integer, float, or symbol");
+        return("integer, float, or symbol");
 
       case 'h':
-        return((char*)"instance address, instance name, fact address, integer, or symbol");
+        return("instance address, instance name, fact address, integer, or symbol");
 
       case 'j':
-        return((char*)"symbol, string, or instance name");
+        return("symbol, string, or instance name");
 
       case 'k':
-        return((char*)"symbol or string");
+        return("symbol or string");
 
       case 'i':
       case 'l':
-        return((char*)"integer");
+        return("integer");
 
       case 'm':
-        return((char*)"multifield");
+        return("multifield");
 
       case 'n':
-        return((char*)"integer or float");
+        return("integer or float");
 
       case 'o':
-        return((char*)"instance name");
+        return("instance name");
 
       case 'p':
-        return((char*)"instance name or symbol");
+        return("instance name or symbol");
 
       case 'q':
-        return((char*)"multifield, symbol, or string");
+        return("multifield, symbol, or string");
 
       case 's':
-        return((char*)"string");
+        return("string");
 
       case 'w':
-        return((char*)"symbol");
+        return("symbol");
 
       case 'x':
-        return((char*)"instance address");
+        return("instance address");
 
       case 'y':
-        return((char*)"fact-address");
+        return("fact-address");
 
       case 'z':
-        return((char*)"fact-address, integer, or symbol");
+        return("fact-address, integer, or symbol");
 
       case 'u':
-        return((char*)"non-void return value");
+        return("non-void return value");
      }
 
-   return((char*)"unknown argument type");
+   return("unknown argument type");
   }
 
 /***************************************************/

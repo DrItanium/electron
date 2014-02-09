@@ -558,29 +558,29 @@ globle void RerouteStdin(
 #endif
       else if (theSwitch == NO_SWITCH)
         {
-         PrintErrorID(theEnv,(char*)"SYSDEP",2,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"Invalid option\n");
+         PrintErrorID(theEnv,"SYSDEP",2,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"Invalid option\n");
         }
       if (i > (argc-1))
         {
-         PrintErrorID(theEnv,(char*)"SYSDEP",1,FALSE);
+         PrintErrorID(theEnv,"SYSDEP",1,FALSE);
          if(theSwitch != FACTS_FROM_COMMAND_LINE) {
-            EnvPrintRouter(theEnv,WERROR,(char*)"No file found for ");
+            EnvPrintRouter(theEnv,WERROR,"No file found for ");
             switch(theSwitch)
               {
                case BATCH_SWITCH:
-                  EnvPrintRouter(theEnv,WERROR,(char*)"-f");
+                  EnvPrintRouter(theEnv,WERROR,"-f");
                   break;
                case BATCH_STAR_SWITCH:
-                  EnvPrintRouter(theEnv,WERROR,(char*)"-f2");
+                  EnvPrintRouter(theEnv,WERROR,"-f2");
                   break;
                case LOAD_SWITCH:
-                  EnvPrintRouter(theEnv,WERROR,(char*)"-l");
+                  EnvPrintRouter(theEnv,WERROR,"-l");
               }
-               EnvPrintRouter(theEnv,WERROR,(char*)" option\n");
+               EnvPrintRouter(theEnv,WERROR," option\n");
             return;
          } else {
-            EnvPrintRouter(theEnv, WERROR, (char*)"No input provided for the --args option\n");
+            EnvPrintRouter(theEnv, WERROR, "No input provided for the --args option\n");
             return;
          }
 
@@ -604,14 +604,14 @@ globle void RerouteStdin(
             {
                if(i < (argc - 1)) {
                   size_t size = 33 + strlen(argv[++i]);
-                  char* ptr = (char*)genalloc(theEnv, size);
+                  char* ptr = genalloc(theEnv, size);
                   gensprintf(ptr, "(args \"%s\")", argv[i]);
                   EnvAssertString(theEnv, ptr);
                   genfree(theEnv, ptr, size);
                   break;
                } else {
-                  PrintErrorID(theEnv,(char*)"SYSDEP",1,FALSE);
-                  EnvPrintRouter(theEnv, WERROR, (char*)"No input provided for the -args option\n");
+                  PrintErrorID(theEnv,"SYSDEP",1,FALSE);
+                  EnvPrintRouter(theEnv, WERROR, "No input provided for the -args option\n");
                   break;
                }
             }
@@ -743,7 +743,7 @@ globle void gensystem(
    /* Check for the corret number of arguments. */
    /*===========================================*/
 
-   if ((numa = EnvArgCountCheck(theEnv,(char*)"system",AT_LEAST,1)) == -1) return;
+   if ((numa = EnvArgCountCheck(theEnv,"system",AT_LEAST,1)) == -1) return;
 
    /*============================================================*/
    /* Concatenate the arguments together to form a single string */
@@ -758,7 +758,7 @@ globle void gensystem(
         {
          SetHaltExecution(theEnv,TRUE);
          SetEvaluationError(theEnv,TRUE);
-         ExpectedTypeError2(theEnv,(char*)"system",i);
+         ExpectedTypeError2(theEnv,"system",i);
          return;
         }
 

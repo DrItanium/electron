@@ -82,19 +82,19 @@ globle void DeftemplateBasicCommands(
   void *theEnv)
   {
 #if ! DEFFACTS_CONSTRUCT
-   EnvAddResetFunction(theEnv,(char*)"deftemplate",ResetDeftemplates,0);
+   EnvAddResetFunction(theEnv,"deftemplate",ResetDeftemplates,0);
 #endif
-   EnvAddClearFunction(theEnv,(char*)"deftemplate",ClearDeftemplates,0);
-   AddSaveFunction(theEnv,(char*)"deftemplate",SaveDeftemplates,10);
+   EnvAddClearFunction(theEnv,"deftemplate",ClearDeftemplates,0);
+   AddSaveFunction(theEnv,"deftemplate",SaveDeftemplates,10);
 
 #if ! RUN_TIME
-   EnvDefineFunction2(theEnv,(char*)"get-deftemplate-list",'m',PTIEF GetDeftemplateListFunction,(char*)"GetDeftemplateListFunction",(char*)"01w");
-   EnvDefineFunction2(theEnv,(char*)"undeftemplate",'v',PTIEF UndeftemplateCommand,(char*)"UndeftemplateCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"deftemplate-module",'w',PTIEF DeftemplateModuleFunction,(char*)"DeftemplateModuleFunction",(char*)"11w");
+   EnvDefineFunction2(theEnv,"get-deftemplate-list",'m',PTIEF GetDeftemplateListFunction,"GetDeftemplateListFunction","01w");
+   EnvDefineFunction2(theEnv,"undeftemplate",'v',PTIEF UndeftemplateCommand,"UndeftemplateCommand","11w");
+   EnvDefineFunction2(theEnv,"deftemplate-module",'w',PTIEF DeftemplateModuleFunction,"DeftemplateModuleFunction","11w");
 
 #if DEBUGGING_FUNCTIONS
-   EnvDefineFunction2(theEnv,(char*)"list-deftemplates",'v', PTIEF ListDeftemplatesCommand,(char*)"ListDeftemplatesCommand",(char*)"01w");
-   EnvDefineFunction2(theEnv,(char*)"ppdeftemplate",'v',PTIEF PPDeftemplateCommand,(char*)"PPDeftemplateCommand",(char*)"11w");
+   EnvDefineFunction2(theEnv,"list-deftemplates",'v', PTIEF ListDeftemplatesCommand,"ListDeftemplatesCommand","01w");
+   EnvDefineFunction2(theEnv,"ppdeftemplate",'v',PTIEF PPDeftemplateCommand,"PPDeftemplateCommand","11w");
 #endif
 
 #if (BLOAD || BLOAD_ONLY || BLOAD_AND_BSAVE)
@@ -119,7 +119,7 @@ static void ResetDeftemplates(
   {
    struct fact *factPtr;
 
-   factPtr = StringToFact(theEnv,(char*)"(initial-fact)");
+   factPtr = StringToFact(theEnv,"(initial-fact)");
 
    if (factPtr == NULL) return;
 
@@ -136,7 +136,7 @@ static void ClearDeftemplates(
   {
 #if (! RUN_TIME) && (! BLOAD_ONLY)
 
-   CreateImpliedDeftemplate(theEnv,(SYMBOL_HN *) EnvAddSymbol(theEnv,(char*)"initial-fact"),FALSE);
+   CreateImpliedDeftemplate(theEnv,(SYMBOL_HN *) EnvAddSymbol(theEnv,"initial-fact"),FALSE);
 #else
 #endif
   }
@@ -160,7 +160,7 @@ static void SaveDeftemplates(
 globle void UndeftemplateCommand(
   void *theEnv)
   {   
-   UndefconstructCommand(theEnv,(char*)"undeftemplate",DeftemplateData(theEnv)->DeftemplateConstruct); 
+   UndefconstructCommand(theEnv,"undeftemplate",DeftemplateData(theEnv)->DeftemplateConstruct); 
   }
 
 /**************************************/
@@ -182,7 +182,7 @@ globle void GetDeftemplateListFunction(
   void *theEnv,
   DATA_OBJECT_PTR returnValue)
   {   
-   GetConstructListFunction(theEnv,(char*)"get-deftemplate-list",returnValue,DeftemplateData(theEnv)->DeftemplateConstruct); 
+   GetConstructListFunction(theEnv,"get-deftemplate-list",returnValue,DeftemplateData(theEnv)->DeftemplateConstruct); 
   }
 
 /***********************************************/
@@ -204,7 +204,7 @@ globle void EnvGetDeftemplateList(
 globle void *DeftemplateModuleFunction(
   void *theEnv)
   {   
-   return(GetConstructModuleCommand(theEnv,(char*)"deftemplate-module",DeftemplateData(theEnv)->DeftemplateConstruct)); 
+   return(GetConstructModuleCommand(theEnv,"deftemplate-module",DeftemplateData(theEnv)->DeftemplateConstruct)); 
   }
 
 #if DEBUGGING_FUNCTIONS
@@ -216,7 +216,7 @@ globle void *DeftemplateModuleFunction(
 globle void PPDeftemplateCommand(
   void *theEnv)
   {   
-   PPConstructCommand(theEnv,(char*)"ppdeftemplate",DeftemplateData(theEnv)->DeftemplateConstruct); 
+   PPConstructCommand(theEnv,"ppdeftemplate",DeftemplateData(theEnv)->DeftemplateConstruct); 
   }
 
 /***************************************/
@@ -238,7 +238,7 @@ globle int PPDeftemplate(
 globle void ListDeftemplatesCommand(
   void *theEnv)
   {    
-   ListConstructCommand(theEnv,(char*)"list-deftemplates",DeftemplateData(theEnv)->DeftemplateConstruct); 
+   ListConstructCommand(theEnv,"list-deftemplates",DeftemplateData(theEnv)->DeftemplateConstruct); 
   }
 
 /*****************************************/

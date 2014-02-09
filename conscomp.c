@@ -189,13 +189,13 @@ globle void ConstructsToCCommand(
    /* Check for appropriate number of arguments. */
    /*============================================*/
 
-   if ((argCount = EnvArgRangeCheck(theEnv,(char*)"constructs-to-c",2,4)) == -1) return;
+   if ((argCount = EnvArgRangeCheck(theEnv,"constructs-to-c",2,4)) == -1) return;
 
    /*====================================================*/
    /* Get the name of the file in which to place C code. */
    /*====================================================*/
 
-   if (EnvArgTypeCheck(theEnv,(char*)"constructs-to-c",1,SYMBOL_OR_STRING,&theArg) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"constructs-to-c",1,SYMBOL_OR_STRING,&theArg) == FALSE)
      { return; }
 
    fileName = DOToString(theArg);
@@ -211,10 +211,10 @@ globle void ConstructsToCCommand(
      {
       if (*(fileName+i) == '.')
         {
-         PrintErrorID(theEnv,(char*)"CONSCOMP",1,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"Invalid file name ");
+         PrintErrorID(theEnv,"CONSCOMP",1,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"Invalid file name ");
          EnvPrintRouter(theEnv,WERROR,fileName);
-         EnvPrintRouter(theEnv,WERROR,(char*)" contains \'.\'\n");
+         EnvPrintRouter(theEnv,WERROR," contains \'.\'\n");
          return;
         }
       }
@@ -230,10 +230,10 @@ globle void ConstructsToCCommand(
 
    if ((nameLength + EXTRA_FILE_NAME) > FILENAME_MAX)
      {
-      PrintErrorID(theEnv,(char*)"CONSCOMP",1,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Aborting because the base file name may cause the fopen maximum of ");
+      PrintErrorID(theEnv,"CONSCOMP",1,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Aborting because the base file name may cause the fopen maximum of ");
       PrintLongInteger(theEnv,WERROR,FILENAME_MAX);
-      EnvPrintRouter(theEnv,WERROR,(char*)" to be violated when file names are generated.\n");
+      EnvPrintRouter(theEnv,WERROR," to be violated when file names are generated.\n");
       return;
      }
 
@@ -246,23 +246,23 @@ globle void ConstructsToCCommand(
 
    if (nameLength > 3)
      {
-      PrintWarningID(theEnv,(char*)"CONSCOMP",1,FALSE);
-      EnvPrintRouter(theEnv,WWARNING,(char*)"Base file name exceeds 3 characters.\n");
-      EnvPrintRouter(theEnv,WWARNING,(char*)"  This may cause files to be overwritten if file name length\n");
-      EnvPrintRouter(theEnv,WWARNING,(char*)"  is limited on your platform.\n");
+      PrintWarningID(theEnv,"CONSCOMP",1,FALSE);
+      EnvPrintRouter(theEnv,WWARNING,"Base file name exceeds 3 characters.\n");
+      EnvPrintRouter(theEnv,WWARNING,"  This may cause files to be overwritten if file name length\n");
+      EnvPrintRouter(theEnv,WWARNING,"  is limited on your platform.\n");
      }
 
    /*====================================*/
    /* Get the runtime image ID argument. */
    /*====================================*/
 
-   if (EnvArgTypeCheck(theEnv,(char*)"constructs-to-c",2,INTEGER,&theArg) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"constructs-to-c",2,INTEGER,&theArg) == FALSE)
      { return; }
 
    id = DOToLong(theArg);
    if (id < 0)
      {
-      ExpectedTypeError1(theEnv,(char*)"constructs-to-c",2,(char*)"positive integer");
+      ExpectedTypeError1(theEnv,"constructs-to-c",2,"positive integer");
       return;
      }
 
@@ -272,7 +272,7 @@ globle void ConstructsToCCommand(
    
    if (argCount == 3)
      {
-      if (EnvArgTypeCheck(theEnv,(char*)"constructs-to-c",3,SYMBOL_OR_STRING,&theArg) == FALSE)
+      if (EnvArgTypeCheck(theEnv,"constructs-to-c",3,SYMBOL_OR_STRING,&theArg) == FALSE)
         { return; }
 
       pathName = DOToString(theArg);
@@ -280,7 +280,7 @@ globle void ConstructsToCCommand(
      }
    else
      { 
-      pathName = (char*)"";
+      pathName = "";
       pathLength = 0; 
      }
 
@@ -291,14 +291,14 @@ globle void ConstructsToCCommand(
 
    if (argCount == 4)
      {
-      if (EnvArgTypeCheck(theEnv,(char*)"constructs-to-c",4,INTEGER,&theArg) == FALSE)
+      if (EnvArgTypeCheck(theEnv,"constructs-to-c",4,INTEGER,&theArg) == FALSE)
         { return; }
 
       max = DOToLong(theArg);
 
       if (max < 0)
         {
-         ExpectedTypeError1(theEnv,(char*)"constructs-to-c",4,(char*)"positive integer");
+         ExpectedTypeError1(theEnv,"constructs-to-c",4,"positive integer");
          return;
         }
      }
@@ -385,16 +385,16 @@ static int ConstructsToC(
    ConstructCompilerData(theEnv)->ExpressionHeader = TRUE;
    ConstructCompilerData(theEnv)->ExpressionCount = 0;
 
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#ifndef _CONSTRUCT_COMPILER_HEADER_\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#define _CONSTRUCT_COMPILER_HEADER_\n\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#ifndef _CONSTRUCT_COMPILER_HEADER_\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#define _CONSTRUCT_COMPILER_HEADER_\n\n");
 
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#include <stdio.h>\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#include \"setup.h\"\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#include \"expressn.h\"\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#include \"extnfunc.h\"\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"#include \"%s\"\n",API_HEADER);
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"\n#define VS (void *)\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#include <stdio.h>\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#include \"setup.h\"\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#include \"expressn.h\"\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#include \"extnfunc.h\"\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"#include \"%s\"\n",API_HEADER);
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"\n#define VS (void *)\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"\n");
 
    /*=========================================================*/
    /* Give extern declarations for user and system functions. */
@@ -402,10 +402,10 @@ static int ConstructsToC(
 
    WriteFunctionExternDeclarations(theEnv,ConstructCompilerData(theEnv)->HeaderFP);
 
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"\n#endif\n\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"/****************************/\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"/* EXTERN ARRAY DEFINITIONS */\n");
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"/****************************/\n\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"\n#endif\n\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"/****************************/\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"/* EXTERN ARRAY DEFINITIONS */\n");
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"/****************************/\n\n");
      
    /*================================================*/
    /* Write out the first portion of the fixup file. */
@@ -470,7 +470,7 @@ static int ConstructsToC(
 
    if (ConstructCompilerData(theEnv)->ExpressionFP != NULL)
      {
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"};\n");
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"};\n");
       GenClose(theEnv,ConstructCompilerData(theEnv)->ExpressionFP);
      }
 
@@ -480,7 +480,7 @@ static int ConstructsToC(
 
    if (ConstructCompilerData(theEnv)->FixupFP != NULL)
      {
-      fprintf(ConstructCompilerData(theEnv)->FixupFP,(char*)"  }\n");
+      fprintf(ConstructCompilerData(theEnv)->FixupFP,"  }\n");
       GenClose(theEnv,ConstructCompilerData(theEnv)->FixupFP);
      }
 
@@ -573,7 +573,7 @@ static void WriteFunctionExternDeclarations(
            break;
 
          default:
-           SystemError(theEnv,(char*)"CONSCOMP",1);
+           SystemError(theEnv,"CONSCOMP",1);
            break;
         }
 
@@ -738,9 +738,9 @@ static int WriteInitializationFunction(
    /*===============================*/
 
    gensprintf(fileNameBuffer,"%s%s.c",pathName,fileName);
-   if ((fp = GenOpen(theEnv,fileNameBuffer,(char*)"w")) == NULL)
+   if ((fp = GenOpen(theEnv,fileNameBuffer,"w")) == NULL)
      {
-      OpenErrorMessage(theEnv,(char*)"constructs-to-c",fileNameBuffer);
+      OpenErrorMessage(theEnv,"constructs-to-c",fileNameBuffer);
       return(FALSE);
      }
 
@@ -758,8 +758,8 @@ static int WriteInitializationFunction(
    fprintf(fp,"#include \"objrtmch.h\"\n");
    fprintf(fp,"#include \"rulebld.h\"\n\n");
 
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"   void *InitCImage_%d(void);\n",ConstructCompilerData(theEnv)->ImageID);
-   fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"   void FixupCImage_%d(void *);\n",ConstructCompilerData(theEnv)->ImageID);
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"   void *InitCImage_%d(void);\n",ConstructCompilerData(theEnv)->ImageID);
+   fprintf(ConstructCompilerData(theEnv)->HeaderFP,"   void FixupCImage_%d(void *);\n",ConstructCompilerData(theEnv)->ImageID);
 
    /*============================================*/
    /* Begin writing the initialization function. */
@@ -835,13 +835,13 @@ globle FILE *NewCFile(
    gensprintf(fileNameBuffer,"%s%s%d_%d.c",pathName,fileName,id,version);
 
    if (reopenOldFile)
-     { newFP = GenOpen(theEnv,fileNameBuffer,(char*)"a"); }
+     { newFP = GenOpen(theEnv,fileNameBuffer,"a"); }
    else
-     { newFP = GenOpen(theEnv,fileNameBuffer,(char*)"w"); }
+     { newFP = GenOpen(theEnv,fileNameBuffer,"w"); }
 
    if (newFP == NULL)
      {
-      OpenErrorMessage(theEnv,(char*)"constructs-to-c",fileNameBuffer);
+      OpenErrorMessage(theEnv,"constructs-to-c",fileNameBuffer);
       return(NULL);
      }
 
@@ -939,12 +939,12 @@ globle int ExpressionToCode(
                                                                   3,ConstructCompilerData(theEnv)->ExpressionVersion,FALSE)) == NULL)
         { return(-1); }
 
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"struct expr E%d_%d[] = {\n",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion);
-      fprintf(ConstructCompilerData(theEnv)->HeaderFP,(char*)"extern struct expr E%d_%d[];\n",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion);
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"struct expr E%d_%d[] = {\n",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion);
+      fprintf(ConstructCompilerData(theEnv)->HeaderFP,"extern struct expr E%d_%d[];\n",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion);
       ConstructCompilerData(theEnv)->ExpressionHeader = FALSE;
      }
    else
-     { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)",\n"); }
+     { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,",\n"); }
 
    /*===========================*/
    /* Dump the expression code. */
@@ -960,7 +960,7 @@ globle int ExpressionToCode(
      {
       ConstructCompilerData(theEnv)->ExpressionCount = 0;
       ConstructCompilerData(theEnv)->ExpressionVersion++;
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"};\n");
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"};\n");
       GenClose(theEnv,ConstructCompilerData(theEnv)->ExpressionFP);
       ConstructCompilerData(theEnv)->ExpressionFP = NULL;
       ConstructCompilerData(theEnv)->ExpressionHeader = TRUE;
@@ -985,9 +985,9 @@ static void DumpExpression(
   {
    while (exprPtr != NULL)
      {
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"{");
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"%d,",exprPtr->type);
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"VS ");
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"{");
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"%d,",exprPtr->type);
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"VS ");
       switch (exprPtr->type)
         {
          case FCALL:
@@ -1007,7 +1007,7 @@ static void DumpExpression(
            PrintDeffunctionReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,(DEFFUNCTION *) exprPtr->value,
                                      ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->MaxIndices);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
@@ -1016,7 +1016,7 @@ static void DumpExpression(
            PrintGenericFunctionReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,(DEFGENERIC *) exprPtr->value,
                                          ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->MaxIndices);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
@@ -1024,7 +1024,7 @@ static void DumpExpression(
 #if DEFTEMPLATE_CONSTRUCT
            DeftemplateCConstructReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,exprPtr->value,ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->MaxIndices);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
@@ -1032,7 +1032,7 @@ static void DumpExpression(
 #if DEFGLOBAL_CONSTRUCT
            DefglobalCConstructReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,exprPtr->value,ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->MaxIndices);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
@@ -1040,33 +1040,33 @@ static void DumpExpression(
 #if OBJECT_SYSTEM
            PrintClassReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,(DEFCLASS *) exprPtr->value,ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->MaxIndices);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
           case FACT_ADDRESS:
 #if DEFTEMPLATE_CONSTRUCT
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
            fprintf(ConstructCompilerData(theEnv)->FixupFP,
                    "   E%d_%d[%ld].value = &FactData(theEnv)->DummyFact;\n",
                    ConstructCompilerData(theEnv)->ImageID,
                    ConstructCompilerData(theEnv)->ExpressionVersion,
                    ConstructCompilerData(theEnv)->ExpressionCount);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
          case INSTANCE_ADDRESS:
 #if OBJECT_SYSTEM
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
            fprintf(ConstructCompilerData(theEnv)->FixupFP,
                    "   E%d_%d[%ld].value = &InstanceData(theEnv)->DummyInstance;\n",
                    ConstructCompilerData(theEnv)->ImageID,
                    ConstructCompilerData(theEnv)->ExpressionVersion,
                    ConstructCompilerData(theEnv)->ExpressionCount);
 #else
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
 #endif
            break;
 
@@ -1078,46 +1078,46 @@ static void DumpExpression(
            break;
 
          case RVOID:
-           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL");
+           fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL");
            break;
 
          default:
            if (EvaluationData(theEnv)->PrimitivesArray[exprPtr->type] == NULL)
-             { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL"); }
+             { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL"); }
            else if (EvaluationData(theEnv)->PrimitivesArray[exprPtr->type]->bitMap)
              { PrintBitMapReference(theEnv,ConstructCompilerData(theEnv)->ExpressionFP,(BITMAP_HN *) exprPtr->value); }
            else
-             { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL"); }
+             { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL"); }
            break;
         }
 
-      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)",");
+      fprintf(ConstructCompilerData(theEnv)->ExpressionFP,",");
 
       ConstructCompilerData(theEnv)->ExpressionCount++;
       if (exprPtr->argList == NULL)
-        { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL,"); }
+        { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL,"); }
       else
         {
-         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"&E%d_%d[%ld],",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion,
+         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"&E%d_%d[%ld],",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion,
                                                        ConstructCompilerData(theEnv)->ExpressionCount);
         }
 
       if (exprPtr->nextArg == NULL)
-        { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"NULL}"); }
+        { fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"NULL}"); }
       else
         {
-         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)"&E%d_%d[%ld]}",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion,
+         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,"&E%d_%d[%ld]}",ConstructCompilerData(theEnv)->ImageID,ConstructCompilerData(theEnv)->ExpressionVersion,
                               ConstructCompilerData(theEnv)->ExpressionCount + ExpressionSize(exprPtr->argList));
         }
 
       if (exprPtr->argList != NULL)
         {
-         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)",\n");
+         fprintf(ConstructCompilerData(theEnv)->ExpressionFP,",\n");
          DumpExpression(theEnv,exprPtr->argList);
         }
 
       exprPtr = exprPtr->nextArg;
-      if (exprPtr != NULL) fprintf(ConstructCompilerData(theEnv)->ExpressionFP,(char*)",\n");
+      if (exprPtr != NULL) fprintf(ConstructCompilerData(theEnv)->ExpressionFP,",\n");
      }
   }
 
@@ -1128,9 +1128,9 @@ static void DumpExpression(
 globle void ConstructsToCCommandDefinition(
   void *theEnv)
   {
-   EnvDefineFunction2(theEnv,(char*)"constructs-to-c",'v',
+   EnvDefineFunction2(theEnv,"constructs-to-c",'v',
                    PTIEF ConstructsToCCommand,
-                   (char*)"ConstructsToCCommand", (char*)"24*kiki");
+                   "ConstructsToCCommand", "24*kiki");
   }
 
 /*********************************************************/
@@ -1177,7 +1177,7 @@ globle struct CodeGeneratorItem *AddCodeGeneratorItem(
      {
       if ((arrayCount + ConstructCompilerData(theEnv)->CodeGeneratorCount) > (PRIMARY_LEN + SECONDARY_LEN))
         {
-         SystemError(theEnv,(char*)"CONSCOMP",2);
+         SystemError(theEnv,"CONSCOMP",2);
          EnvExitRouter(theEnv,EXIT_FAILURE);
         }
 
@@ -1292,7 +1292,7 @@ globle FILE *CloseFileIfNeeded(
      {
       if ((canBeReopened == NULL) || (codeFile == NULL))
         {
-         SystemError(theEnv,(char*)"CONSCOMP",3);
+         SystemError(theEnv,"CONSCOMP",3);
          EnvExitRouter(theEnv,EXIT_FAILURE);
         }
 
@@ -1302,7 +1302,7 @@ globle FILE *CloseFileIfNeeded(
       theFile = NewCFile(theEnv,codeFile->filePrefix,codeFile->pathName,codeFile->fileNameBuffer,codeFile->id,codeFile->version,TRUE);
       if (theFile == NULL)
         {
-         SystemError(theEnv,(char*)"CONSCOMP",4);
+         SystemError(theEnv,"CONSCOMP",4);
          EnvExitRouter(theEnv,EXIT_FAILURE);
         }
      }
@@ -1367,7 +1367,7 @@ globle FILE *OpenFileIfNeeded(
      {
       if (codeFile == NULL)
         {
-         SystemError(theEnv,(char*)"CONSCOMP",5);
+         SystemError(theEnv,"CONSCOMP",5);
          EnvExitRouter(theEnv,EXIT_FAILURE);
         }
 

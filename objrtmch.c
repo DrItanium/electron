@@ -1422,18 +1422,18 @@ static void ObjectPatternNetErrorMessage(
   void *theEnv,
   OBJECT_PATTERN_NODE *patternPtr)
   {
-   PrintErrorID(theEnv,(char*)"OBJRTMCH",1,TRUE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"This error occurred in the object pattern network\n");
-   EnvPrintRouter(theEnv,WERROR,(char*)"   Currently active instance: [");
+   PrintErrorID(theEnv,"OBJRTMCH",1,TRUE);
+   EnvPrintRouter(theEnv,WERROR,"This error occurred in the object pattern network\n");
+   EnvPrintRouter(theEnv,WERROR,"   Currently active instance: [");
    EnvPrintRouter(theEnv,WERROR,ValueToString(ObjectReteData(theEnv)->CurrentPatternObject->name));
-   EnvPrintRouter(theEnv,WERROR,(char*)"]\n");
-   EnvPrintRouter(theEnv,WERROR,(char*)"   Problem resides in slot ");
+   EnvPrintRouter(theEnv,WERROR,"]\n");
+   EnvPrintRouter(theEnv,WERROR,"   Problem resides in slot ");
    EnvPrintRouter(theEnv,WERROR,ValueToString(FindIDSlotName(theEnv,patternPtr->slotNameID)));
-   EnvPrintRouter(theEnv,WERROR,(char*)" field #");
+   EnvPrintRouter(theEnv,WERROR," field #");
    PrintLongInteger(theEnv,WERROR,(long long) patternPtr->whichField);
-   EnvPrintRouter(theEnv,WERROR,(char*)"\n");
+   EnvPrintRouter(theEnv,WERROR,"\n");
    TraceErrorToObjectPattern(theEnv,TRUE,patternPtr);
-   EnvPrintRouter(theEnv,WERROR,(char*)"\n");
+   EnvPrintRouter(theEnv,WERROR,"\n");
   }
 
 /*********************************************************
@@ -1463,7 +1463,7 @@ static void TraceErrorToObjectPattern(
          joinPtr = patternPtr->alphaNode->header.entryJoin;
          while (joinPtr != NULL)
            {
-            TraceErrorToRule(theEnv,joinPtr,(char*)"      ");
+            TraceErrorToRule(theEnv,joinPtr,"      ");
             joinPtr = joinPtr->rightMatchNode;
            }
         }

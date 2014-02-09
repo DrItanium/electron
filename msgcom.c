@@ -123,13 +123,13 @@ static void DeallocateMessageHandlerData(void *);
 globle void SetupMessageHandlers(
   void *theEnv)
   {
-   ENTITY_RECORD handlerGetInfo = { (char*)"HANDLER_GET", HANDLER_GET,0,1,1,
+   ENTITY_RECORD handlerGetInfo = { "HANDLER_GET", HANDLER_GET,0,1,1,
                                         PrintHandlerSlotGetFunction,
                                         PrintHandlerSlotGetFunction,NULL,
                                         HandlerSlotGetFunction,
                                         NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL },
 
-                 handlerPutInfo = { (char*)"HANDLER_PUT", HANDLER_PUT,0,1,1,
+                 handlerPutInfo = { "HANDLER_PUT", HANDLER_PUT,0,1,1,
                                         PrintHandlerSlotPutFunction,
                                         PrintHandlerSlotPutFunction,NULL,
                                         HandlerSlotPutFunction,
@@ -139,10 +139,10 @@ globle void SetupMessageHandlers(
    memcpy(&MessageHandlerData(theEnv)->HandlerGetInfo,&handlerGetInfo,sizeof(struct entityRecord));   
    memcpy(&MessageHandlerData(theEnv)->HandlerPutInfo,&handlerPutInfo,sizeof(struct entityRecord));   
 
-   MessageHandlerData(theEnv)->hndquals[0] = (char*)"around";
-   MessageHandlerData(theEnv)->hndquals[1] = (char*)"before";
-   MessageHandlerData(theEnv)->hndquals[2] = (char*)"primary";
-   MessageHandlerData(theEnv)->hndquals[3] = (char*)"after";
+   MessageHandlerData(theEnv)->hndquals[0] = "around";
+   MessageHandlerData(theEnv)->hndquals[1] = "before";
+   MessageHandlerData(theEnv)->hndquals[2] = "primary";
+   MessageHandlerData(theEnv)->hndquals[3] = "after";
 
    InstallPrimitive(theEnv,&MessageHandlerData(theEnv)->HandlerGetInfo,HANDLER_GET);
    InstallPrimitive(theEnv,&MessageHandlerData(theEnv)->HandlerPutInfo,HANDLER_PUT);
@@ -157,48 +157,48 @@ globle void SetupMessageHandlers(
    MessageHandlerData(theEnv)->CREATE_SYMBOL = (SYMBOL_HN *) EnvAddSymbol(theEnv,CREATE_STRING);
    IncrementSymbolCount(MessageHandlerData(theEnv)->CREATE_SYMBOL);
    
-   EnvAddClearFunction(theEnv,(char*)"defclass",CreateSystemHandlers,-100);
+   EnvAddClearFunction(theEnv,"defclass",CreateSystemHandlers,-100);
 
 #if ! BLOAD_ONLY
    MessageHandlerData(theEnv)->SELF_SYMBOL = (SYMBOL_HN *) EnvAddSymbol(theEnv,SELF_STRING);
    IncrementSymbolCount(MessageHandlerData(theEnv)->SELF_SYMBOL);
 
-   AddConstruct(theEnv,(char*)"defmessage-handler",(char*)"defmessage-handlers",
+   AddConstruct(theEnv,"defmessage-handler","defmessage-handlers",
                 ParseDefmessageHandler,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-   EnvDefineFunction2(theEnv,(char*)"undefmessage-handler",'v',PTIEF UndefmessageHandlerCommand,
-                  (char*)"UndefmessageHandlerCommand",(char*)"23w");
+   EnvDefineFunction2(theEnv,"undefmessage-handler",'v',PTIEF UndefmessageHandlerCommand,
+                  "UndefmessageHandlerCommand","23w");
 
 #endif
 
-   EnvDefineFunction2(theEnv,(char*)"send",'u',PTIEF SendCommand,(char*)"SendCommand",(char*)"2*uuw");
+   EnvDefineFunction2(theEnv,"send",'u',PTIEF SendCommand,"SendCommand","2*uuw");
 
 #if DEBUGGING_FUNCTIONS
-   EnvDefineFunction2(theEnv,(char*)"preview-send",'v',PTIEF PreviewSendCommand,(char*)"PreviewSendCommand",(char*)"22w");
+   EnvDefineFunction2(theEnv,"preview-send",'v',PTIEF PreviewSendCommand,"PreviewSendCommand","22w");
 
-   EnvDefineFunction2(theEnv,(char*)"ppdefmessage-handler",'v',PTIEF PPDefmessageHandlerCommand,
-                  (char*)"PPDefmessageHandlerCommand",(char*)"23w");
-   EnvDefineFunction2(theEnv,(char*)"list-defmessage-handlers",'v',PTIEF ListDefmessageHandlersCommand,
-                  (char*)"ListDefmessageHandlersCommand",(char*)"02w");
+   EnvDefineFunction2(theEnv,"ppdefmessage-handler",'v',PTIEF PPDefmessageHandlerCommand,
+                  "PPDefmessageHandlerCommand","23w");
+   EnvDefineFunction2(theEnv,"list-defmessage-handlers",'v',PTIEF ListDefmessageHandlersCommand,
+                  "ListDefmessageHandlersCommand","02w");
 #endif
 
-   EnvDefineFunction2(theEnv,(char*)"next-handlerp",'b',PTIEF NextHandlerAvailable,(char*)"NextHandlerAvailable",(char*)"00");
-   FuncSeqOvlFlags(theEnv,(char*)"next-handlerp",TRUE,FALSE);
-   EnvDefineFunction2(theEnv,(char*)"call-next-handler",'u',
-                  PTIEF CallNextHandler,(char*)"CallNextHandler",(char*)"00");
-   FuncSeqOvlFlags(theEnv,(char*)"call-next-handler",TRUE,FALSE);
-   EnvDefineFunction2(theEnv,(char*)"override-next-handler",'u',
-                  PTIEF CallNextHandler,(char*)"CallNextHandler",NULL);
-   FuncSeqOvlFlags(theEnv,(char*)"override-next-handler",TRUE,FALSE);
+   EnvDefineFunction2(theEnv,"next-handlerp",'b',PTIEF NextHandlerAvailable,"NextHandlerAvailable","00");
+   FuncSeqOvlFlags(theEnv,"next-handlerp",TRUE,FALSE);
+   EnvDefineFunction2(theEnv,"call-next-handler",'u',
+                  PTIEF CallNextHandler,"CallNextHandler","00");
+   FuncSeqOvlFlags(theEnv,"call-next-handler",TRUE,FALSE);
+   EnvDefineFunction2(theEnv,"override-next-handler",'u',
+                  PTIEF CallNextHandler,"CallNextHandler",NULL);
+   FuncSeqOvlFlags(theEnv,"override-next-handler",TRUE,FALSE);
 
-   EnvDefineFunction2(theEnv,(char*)"dynamic-get",'u',PTIEF DynamicHandlerGetSlot,(char*)"DynamicHandlerGetSlot",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"dynamic-put",'u',PTIEF DynamicHandlerPutSlot,(char*)"DynamicHandlerPutSlot",(char*)"1**w");
-   EnvDefineFunction2(theEnv,(char*)"get",'u',PTIEF DynamicHandlerGetSlot,(char*)"DynamicHandlerGetSlot",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"put",'u',PTIEF DynamicHandlerPutSlot,(char*)"DynamicHandlerPutSlot",(char*)"1**w");
+   EnvDefineFunction2(theEnv,"dynamic-get",'u',PTIEF DynamicHandlerGetSlot,"DynamicHandlerGetSlot","11w");
+   EnvDefineFunction2(theEnv,"dynamic-put",'u',PTIEF DynamicHandlerPutSlot,"DynamicHandlerPutSlot","1**w");
+   EnvDefineFunction2(theEnv,"get",'u',PTIEF DynamicHandlerGetSlot,"DynamicHandlerGetSlot","11w");
+   EnvDefineFunction2(theEnv,"put",'u',PTIEF DynamicHandlerPutSlot,"DynamicHandlerPutSlot","1**w");
 #endif
 
 #if DEBUGGING_FUNCTIONS
-   AddWatchItem(theEnv,(char*)"messages",0,&MessageHandlerData(theEnv)->WatchMessages,36,NULL,NULL);
-   AddWatchItem(theEnv,(char*)"message-handlers",0,&MessageHandlerData(theEnv)->WatchHandlers,35,
+   AddWatchItem(theEnv,"messages",0,&MessageHandlerData(theEnv)->WatchMessages,36,NULL,NULL);
+   AddWatchItem(theEnv,"message-handlers",0,&MessageHandlerData(theEnv)->WatchHandlers,35,
                 DefmessageHandlerWatchAccess,DefmessageHandlerWatchPrint);
 #endif
   }
@@ -383,7 +383,7 @@ globle unsigned EnvFindDefmessageHandler(
    DEFCLASS *cls;
    int theIndex;
 
-   htype = HandlerType(theEnv,(char*)"handler-lookup",htypestr);
+   htype = HandlerType(theEnv,"handler-lookup",htypestr);
    if (htype == MERROR)
      return(0);
    hsym = FindSymbolHN(theEnv,hname);
@@ -437,8 +437,8 @@ globle void UndefmessageHandlerCommand(
   void *theEnv)
   {
 #if RUN_TIME || BLOAD_ONLY
-   PrintErrorID(theEnv,(char*)"MSGCOM",3,FALSE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"Unable to delete message-handlers.\n");
+   PrintErrorID(theEnv,"MSGCOM",3,FALSE);
+   EnvPrintRouter(theEnv,WERROR,"Unable to delete message-handlers.\n");
 #else
    SYMBOL_HN *mname;
    char *tname;
@@ -448,25 +448,25 @@ globle void UndefmessageHandlerCommand(
 #if BLOAD || BLOAD_AND_BSAVE
    if (Bloaded(theEnv))
      {
-      PrintErrorID(theEnv,(char*)"MSGCOM",3,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Unable to delete message-handlers.\n");
+      PrintErrorID(theEnv,"MSGCOM",3,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Unable to delete message-handlers.\n");
       return;
      }
 #endif
-   if (EnvArgTypeCheck(theEnv,(char*)"undefmessage-handler",1,SYMBOL,&tmp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"undefmessage-handler",1,SYMBOL,&tmp) == FALSE)
      return;
    cls = LookupDefclassByMdlOrScope(theEnv,DOToString(tmp));
    if ((cls == NULL) ? (strcmp(DOToString(tmp),"*") != 0) : FALSE)
      {
-      ClassExistError(theEnv,(char*)"undefmessage-handler",DOToString(tmp));
+      ClassExistError(theEnv,"undefmessage-handler",DOToString(tmp));
       return;
      }
-   if (EnvArgTypeCheck(theEnv,(char*)"undefmessage-handler",2,SYMBOL,&tmp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"undefmessage-handler",2,SYMBOL,&tmp) == FALSE)
      return;
    mname = (SYMBOL_HN *) tmp.value;
    if (EnvRtnArgCount(theEnv) == 3)
      {
-      if (EnvArgTypeCheck(theEnv,(char*)"undefmessage-handler",3,SYMBOL,&tmp) == FALSE)
+      if (EnvArgTypeCheck(theEnv,"undefmessage-handler",3,SYMBOL,&tmp) == FALSE)
         return;
       tname = DOToString(tmp);
       if (strcmp(tname,"*") == 0)
@@ -493,8 +493,8 @@ globle int EnvUndefmessageHandler(
   int mhi)
   {
 #if RUN_TIME || BLOAD_ONLY
-   PrintErrorID(theEnv,(char*)"MSGCOM",3,FALSE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"Unable to delete message-handlers.\n");
+   PrintErrorID(theEnv,"MSGCOM",3,FALSE);
+   EnvPrintRouter(theEnv,WERROR,"Unable to delete message-handlers.\n");
    return(0);
 #else
    DEFCLASS *cls;
@@ -502,8 +502,8 @@ globle int EnvUndefmessageHandler(
 #if BLOAD || BLOAD_AND_BSAVE
    if (Bloaded(theEnv))
      {
-      PrintErrorID(theEnv,(char*)"MSGCOM",3,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Unable to delete message-handlers.\n");
+      PrintErrorID(theEnv,"MSGCOM",3,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Unable to delete message-handlers.\n");
       return(0);
      }
 #endif
@@ -511,8 +511,8 @@ globle int EnvUndefmessageHandler(
      {
       if (mhi != 0)
         {
-         PrintErrorID(theEnv,(char*)"MSGCOM",1,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"Incomplete message-handler specification for deletion.\n");
+         PrintErrorID(theEnv,"MSGCOM",1,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"Incomplete message-handler specification for deletion.\n");
          return(0);
         }
       return(WildDeleteHandler(theEnv,NULL,NULL,NULL));
@@ -551,21 +551,21 @@ globle void PPDefmessageHandlerCommand(
    unsigned mtype;
    HANDLER *hnd;
 
-   if (EnvArgTypeCheck(theEnv,(char*)"ppdefmessage-handler",1,SYMBOL,&temp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"ppdefmessage-handler",1,SYMBOL,&temp) == FALSE)
      return;
    csym = FindSymbolHN(theEnv,DOToString(temp));
-   if (EnvArgTypeCheck(theEnv,(char*)"ppdefmessage-handler",2,SYMBOL,&temp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"ppdefmessage-handler",2,SYMBOL,&temp) == FALSE)
      return;
    msym = FindSymbolHN(theEnv,DOToString(temp));
    if (EnvRtnArgCount(theEnv) == 3)
      {
-      if (EnvArgTypeCheck(theEnv,(char*)"ppdefmessage-handler",3,SYMBOL,&temp) == FALSE)
+      if (EnvArgTypeCheck(theEnv,"ppdefmessage-handler",3,SYMBOL,&temp) == FALSE)
         return;
       tname = DOToString(temp);
      }
    else
      tname = MessageHandlerData(theEnv)->hndquals[MPRIMARY];
-   mtype = HandlerType(theEnv,(char*)"ppdefmessage-handler",tname);
+   mtype = HandlerType(theEnv,"ppdefmessage-handler",tname);
    if (mtype == MERROR)
      {
       SetEvaluationError(theEnv,TRUE);
@@ -576,14 +576,14 @@ globle void PPDefmessageHandlerCommand(
    if (((cls == NULL) || (msym == NULL)) ? TRUE :
        ((hnd = FindHandlerByAddress(cls,msym,(unsigned) mtype)) == NULL))
      {
-      PrintErrorID(theEnv,(char*)"MSGCOM",2,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Unable to find message-handler ");
+      PrintErrorID(theEnv,"MSGCOM",2,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Unable to find message-handler ");
       EnvPrintRouter(theEnv,WERROR,ValueToString(msym));
-      EnvPrintRouter(theEnv,WERROR,(char*)" ");
+      EnvPrintRouter(theEnv,WERROR," ");
       EnvPrintRouter(theEnv,WERROR,tname);
-      EnvPrintRouter(theEnv,WERROR,(char*)" for class ");
+      EnvPrintRouter(theEnv,WERROR," for class ");
       EnvPrintRouter(theEnv,WERROR,ValueToString(csym));
-      EnvPrintRouter(theEnv,WERROR,(char*)" in function ppdefmessage-handler.\n");
+      EnvPrintRouter(theEnv,WERROR," in function ppdefmessage-handler.\n");
       SetEvaluationError(theEnv,TRUE);
       return;
      }
@@ -610,7 +610,7 @@ globle void ListDefmessageHandlersCommand(
      EnvListDefmessageHandlers(theEnv,WDISPLAY,NULL,0);
    else
      {
-      clsptr = ClassInfoFnxArgs(theEnv,(char*)"list-defmessage-handlers",&inhp);
+      clsptr = ClassInfoFnxArgs(theEnv,"list-defmessage-handlers",&inhp);
       if (clsptr == NULL)
         return;
       EnvListDefmessageHandlers(theEnv,WDISPLAY,clsptr,inhp);
@@ -635,16 +635,16 @@ globle void PreviewSendCommand(
    /* =============================
       Get the class for the message
       ============================= */
-   if (EnvArgTypeCheck(theEnv,(char*)"preview-send",1,SYMBOL,&temp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"preview-send",1,SYMBOL,&temp) == FALSE)
      return;
    cls = LookupDefclassByMdlOrScope(theEnv,DOToString(temp));
    if (cls == NULL)
      {
-      ClassExistError(theEnv,(char*)"preview-send",ValueToString(temp.value));
+      ClassExistError(theEnv,"preview-send",ValueToString(temp.value));
       return;
      }
 
-   if (EnvArgTypeCheck(theEnv,(char*)"preview-send",2,SYMBOL,&temp) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"preview-send",2,SYMBOL,&temp) == FALSE)
      return;
    EnvPreviewSend(theEnv,WDISPLAY,(void *) cls,DOToString(temp));
   }
@@ -711,7 +711,7 @@ globle void EnvListDefmessageHandlers(
          cnt += DisplayHandlersInLinks(theEnv,logName,&plinks,0);
         }
      }
-   PrintTally(theEnv,logName,cnt,(char*)"message-handler",(char*)"message-handlers");
+   PrintTally(theEnv,logName,cnt,"message-handler","message-handlers");
   }
 
 /********************************************************************
@@ -795,18 +795,18 @@ globle long DisplayHandlersInLinks(
 static void CreateSystemHandlers(
   void *theEnv)
   {
-   NewSystemHandler(theEnv,USER_TYPE_NAME,INIT_STRING,(char*)"init-slots",0);
-   NewSystemHandler(theEnv,USER_TYPE_NAME,DELETE_STRING,(char*)"delete-instance",0);
-   NewSystemHandler(theEnv,USER_TYPE_NAME,CREATE_STRING,(char*)"(create-instance)",0);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,INIT_STRING,"init-slots",0);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,DELETE_STRING,"delete-instance",0);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,CREATE_STRING,"(create-instance)",0);
 
 #if DEBUGGING_FUNCTIONS
-   NewSystemHandler(theEnv,USER_TYPE_NAME,PRINT_STRING,(char*)"ppinstance",0);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,PRINT_STRING,"ppinstance",0);
 #endif
 
-   NewSystemHandler(theEnv,USER_TYPE_NAME,DIRECT_MODIFY_STRING,(char*)"(direct-modify)",1);
-   NewSystemHandler(theEnv,USER_TYPE_NAME,MSG_MODIFY_STRING,(char*)"(message-modify)",1);
-   NewSystemHandler(theEnv,USER_TYPE_NAME,DIRECT_DUPLICATE_STRING,(char*)"(direct-duplicate)",2);
-   NewSystemHandler(theEnv,USER_TYPE_NAME,MSG_DUPLICATE_STRING,(char*)"(message-duplicate)",2);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,DIRECT_MODIFY_STRING,"(direct-modify)",1);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,MSG_MODIFY_STRING,"(message-modify)",1);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,DIRECT_DUPLICATE_STRING,"(direct-duplicate)",2);
+   NewSystemHandler(theEnv,USER_TYPE_NAME,MSG_DUPLICATE_STRING,"(message-duplicate)",2);
   }
 
 #endif
@@ -832,10 +832,10 @@ static int WildDeleteHandler(
    int mtype;
 
    if (msym == NULL)
-     msym = (SYMBOL_HN *) EnvAddSymbol(theEnv,(char*)"*");
+     msym = (SYMBOL_HN *) EnvAddSymbol(theEnv,"*");
    if (tname != NULL)
      {
-      mtype = (int) HandlerType(theEnv,(char*)"undefmessage-handler",tname);
+      mtype = (int) HandlerType(theEnv,"undefmessage-handler",tname);
       if (mtype == MERROR)
         return(0);
      }
@@ -880,10 +880,10 @@ static unsigned DefmessageHandlerWatchAccess(
   EXPRESSION *argExprs)
   {
    if (newState)
-     return(DefmessageHandlerWatchSupport(theEnv,(char*)"watch",NULL,newState,
+     return(DefmessageHandlerWatchSupport(theEnv,"watch",NULL,newState,
                                         NULL,EnvSetDefmessageHandlerWatch,argExprs));
    else
-     return(DefmessageHandlerWatchSupport(theEnv,(char*)"unwatch",NULL,newState,
+     return(DefmessageHandlerWatchSupport(theEnv,"unwatch",NULL,newState,
                                         NULL,EnvSetDefmessageHandlerWatch,argExprs));
   }
 
@@ -907,7 +907,7 @@ static unsigned DefmessageHandlerWatchPrint(
   int code,
   EXPRESSION *argExprs)
   {
-   return(DefmessageHandlerWatchSupport(theEnv,(char*)"list-watch-items",logName,-1,
+   return(DefmessageHandlerWatchSupport(theEnv,"list-watch-items",logName,-1,
                                         PrintHandlerWatchFlag,NULL,argExprs));
   }
 
@@ -957,7 +957,7 @@ static unsigned DefmessageHandlerWatchSupport(
          if (traceFunc == NULL)
            {
             EnvPrintRouter(theEnv,logName,EnvGetDefmoduleName(theEnv,(void *) theModule));
-            EnvPrintRouter(theEnv,logName,(char*)":\n");
+            EnvPrintRouter(theEnv,logName,":\n");
            }
          theClass = EnvGetNextDefclass(theEnv,NULL);
          while (theClass != NULL)
@@ -982,13 +982,13 @@ static unsigned DefmessageHandlerWatchSupport(
         return(FALSE);
       if (tmpData.type != SYMBOL)
         {
-         ExpectedTypeError1(theEnv,funcName,argIndex,(char*)"class name");
+         ExpectedTypeError1(theEnv,funcName,argIndex,"class name");
          return(FALSE);
         }
       theClass = (void *) LookupDefclassByMdlOrScope(theEnv,DOToString(tmpData));
       if (theClass == NULL)
         {
-         ExpectedTypeError1(theEnv,funcName,argIndex,(char*)"class name");
+         ExpectedTypeError1(theEnv,funcName,argIndex,"class name");
          return(FALSE);
         }
       if (GetNextArgument(argExprs) != NULL)
@@ -999,7 +999,7 @@ static unsigned DefmessageHandlerWatchSupport(
            return(FALSE);
          if (tmpData.type != SYMBOL)
            {
-            ExpectedTypeError1(theEnv,funcName,argIndex,(char*)"handler name");
+            ExpectedTypeError1(theEnv,funcName,argIndex,"handler name");
             return(FALSE);
            }
          theHandlerStr = DOToString(tmpData);
@@ -1011,7 +1011,7 @@ static unsigned DefmessageHandlerWatchSupport(
               return(FALSE);
             if (tmpData.type != SYMBOL)
               {
-               ExpectedTypeError1(theEnv,funcName,argIndex,(char*)"handler type");
+               ExpectedTypeError1(theEnv,funcName,argIndex,"handler type");
                return(FALSE);
               }
             if ((theType = (int) HandlerType(theEnv,funcName,DOToString(tmpData))) == MERROR)
@@ -1028,7 +1028,7 @@ static unsigned DefmessageHandlerWatchSupport(
       if (WatchClassHandlers(theEnv,theClass,theHandlerStr,theType,logName,
                              newState,FALSE,printFunc,traceFunc) == FALSE)
         {
-         ExpectedTypeError1(theEnv,funcName,argIndex,(char*)"handler");
+         ExpectedTypeError1(theEnv,funcName,argIndex,"handler");
          return(FALSE);
         }
       argIndex++;
@@ -1081,7 +1081,7 @@ static unsigned WatchClassHandlers(
              else
                {
                 if (indentp)
-                  EnvPrintRouter(theEnv,logName,(char*)"   ");
+                  EnvPrintRouter(theEnv,logName,"   ");
                 (*printFunc)(theEnv,logName,theClass,theHandler);
                }
              found = TRUE;
@@ -1111,15 +1111,15 @@ static void PrintHandlerWatchFlag(
   int theHandler)
   {
    EnvPrintRouter(theEnv,logName,EnvGetDefclassName(theEnv,theClass));
-   EnvPrintRouter(theEnv,logName,(char*)" ");
+   EnvPrintRouter(theEnv,logName," ");
    EnvPrintRouter(theEnv,logName,EnvGetDefmessageHandlerName(theEnv,theClass,theHandler));
-   EnvPrintRouter(theEnv,logName,(char*)" ");
+   EnvPrintRouter(theEnv,logName," ");
    EnvPrintRouter(theEnv,logName,EnvGetDefmessageHandlerType(theEnv,theClass,theHandler));
    
    if (EnvGetDefmessageHandlerWatch(theEnv,theClass,theHandler))
-     EnvPrintRouter(theEnv,logName,(char*)" = on\n");
+     EnvPrintRouter(theEnv,logName," = on\n");
    else
-     EnvPrintRouter(theEnv,logName,(char*)" = off\n");
+     EnvPrintRouter(theEnv,logName," = off\n");
   }
 
 #endif /* DEBUGGING_FUNCTIONS */

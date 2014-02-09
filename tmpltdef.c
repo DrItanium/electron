@@ -84,7 +84,7 @@
 globle void InitializeDeftemplates(
   void *theEnv)
   {
-   globle struct entityRecord deftemplatePtrRecord = { (char*)"DEFTEMPLATE_PTR",
+   globle struct entityRecord deftemplatePtrRecord = { "DEFTEMPLATE_PTR",
                                                            DEFTEMPLATE_PTR,1,0,0,
                                                            NULL,
                                                            NULL,NULL,
@@ -106,7 +106,7 @@ globle void InitializeDeftemplates(
    DeftemplateFunctions(theEnv);
 
    DeftemplateData(theEnv)->DeftemplateConstruct =
-      AddConstruct(theEnv,(char*)"deftemplate",(char*)"deftemplates",ParseDeftemplate,EnvFindDeftemplate,
+      AddConstruct(theEnv,"deftemplate","deftemplates",ParseDeftemplate,EnvFindDeftemplate,
                    GetConstructNamePointer,GetConstructPPForm,
                    GetConstructModuleItem,EnvGetNextDeftemplate,SetNextConstruct,
                    EnvIsDeftemplateDeletable,EnvUndeftemplate,ReturnDeftemplate);
@@ -168,7 +168,7 @@ static void DestroyDeftemplateAction(
 static void InitializeDeftemplateModules(
   void *theEnv)
   {
-   DeftemplateData(theEnv)->DeftemplateModuleIndex = RegisterModuleItem(theEnv,(char*)"deftemplate",
+   DeftemplateData(theEnv)->DeftemplateModuleIndex = RegisterModuleItem(theEnv,"deftemplate",
                                     AllocateModule,
                                     ReturnModule,
 #if BLOAD_AND_BSAVE || BLOAD || BLOAD_ONLY
@@ -184,7 +184,7 @@ static void InitializeDeftemplateModules(
                                     EnvFindDeftemplate);
 
 #if (! BLOAD_ONLY) && (! RUN_TIME) && DEFMODULE_CONSTRUCT
-   AddPortConstructItem(theEnv,(char*)"deftemplate",SYMBOL);
+   AddPortConstructItem(theEnv,"deftemplate",SYMBOL);
 #endif
   }
 
@@ -452,7 +452,7 @@ globle void *CreateDeftemplateScopeMap(
      {
       EnvSetCurrentModule(theEnv,(void *) theModule);
       moduleID = (int) theModule->bsaveID;
-      if (FindImportedConstruct(theEnv,(char*)"deftemplate",matchModule,
+      if (FindImportedConstruct(theEnv,"deftemplate",matchModule,
                                 templateName,&count,TRUE,NULL) != NULL)
         SetBitMap(scopeMap,moduleID);
      }

@@ -211,12 +211,12 @@ globle void ClassExistError(
   char *func,
   char *cname)
   {
-   PrintErrorID(theEnv,(char*)"CLASSFUN",1,FALSE);
-   EnvPrintRouter(theEnv,WERROR,(char*)"Unable to find class ");
+   PrintErrorID(theEnv,"CLASSFUN",1,FALSE);
+   EnvPrintRouter(theEnv,WERROR,"Unable to find class ");
    EnvPrintRouter(theEnv,WERROR,cname);
-   EnvPrintRouter(theEnv,WERROR,(char*)" in function ");
+   EnvPrintRouter(theEnv,WERROR," in function ");
    EnvPrintRouter(theEnv,WERROR,func);
-   EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+   EnvPrintRouter(theEnv,WERROR,".\n");
    SetEvaluationError(theEnv,TRUE);
   }
 
@@ -264,11 +264,11 @@ globle void PrintClassName(
      {
       EnvPrintRouter(theEnv,logicalName,
                  EnvGetDefmoduleName(theEnv,theDefclass->header.whichModule->theModule));
-      EnvPrintRouter(theEnv,logicalName,(char*)"::");
+      EnvPrintRouter(theEnv,logicalName,"::");
      }
    EnvPrintRouter(theEnv,logicalName,ValueToString(theDefclass->header.name));
    if (linefeedFlag)
-     EnvPrintRouter(theEnv,logicalName,(char*)"\n");
+     EnvPrintRouter(theEnv,logicalName,"\n");
   }
 
 #if DEBUGGING_FUNCTIONS || ((! BLOAD_ONLY) && (! RUN_TIME))
@@ -295,10 +295,10 @@ globle void PrintPackedClassLinks(
    EnvPrintRouter(theEnv,logicalName,title);
    for (i = 0 ; i < plinks->classCount ; i++)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       PrintClassName(theEnv,logicalName,plinks->classArray[i],FALSE);
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)"\n");
+   EnvPrintRouter(theEnv,logicalName,"\n");
   }
 
 #endif
@@ -449,7 +449,7 @@ globle DEFCLASS *NewClass(
    register DEFCLASS *cls;
 
    cls = get_struct(theEnv,defclass);
-   InitializeConstructHeader(theEnv,(char*)"defclass",(struct constructHeader *) cls,className);
+   InitializeConstructHeader(theEnv,"defclass",(struct constructHeader *) cls,className);
 
    cls->id = 0;
    cls->installed = 0;
@@ -574,7 +574,7 @@ globle SLOT_NAME *AddSlotName(
      {
       if (usenewid && (newid != snp->id))
         {
-         SystemError(theEnv,(char*)"CLASSFUN",1);
+         SystemError(theEnv,"CLASSFUN",1);
          EnvExitRouter(theEnv,EXIT_FAILURE);
         }
       snp->use++;
@@ -937,7 +937,7 @@ globle int RemoveAllUserClasses(
       else
         {
          success = FALSE;
-         CantDeleteItemErrorMessage(theEnv,(char*)"defclass",EnvGetDefclassName(theEnv,ctmp));
+         CantDeleteItemErrorMessage(theEnv,"defclass",EnvGetDefclassName(theEnv,ctmp));
         }
      }
    return(success);
@@ -1101,10 +1101,10 @@ globle int GetTraversalID(
 
    if (DefclassData(theEnv)->CTID >= MAX_TRAVERSALS)
      {
-      PrintErrorID(theEnv,(char*)"CLASSFUN",2,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Maximum number of simultaneous class hierarchy\n  traversals exceeded ");
+      PrintErrorID(theEnv,"CLASSFUN",2,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Maximum number of simultaneous class hierarchy\n  traversals exceeded ");
       PrintLongInteger(theEnv,WERROR,(long) MAX_TRAVERSALS);
-      EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+      EnvPrintRouter(theEnv,WERROR,".\n");
       SetEvaluationError(theEnv,TRUE);
       return(-1);
      }

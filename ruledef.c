@@ -97,20 +97,20 @@ globle void InitializeDefrules(
    InitializePatterns(theEnv);
    InitializeDefruleModules(theEnv);
 
-   AddReservedPatternSymbol(theEnv,(char*)"and",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"not",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"or",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"test",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"logical",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"exists",NULL);
-   AddReservedPatternSymbol(theEnv,(char*)"forall",NULL);
+   AddReservedPatternSymbol(theEnv,"and",NULL);
+   AddReservedPatternSymbol(theEnv,"not",NULL);
+   AddReservedPatternSymbol(theEnv,"or",NULL);
+   AddReservedPatternSymbol(theEnv,"test",NULL);
+   AddReservedPatternSymbol(theEnv,"logical",NULL);
+   AddReservedPatternSymbol(theEnv,"exists",NULL);
+   AddReservedPatternSymbol(theEnv,"forall",NULL);
 
    DefruleBasicCommands(theEnv);
 
    DefruleCommands(theEnv);
 
    DefruleData(theEnv)->DefruleConstruct =
-      AddConstruct(theEnv,(char*)"defrule",(char*)"defrules",
+      AddConstruct(theEnv,"defrule","defrules",
                    ParseDefrule,EnvFindDefrule,
                    GetConstructNamePointer,GetConstructPPForm,
                    GetConstructModuleItem,EnvGetNextDefrule,SetNextConstruct,
@@ -203,7 +203,7 @@ static void DestroyDefruleAction(
 static void InitializeDefruleModules(
   void *theEnv)
   {
-   DefruleData(theEnv)->DefruleModuleIndex = RegisterModuleItem(theEnv,(char*)"defrule",
+   DefruleData(theEnv)->DefruleModuleIndex = RegisterModuleItem(theEnv,"defrule",
                                     AllocateModule,
                                     ReturnModule,
 #if BLOAD_AND_BSAVE || BLOAD || BLOAD_ONLY

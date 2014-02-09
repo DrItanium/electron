@@ -139,7 +139,7 @@ globle EXPRESSION *FactParseQueryNoAction(
    GetToken(theEnv,readSource,&queryInputToken);   
    if (GetType(queryInputToken) != RPAREN)
      {
-      SyntaxErrorMessage(theEnv,(char*)"fact-set query function");
+      SyntaxErrorMessage(theEnv,"fact-set query function");
       ReturnExpression(theEnv,top);
       ReturnExpression(theEnv,factQuerySetVars);
       return(NULL);
@@ -215,7 +215,7 @@ globle EXPRESSION *FactParseQueryAction(
    
    if (GetType(queryInputToken) != RPAREN)
      {
-      SyntaxErrorMessage(theEnv,(char*)"fact-set query function");
+      SyntaxErrorMessage(theEnv,"fact-set query function");
       ReturnExpression(theEnv,top);
       ReturnExpression(theEnv,factQuerySetVars);
       return(NULL);
@@ -259,7 +259,7 @@ static EXPRESSION *ParseQueryRestrictions(
               *tmp,*lastOne = NULL;
    int error = FALSE;
 
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
    
    GetToken(theEnv,readSource,queryInputToken);
    if (queryInputToken->type != LPAREN)
@@ -280,10 +280,10 @@ static EXPRESSION *ParseQueryRestrictions(
         {
          if (tmp->value == queryInputToken->value)
            {
-            PrintErrorID(theEnv,(char*)"FACTQPSR",1,FALSE);
-            EnvPrintRouter(theEnv,WERROR,(char*)"Duplicate fact member variable name in function ");
+            PrintErrorID(theEnv,"FACTQPSR",1,FALSE);
+            EnvPrintRouter(theEnv,WERROR,"Duplicate fact member variable name in function ");
             EnvPrintRouter(theEnv,WERROR,ValueToString(ExpressionFunctionCallName(top)));
-            EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+            EnvPrintRouter(theEnv,WERROR,".\n");
             goto ParseQueryRestrictionsError2;
            }
            
@@ -297,7 +297,7 @@ static EXPRESSION *ParseQueryRestrictions(
         { lastFactQuerySetVars->nextArg = tmp; }
       
       lastFactQuerySetVars = tmp;
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       
       templateExp = ArgumentParse(theEnv,readSource,&error);
       
@@ -311,7 +311,7 @@ static EXPRESSION *ParseQueryRestrictions(
         { goto ParseQueryRestrictionsError2; }
       
       lastTemplateExp = templateExp;
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       
       while ((tmp = ArgumentParse(theEnv,readSource,&error)) != NULL)
         {
@@ -319,7 +319,7 @@ static EXPRESSION *ParseQueryRestrictions(
            goto ParseQueryRestrictionsError2;
          lastTemplateExp->nextArg = tmp;
          lastTemplateExp = tmp;
-         SavePPBuffer(theEnv,(char*)" ");
+         SavePPBuffer(theEnv," ");
         }
         
       if (error)
@@ -327,7 +327,7 @@ static EXPRESSION *ParseQueryRestrictions(
         
       PPBackup(theEnv);
       PPBackup(theEnv);
-      SavePPBuffer(theEnv,(char*)")");
+      SavePPBuffer(theEnv,")");
       
       tmp = GenConstant(theEnv,SYMBOL,(void *) FactQueryData(theEnv)->QUERY_DELIMETER_SYMBOL);
       
@@ -341,7 +341,7 @@ static EXPRESSION *ParseQueryRestrictions(
       
       lastOne = lastTemplateExp;
       templateExp = NULL;
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       GetToken(theEnv,readSource,queryInputToken);
      }
      
@@ -350,11 +350,11 @@ static EXPRESSION *ParseQueryRestrictions(
      
    PPBackup(theEnv);
    PPBackup(theEnv);
-   SavePPBuffer(theEnv,(char*)")");
+   SavePPBuffer(theEnv,")");
    return(factQuerySetVars);
 
 ParseQueryRestrictionsError1:
-   SyntaxErrorMessage(theEnv,(char*)"fact-set query function");
+   SyntaxErrorMessage(theEnv,"fact-set query function");
 
 ParseQueryRestrictionsError2:
    ReturnExpression(theEnv,templateExp);
@@ -390,18 +390,18 @@ static intBool ReplaceTemplateNameWithReference(
       theTemplateName = ValueToString(theExp->value);
       
       theDeftemplate = (struct deftemplate *)
-                       FindImportedConstruct(theEnv,(char*)"deftemplate",NULL,theTemplateName,
+                       FindImportedConstruct(theEnv,"deftemplate",NULL,theTemplateName,
                                              &count,TRUE,NULL);
 
       if (theDeftemplate == NULL)
         {
-         CantFindItemErrorMessage(theEnv,(char*)"deftemplate",theTemplateName);
+         CantFindItemErrorMessage(theEnv,"deftemplate",theTemplateName);
          return(FALSE);
         }
         
       if (count > 1)
         {
-         AmbiguousReferenceErrorMessage(theEnv,(char*)"deftemplate",theTemplateName);
+         AmbiguousReferenceErrorMessage(theEnv,"deftemplate",theTemplateName);
          return(FALSE);
         }
 
@@ -450,7 +450,7 @@ static int ParseQueryTestExpression(
      {
       ClearParsedBindNames(theEnv);
       SetParsedBindNames(theEnv,oldBindList);
-      SyntaxErrorMessage(theEnv,(char*)"fact-set query function");
+      SyntaxErrorMessage(theEnv,"fact-set query function");
       ReturnExpression(theEnv,top);
       return(FALSE);
      }
@@ -462,10 +462,10 @@ static int ParseQueryTestExpression(
      {
       ClearParsedBindNames(theEnv);
       SetParsedBindNames(theEnv,oldBindList);
-      PrintErrorID(theEnv,(char*)"FACTQPSR",2,FALSE);
-      EnvPrintRouter(theEnv,WERROR,(char*)"Binds are not allowed in fact-set query in function ");
+      PrintErrorID(theEnv,"FACTQPSR",2,FALSE);
+      EnvPrintRouter(theEnv,WERROR,"Binds are not allowed in fact-set query in function ");
       EnvPrintRouter(theEnv,WERROR,ValueToString(ExpressionFunctionCallName(top)));
-      EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+      EnvPrintRouter(theEnv,WERROR,".\n");
       ReturnExpression(theEnv,top);
       return(FALSE);
      }
@@ -517,7 +517,7 @@ static int ParseQueryActionExpression(
      {
       ClearParsedBindNames(theEnv);
       SetParsedBindNames(theEnv,oldBindList);
-      SyntaxErrorMessage(theEnv,(char*)"fact-set query function");
+      SyntaxErrorMessage(theEnv,"fact-set query function");
       ReturnExpression(theEnv,top);
       return(FALSE);
      }
@@ -536,12 +536,12 @@ static int ParseQueryActionExpression(
            {
             ClearParsedBindNames(theEnv);
             SetParsedBindNames(theEnv,oldBindList);
-            PrintErrorID(theEnv,(char*)"FACTQPSR",3,FALSE);
-            EnvPrintRouter(theEnv,WERROR,(char*)"Cannot rebind fact-set member variable ");
+            PrintErrorID(theEnv,"FACTQPSR",3,FALSE);
+            EnvPrintRouter(theEnv,WERROR,"Cannot rebind fact-set member variable ");
             EnvPrintRouter(theEnv,WERROR,ValueToString(tmpFactSetVars->value));
-            EnvPrintRouter(theEnv,WERROR,(char*)" in function ");
+            EnvPrintRouter(theEnv,WERROR," in function ");
             EnvPrintRouter(theEnv,WERROR,ValueToString(ExpressionFunctionCallName(top)));
-            EnvPrintRouter(theEnv,WERROR,(char*)".\n");
+            EnvPrintRouter(theEnv,WERROR,".\n");
             ReturnExpression(theEnv,top);
             return(FALSE);
            }
@@ -589,8 +589,8 @@ static void ReplaceFactVariables(
    struct FunctionDefinition *rindx_func,*rslot_func;
    int posn;
 
-   rindx_func = FindFunction(theEnv,(char*)"(query-fact)");
-   rslot_func = FindFunction(theEnv,(char*)"(query-fact-slot)");
+   rindx_func = FindFunction(theEnv,"(query-fact)");
+   rslot_func = FindFunction(theEnv,"(query-fact-slot)");
    while (bexp != NULL)
      {
       if (bexp->type == SF_VARIABLE)
@@ -672,12 +672,12 @@ static void ReplaceSlotReference(
            }
          if (eptr != NULL)
            {
-            OpenStringSource(theEnv,(char*)"query-var",str+i+1,0);
+            OpenStringSource(theEnv,"query-var",str+i+1,0);
             oldpp = GetPPBufferStatus(theEnv);
             SetPPBufferStatus(theEnv,OFF);
-            GetToken(theEnv,(char*)"query-var",&itkn);
+            GetToken(theEnv,"query-var",&itkn);
             SetPPBufferStatus(theEnv,oldpp);
-            CloseStringSource(theEnv,(char*)"query-var");
+            CloseStringSource(theEnv,"query-var");
             theExp->type = FCALL;
             theExp->value = (void *) func;
             theExp->argList = GenConstant(theEnv,INTEGER,(void *) EnvAddLong(theEnv,(long long) ndepth));

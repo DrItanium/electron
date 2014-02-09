@@ -58,7 +58,7 @@
 
 #include "tmpltutl.h"
 
-#define __convert(x) (char*)x
+#define __convert(x) x
 #define sym_TMPLTDEF __convert("TMPLTDEF")
 #define sym_TMPLTFUN __convert("TMPLTFUN")
 

@@ -126,73 +126,73 @@ static void DestroyObjectAlphaNodes(void *,OBJECT_ALPHA_NODE *);
 globle void InstallObjectPrimitives(
   void *theEnv)
   {
-   struct entityRecord objectGVInfo1 = { (char*)"OBJ_GET_SLOT_JNVAR1", OBJ_GET_SLOT_JNVAR1,0,1,0,
+   struct entityRecord objectGVInfo1 = { "OBJ_GET_SLOT_JNVAR1", OBJ_GET_SLOT_JNVAR1,0,1,0,
                                              PrintObjectGetVarJN1,
                                              PrintObjectGetVarJN1,NULL,
                                              ObjectGetVarJNFunction1,
                                              NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord objectGVInfo2 = { (char*)"OBJ_GET_SLOT_JNVAR2", OBJ_GET_SLOT_JNVAR2,0,1,0,
+   struct entityRecord objectGVInfo2 = { "OBJ_GET_SLOT_JNVAR2", OBJ_GET_SLOT_JNVAR2,0,1,0,
                                              PrintObjectGetVarJN2,
                                              PrintObjectGetVarJN2,NULL,
                                              ObjectGetVarJNFunction2,
                                              NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord objectGVPNInfo1 = { (char*)"OBJ_GET_SLOT_PNVAR1", OBJ_GET_SLOT_PNVAR1,0,1,0,
+   struct entityRecord objectGVPNInfo1 = { "OBJ_GET_SLOT_PNVAR1", OBJ_GET_SLOT_PNVAR1,0,1,0,
                                                PrintObjectGetVarPN1,
                                                PrintObjectGetVarPN1,NULL,
                                                ObjectGetVarPNFunction1,
                                                NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord objectGVPNInfo2 = { (char*)"OBJ_GET_SLOT_PNVAR2", OBJ_GET_SLOT_PNVAR2,0,1,0,
+   struct entityRecord objectGVPNInfo2 = { "OBJ_GET_SLOT_PNVAR2", OBJ_GET_SLOT_PNVAR2,0,1,0,
                                                PrintObjectGetVarPN2,
                                                PrintObjectGetVarPN2,NULL,
                                                ObjectGetVarPNFunction2,
                                                NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord objectCmpConstantInfo = { (char*)"OBJ_PN_CONSTANT", OBJ_PN_CONSTANT,0,1,1,
+   struct entityRecord objectCmpConstantInfo = { "OBJ_PN_CONSTANT", OBJ_PN_CONSTANT,0,1,1,
                                                      PrintObjectCmpConstant,
                                                      PrintObjectCmpConstant,NULL,
                                                      ObjectCmpConstantFunction,
                                                      NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord lengthTestInfo = { (char*)"OBJ_SLOT_LENGTH", OBJ_SLOT_LENGTH,0,1,0,
+   struct entityRecord lengthTestInfo = { "OBJ_SLOT_LENGTH", OBJ_SLOT_LENGTH,0,1,0,
                                               PrintSlotLengthTest,
                                               PrintSlotLengthTest,NULL,
                                               SlotLengthTestFunction,
                                               NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord pNSimpleCompareInfo1 = { (char*)"OBJ_PN_CMP1", OBJ_PN_CMP1,0,1,1,
+   struct entityRecord pNSimpleCompareInfo1 = { "OBJ_PN_CMP1", OBJ_PN_CMP1,0,1,1,
                                                     PrintPNSimpleCompareFunction1,
                                                     PrintPNSimpleCompareFunction1,NULL,
                                                     PNSimpleCompareFunction1,
                                                     NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord pNSimpleCompareInfo2 = { (char*)"OBJ_PN_CMP2", OBJ_PN_CMP2,0,1,1,
+   struct entityRecord pNSimpleCompareInfo2 = { "OBJ_PN_CMP2", OBJ_PN_CMP2,0,1,1,
                                                     PrintPNSimpleCompareFunction2,
                                                     PrintPNSimpleCompareFunction2,NULL,
                                                     PNSimpleCompareFunction2,
                                                     NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord pNSimpleCompareInfo3 = { (char*)"OBJ_PN_CMP3", OBJ_PN_CMP3,0,1,1,
+   struct entityRecord pNSimpleCompareInfo3 = { "OBJ_PN_CMP3", OBJ_PN_CMP3,0,1,1,
                                                     PrintPNSimpleCompareFunction3,
                                                     PrintPNSimpleCompareFunction3,NULL,
                                                     PNSimpleCompareFunction3,
                                                     NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord jNSimpleCompareInfo1 = { (char*)"OBJ_JN_CMP1", OBJ_JN_CMP1,0,1,1,
+   struct entityRecord jNSimpleCompareInfo1 = { "OBJ_JN_CMP1", OBJ_JN_CMP1,0,1,1,
                                                     PrintJNSimpleCompareFunction1,
                                                     PrintJNSimpleCompareFunction1,NULL,
                                                     JNSimpleCompareFunction1,
                                                     NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord jNSimpleCompareInfo2 = { (char*)"OBJ_JN_CMP2", OBJ_JN_CMP2,0,1,1,
+   struct entityRecord jNSimpleCompareInfo2 = { "OBJ_JN_CMP2", OBJ_JN_CMP2,0,1,1,
                                                     PrintJNSimpleCompareFunction2,
                                                     PrintJNSimpleCompareFunction2,NULL,
                                                     JNSimpleCompareFunction2,
                                                     NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
 
-   struct entityRecord jNSimpleCompareInfo3 = { (char*)"OBJ_JN_CMP3", OBJ_JN_CMP3,0,1,1,
+   struct entityRecord jNSimpleCompareInfo3 = { "OBJ_JN_CMP3", OBJ_JN_CMP3,0,1,1,
                                                     PrintJNSimpleCompareFunction3,
                                                     PrintJNSimpleCompareFunction3,NULL,
                                                     JNSimpleCompareFunction3,
@@ -380,26 +380,26 @@ static void PrintObjectGetVarJN1(
 
    if (hack->objectAddress)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)"(obj-ptr ");
+      EnvPrintRouter(theEnv,logicalName,"(obj-ptr ");
       PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern);
      }
    else if (hack->allFields)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)"(obj-slot-contents ");
+      EnvPrintRouter(theEnv,logicalName,"(obj-slot-contents ");
       PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern);
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
      }
    else
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)"(obj-slot-var ");
+      EnvPrintRouter(theEnv,logicalName,"(obj-slot-var ");
       PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern);
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       PrintLongInteger(theEnv,logicalName,(long long) hack->whichField);
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -428,21 +428,21 @@ static void PrintObjectGetVarJN2(
    struct ObjectMatchVar2 *hack;
 
    hack = (struct ObjectMatchVar2 *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(obj-slot-quick-var ");
+   EnvPrintRouter(theEnv,logicalName,"(obj-slot-quick-var ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
    if (hack->fromBeginning)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" B");
+      EnvPrintRouter(theEnv,logicalName," B");
       PrintLongInteger(theEnv,logicalName,(long long) (hack->beginningOffset + 1));
      }
    if (hack->fromEnd)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" E");
+      EnvPrintRouter(theEnv,logicalName," E");
       PrintLongInteger(theEnv,logicalName,(long long) (hack->endOffset + 1));
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -473,20 +473,20 @@ static void PrintObjectGetVarPN1(
    hack = (struct ObjectMatchVar1 *) ValueToBitMap(theValue);
 
    if (hack->objectAddress)
-     EnvPrintRouter(theEnv,logicalName,(char*)"(ptn-obj-ptr ");
+     EnvPrintRouter(theEnv,logicalName,"(ptn-obj-ptr ");
    else if (hack->allFields)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)"(ptn-obj-slot-contents ");
+      EnvPrintRouter(theEnv,logicalName,"(ptn-obj-slot-contents ");
       EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
      }
    else
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)"(ptn-obj-slot-var ");
+      EnvPrintRouter(theEnv,logicalName,"(ptn-obj-slot-var ");
       EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       PrintLongInteger(theEnv,logicalName,(long long) hack->whichField);
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -512,19 +512,19 @@ static void PrintObjectGetVarPN2(
    struct ObjectMatchVar2 *hack;
 
    hack = (struct ObjectMatchVar2 *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(ptn-obj-slot-quick-var ");
+   EnvPrintRouter(theEnv,logicalName,"(ptn-obj-slot-quick-var ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->whichSlot)));
    if (hack->fromBeginning)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" B");
+      EnvPrintRouter(theEnv,logicalName," B");
       PrintLongInteger(theEnv,logicalName,(long long) (hack->beginningOffset + 1));
      }
    if (hack->fromEnd)
      {
-      EnvPrintRouter(theEnv,logicalName,(char*)" E");
+      EnvPrintRouter(theEnv,logicalName," E");
       PrintLongInteger(theEnv,logicalName,(long long) (hack->endOffset + 1));
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -551,18 +551,18 @@ static void PrintObjectCmpConstant(
 
    hack = (struct ObjectCmpPNConstant *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(obj-const ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(obj-const ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    if (hack->general)
      PrintExpression(theEnv,logicalName,GetFirstArgument());
    else
      {
-      EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? (char*)"B" : (char*)"E");
+      EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? "B" : "E");
       PrintLongInteger(theEnv,logicalName,(long long) hack->offset);
-      EnvPrintRouter(theEnv,logicalName,(char*)" ");
+      EnvPrintRouter(theEnv,logicalName," ");
       PrintExpression(theEnv,logicalName,GetFirstArgument());
      }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -577,13 +577,13 @@ static void PrintSlotLengthTest(
 
    hack = (struct ObjectMatchLength *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(obj-slot-len ");
+   EnvPrintRouter(theEnv,logicalName,"(obj-slot-len ");
    if (hack->exactly)
-     EnvPrintRouter(theEnv,logicalName,(char*)"= ");
+     EnvPrintRouter(theEnv,logicalName,"= ");
    else
-     EnvPrintRouter(theEnv,logicalName,(char*)">= ");
+     EnvPrintRouter(theEnv,logicalName,">= ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->minLength);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -616,12 +616,12 @@ static void PrintPNSimpleCompareFunction1(
 
    hack = (struct ObjectCmpPNSingleSlotVars1 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(pslot-cmp1 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(pslot-cmp1 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -659,14 +659,14 @@ static void PrintPNSimpleCompareFunction2(
 
    hack = (struct ObjectCmpPNSingleSlotVars2 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(pslot-cmp2 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(pslot-cmp2 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->offset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -706,16 +706,16 @@ static void PrintPNSimpleCompareFunction3(
 
    hack = (struct ObjectCmpPNSingleSlotVars3 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(pslot-cmp3 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(pslot-cmp3 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->firstFromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->firstFromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->firstOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->secondFromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->secondFromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->secondOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -755,16 +755,16 @@ static void PrintJNSimpleCompareFunction1(
 
    hack = (struct ObjectCmpJoinSingleSlotVars1 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(jslot-cmp1 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(jslot-cmp1 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->firstPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->secondPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -806,18 +806,18 @@ static void PrintJNSimpleCompareFunction2(
 
    hack = (struct ObjectCmpJoinSingleSlotVars2 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(jslot-cmp2 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(jslot-cmp2 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->firstPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->fromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->offset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->secondPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -861,20 +861,20 @@ static void PrintJNSimpleCompareFunction3(
 
    hack = (struct ObjectCmpJoinSingleSlotVars3 *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(jslot-cmp3 ");
-   EnvPrintRouter(theEnv,logicalName,hack->pass ? (char*)"p " : (char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(jslot-cmp3 ");
+   EnvPrintRouter(theEnv,logicalName,hack->pass ? "p " : "n ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->firstPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->firstSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->firstFromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->firstFromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->firstOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->secondPattern);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    EnvPrintRouter(theEnv,logicalName,ValueToString(FindIDSlotName(theEnv,(unsigned) hack->secondSlot)));
-   EnvPrintRouter(theEnv,logicalName,hack->secondFromBeginning ? (char*)" B" : (char*)" E");
+   EnvPrintRouter(theEnv,logicalName,hack->secondFromBeginning ? " B" : " E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->secondOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }

@@ -207,16 +207,16 @@ globle void SetupObjectsBload(
   {
    AllocateEnvironmentData(theEnv,OBJECTBIN_DATA,sizeof(struct objectBinaryData),DeallocateObjectBinaryData);
    
-   AddAbortBloadFunction(theEnv,(char*)"defclass",CreateSystemClasses,0);
+   AddAbortBloadFunction(theEnv,"defclass",CreateSystemClasses,0);
 
 #if BLOAD_AND_BSAVE
-   AddBinaryItem(theEnv,(char*)"defclass",0,BsaveObjectsFind,BsaveObjectsExpressions,
+   AddBinaryItem(theEnv,"defclass",0,BsaveObjectsFind,BsaveObjectsExpressions,
                              BsaveStorageObjects,BsaveObjects,
                              BloadStorageObjects,BloadObjects,
                              ClearBloadObjects);
 #endif
 #if BLOAD || BLOAD_ONLY
-   AddBinaryItem(theEnv,(char*)"defclass",0,NULL,NULL,NULL,NULL,
+   AddBinaryItem(theEnv,"defclass",0,NULL,NULL,NULL,NULL,
                              BloadStorageObjects,BloadObjects,
                              ClearBloadObjects);
 #endif
@@ -639,7 +639,7 @@ static void BsaveObjects(
    while (theModule != NULL)
      {
       theModuleItem = (DEFCLASS_MODULE *)
-                      GetModuleItem(theEnv,theModule,FindModuleItem(theEnv,(char*)"defclass")->moduleIndex);
+                      GetModuleItem(theEnv,theModule,FindModuleItem(theEnv,"defclass")->moduleIndex);
       AssignBsaveDefmdlItemHdrVals(&dummy_mitem.header,&theModuleItem->header);
       GenWrite((void *) &dummy_mitem,sizeof(BSAVE_DEFCLASS_MODULE),fp);
       theModule = (struct defmodule *) EnvGetNextDefmodule(theEnv,(void *) theModule);
@@ -1018,7 +1018,7 @@ static void BloadStorageObjects(
 
    if ((DefclassData(theEnv)->ClassIDMap != NULL) || (DefclassData(theEnv)->MaxClassID != 0))
      {
-      SystemError(theEnv,(char*)"OBJBIN",1);
+      SystemError(theEnv,"OBJBIN",1);
       EnvExitRouter(theEnv,EXIT_FAILURE);
      }
    GenReadBinary(theEnv,(void *) &space,sizeof(size_t));

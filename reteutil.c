@@ -90,9 +90,9 @@ globle void PrintPartialMatch(
          (*matchingItem->theInfo->base.shortPrintFunction)(theEnv,logicalName,matchingItem);
         }
       else
-        { EnvPrintRouter(theEnv,logicalName,(char*)"*"); }
+        { EnvPrintRouter(theEnv,logicalName,"*"); }
       i++;
-      if (i < list->bcount) EnvPrintRouter(theEnv,logicalName,(char*)",");
+      if (i < list->bcount) EnvPrintRouter(theEnv,logicalName,",");
      }
   }
 
@@ -886,11 +886,11 @@ static void TraceErrorToRuleDriver(
       name = EnvGetDefruleName(theEnv,joinPtr->ruleToActivate);
       EnvPrintRouter(theEnv,WERROR,indentSpaces);
 
-      EnvPrintRouter(theEnv,WERROR,(char*)"Of pattern #");
+      EnvPrintRouter(theEnv,WERROR,"Of pattern #");
       PrintLongInteger(theEnv,WERROR,priorRightJoinPatterns+priorPatternCount);
-      EnvPrintRouter(theEnv,WERROR,(char*)" in rule ");
+      EnvPrintRouter(theEnv,WERROR," in rule ");
       EnvPrintRouter(theEnv,WERROR,name);
-      EnvPrintRouter(theEnv,WERROR,(char*)"\n");
+      EnvPrintRouter(theEnv,WERROR,"\n");
      }
    else
      {

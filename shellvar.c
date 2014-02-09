@@ -28,22 +28,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 void ShellVariableQueryFunctions(void* theEnv) {
     EnvDefineFunction2(theEnv, 
-            (char*)"get-shell-variable",
+            "get-shell-variable",
             'k',
             PTIEF GetShellVariable,
-            (char*)"GetShellVariable",
-            (char*)"11k");
+            "GetShellVariable",
+            "11k");
     EnvDefineFunction2(theEnv,
-            (char*)"set-shell-variable",
+            "set-shell-variable",
             'b',
             PTIEF SetShellVariable,
-            (char*)"SetShellVariable",
+            "SetShellVariable",
             "33kkki");
     EnvDefineFunction2(theEnv,
-            (char*)"unset-shell-variable",
+            "unset-shell-variable",
             'b',
             PTIEF UnsetShellVariable,
-            (char*)"UnsetShellVariable",
+            "UnsetShellVariable",
             "11k");
 }
 

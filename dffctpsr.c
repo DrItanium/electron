@@ -65,7 +65,7 @@ globle int ParseDeffacts(
 
    FlushPPBuffer(theEnv);
    SetIndentDepth(theEnv,3);
-   SavePPBuffer(theEnv,(char*)"(deffacts ");
+   SavePPBuffer(theEnv,"(deffacts ");
 
    /*==========================================================*/
    /* Deffacts can not be added when a binary image is loaded. */
@@ -74,7 +74,7 @@ globle int ParseDeffacts(
 #if BLOAD || BLOAD_AND_BSAVE
    if ((Bloaded(theEnv) == TRUE) && (! ConstructData(theEnv)->CheckSyntaxMode))
      {
-      CannotLoadWithBloadMessage(theEnv,(char*)"deffacts");
+      CannotLoadWithBloadMessage(theEnv,"deffacts");
       return(TRUE);
      }
 #endif
@@ -83,8 +83,8 @@ globle int ParseDeffacts(
    /* Parse the deffacts header. */
    /*============================*/
 
-   deffactsName = GetConstructNameAndComment(theEnv,readSource,&inputToken,(char*)"deffacts",
-                                             EnvFindDeffacts,EnvUndeffacts,(char*)"$",TRUE,
+   deffactsName = GetConstructNameAndComment(theEnv,readSource,&inputToken,"deffacts",
+                                             EnvFindDeffacts,EnvUndeffacts,"$",TRUE,
                                              TRUE,TRUE);
    if (deffactsName == NULL) { return(TRUE); }
 
@@ -92,18 +92,18 @@ globle int ParseDeffacts(
    /* Parse the list of facts in the deffacts body. */
    /*===============================================*/
 
-   temp = BuildRHSAssert(theEnv,readSource,&inputToken,&deffactsError,FALSE,FALSE,(char*)"deffacts");
+   temp = BuildRHSAssert(theEnv,readSource,&inputToken,&deffactsError,FALSE,FALSE,"deffacts");
 
    if (deffactsError == TRUE) { return(TRUE); }
 
    if (ExpressionContainsVariables(temp,FALSE))
      {
-      LocalVariableErrorMessage(theEnv,(char*)"a deffacts construct");
+      LocalVariableErrorMessage(theEnv,"a deffacts construct");
       ReturnExpression(theEnv,temp);
       return(TRUE);
      }
 
-   SavePPBuffer(theEnv,(char*)"\n");
+   SavePPBuffer(theEnv,"\n");
 
    /*==============================================*/
    /* If we're only checking syntax, don't add the */
@@ -126,7 +126,7 @@ globle int ParseDeffacts(
    IncrementSymbolCount(deffactsName);
    newDeffacts->assertList = PackExpression(theEnv,temp);
    newDeffacts->header.whichModule = (struct defmoduleItemHeader *)
-                              GetModuleItem(theEnv,NULL,FindModuleItem(theEnv,(char*)"deffacts")->moduleIndex);
+                              GetModuleItem(theEnv,NULL,FindModuleItem(theEnv,"deffacts")->moduleIndex);
 
    newDeffacts->header.next = NULL;
    newDeffacts->header.usrData = NULL;

@@ -47,32 +47,32 @@ globle void PrintFactJNCompVars1(
    struct factCompVarsJN1Call *hack;
 
    hack = (struct factCompVarsJN1Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-jn-cmp-vars1 ");
-   if (hack->pass) EnvPrintRouter(theEnv,logicalName,(char*)"= ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"<> ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-jn-cmp-vars1 ");
+   if (hack->pass) EnvPrintRouter(theEnv,logicalName,"= ");
+   else EnvPrintRouter(theEnv,logicalName,"<> ");
    
-   EnvPrintRouter(theEnv,logicalName,(char*)"p");
+   EnvPrintRouter(theEnv,logicalName,"p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->pattern1);
 
    if (hack->p1lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->p1rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
+     { EnvPrintRouter(theEnv,logicalName," R"); }
    
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->slot1);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" p");
+   EnvPrintRouter(theEnv,logicalName," p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->pattern2);
 
    if (hack->p2lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->p2rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
+     { EnvPrintRouter(theEnv,logicalName," R"); }
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->slot2);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -90,44 +90,44 @@ globle void PrintFactJNCompVars2(
    struct factCompVarsJN2Call *hack;
 
    hack = (struct factCompVarsJN2Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-jn-cmp-vars2 ");
-   if (hack->pass) EnvPrintRouter(theEnv,logicalName,(char*)"= ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"<> ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-jn-cmp-vars2 ");
+   if (hack->pass) EnvPrintRouter(theEnv,logicalName,"= ");
+   else EnvPrintRouter(theEnv,logicalName,"<> ");
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"p");
+   EnvPrintRouter(theEnv,logicalName,"p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->pattern1);
 
    if (hack->p1lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->p1rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
+     { EnvPrintRouter(theEnv,logicalName," R"); }
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->slot1);
 
-   if (hack->fromBeginning1) EnvPrintRouter(theEnv,logicalName, (char*)" b");
-   else EnvPrintRouter(theEnv,logicalName,(char*)" e");
+   if (hack->fromBeginning1) EnvPrintRouter(theEnv,logicalName, " b");
+   else EnvPrintRouter(theEnv,logicalName," e");
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" f");
+   EnvPrintRouter(theEnv,logicalName," f");
    PrintLongInteger(theEnv,logicalName,(long long) hack->offset1);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" p");
+   EnvPrintRouter(theEnv,logicalName," p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->pattern2);
 
    if (hack->p2lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->p2rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
+     { EnvPrintRouter(theEnv,logicalName," R"); }
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->slot2);
 
-   if (hack->fromBeginning2) EnvPrintRouter(theEnv,logicalName,(char*)" b");
-   else EnvPrintRouter(theEnv,logicalName,(char*)" e");
+   if (hack->fromBeginning2) EnvPrintRouter(theEnv,logicalName," b");
+   else EnvPrintRouter(theEnv,logicalName," e");
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" f");
+   EnvPrintRouter(theEnv,logicalName," f");
    PrintLongInteger(theEnv,logicalName,(long long) hack->offset2);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -145,13 +145,13 @@ globle void PrintFactPNCompVars1(
    struct factCompVarsPN1Call *hack;
 
    hack = (struct factCompVarsPN1Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-cmp-vars ");
-   if (hack->pass) EnvPrintRouter(theEnv,logicalName,(char*)"p ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"n ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-cmp-vars ");
+   if (hack->pass) EnvPrintRouter(theEnv,logicalName,"p ");
+   else EnvPrintRouter(theEnv,logicalName,"n ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->field1);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->field2);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -170,13 +170,13 @@ globle void PrintFactSlotLength(
 
    hack = (struct factCheckLengthPNCall *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(slot-length ");
+   EnvPrintRouter(theEnv,logicalName,"(slot-length ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
-   if (hack->exactly) EnvPrintRouter(theEnv,logicalName,(char*)"= ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)">= ");
+   EnvPrintRouter(theEnv,logicalName," ");
+   if (hack->exactly) EnvPrintRouter(theEnv,logicalName,"= ");
+   else EnvPrintRouter(theEnv,logicalName,">= ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->minLength);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -194,24 +194,24 @@ globle void PrintFactJNGetVar1(
    struct factGetVarJN1Call *hack;
 
    hack = (struct factGetVarJN1Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-jn-getvar-1 ");
-   if (hack->factAddress) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
-   if (hack->allFields) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-jn-getvar-1 ");
+   if (hack->factAddress) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
+   if (hack->allFields) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"p");
+   EnvPrintRouter(theEnv,logicalName,"p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern + 1);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichField);
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
    
    if (hack->lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+     { EnvPrintRouter(theEnv,logicalName," R"); }
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -229,17 +229,17 @@ globle void PrintFactJNGetVar2(
    struct factGetVarJN2Call *hack;
 
    hack = (struct factGetVarJN2Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-jn-getvar-2");
+   EnvPrintRouter(theEnv,logicalName,"(fact-jn-getvar-2");
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" p");
+   EnvPrintRouter(theEnv,logicalName," p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern + 1);
-   EnvPrintRouter(theEnv,logicalName,(char*)" s");
+   EnvPrintRouter(theEnv,logicalName," s");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
    if (hack->lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+     { EnvPrintRouter(theEnv,logicalName," R"); }
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -257,27 +257,27 @@ globle void PrintFactJNGetVar3(
    struct factGetVarJN3Call *hack;
 
    hack = (struct factGetVarJN3Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-jn-getvar-3 ");
-   if (hack->fromBeginning) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
-   if (hack->fromEnd) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-jn-getvar-3 ");
+   if (hack->fromBeginning) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
+   if (hack->fromEnd) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->beginOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->endOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" p");
+   EnvPrintRouter(theEnv,logicalName," p");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichPattern + 1);
 
    if (hack->lhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" L"); }
+     { EnvPrintRouter(theEnv,logicalName," L"); }
    else if (hack->rhs)
-     { EnvPrintRouter(theEnv,logicalName,(char*)" R"); }
+     { EnvPrintRouter(theEnv,logicalName," R"); }
      
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -295,16 +295,16 @@ globle void PrintFactPNGetVar1(
    struct factGetVarPN1Call *hack;
 
    hack = (struct factGetVarPN1Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-getvar-1 ");
-   if (hack->factAddress) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
-   if (hack->allFields) EnvPrintRouter(theEnv,logicalName,(char*)"t F");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f F");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-getvar-1 ");
+   if (hack->factAddress) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
+   if (hack->allFields) EnvPrintRouter(theEnv,logicalName,"t F");
+   else EnvPrintRouter(theEnv,logicalName,"f F");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichField);
-   EnvPrintRouter(theEnv,logicalName,(char*)" S");
+   EnvPrintRouter(theEnv,logicalName," S");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -322,9 +322,9 @@ globle void PrintFactPNGetVar2(
    struct factGetVarPN2Call *hack;
 
    hack = (struct factGetVarPN2Call *) ValueToBitMap(theValue);;
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-getvar-2 S");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-getvar-2 S");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -342,19 +342,19 @@ globle void PrintFactPNGetVar3(
    struct factGetVarPN3Call *hack;
 
    hack = (struct factGetVarPN3Call *) ValueToBitMap(theValue);
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-getvar-3 ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-getvar-3 ");
 
-   if (hack->fromBeginning) EnvPrintRouter(theEnv,logicalName,(char*)"t ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f ");
-   if (hack->fromEnd) EnvPrintRouter(theEnv,logicalName,(char*)"t B");
-   else EnvPrintRouter(theEnv,logicalName,(char*)"f B");
+   if (hack->fromBeginning) EnvPrintRouter(theEnv,logicalName,"t ");
+   else EnvPrintRouter(theEnv,logicalName,"f ");
+   if (hack->fromEnd) EnvPrintRouter(theEnv,logicalName,"t B");
+   else EnvPrintRouter(theEnv,logicalName,"f B");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->beginOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" E");
+   EnvPrintRouter(theEnv,logicalName," E");
    PrintLongInteger(theEnv,logicalName,(long long) hack->endOffset);
-   EnvPrintRouter(theEnv,logicalName,(char*)" S");
+   EnvPrintRouter(theEnv,logicalName," S");
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -373,15 +373,15 @@ globle void PrintFactPNConstant1(
 
    hack = (struct factConstantPN1Call *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-constant1 ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-constant1 ");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
 
-   if (hack->testForEquality) EnvPrintRouter(theEnv,logicalName,(char*)" = ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)" != ");
+   if (hack->testForEquality) EnvPrintRouter(theEnv,logicalName," = ");
+   else EnvPrintRouter(theEnv,logicalName," != ");
 
    PrintAtom(theEnv,logicalName,GetFirstArgument()->type,GetFirstArgument()->value);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }
@@ -400,19 +400,19 @@ globle void PrintFactPNConstant2(
 
    hack = (struct factConstantPN2Call *) ValueToBitMap(theValue);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)"(fact-pn-constant2 ");
+   EnvPrintRouter(theEnv,logicalName,"(fact-pn-constant2 ");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->whichSlot);
 
-   EnvPrintRouter(theEnv,logicalName,(char*)" ");
+   EnvPrintRouter(theEnv,logicalName," ");
 
    PrintLongInteger(theEnv,logicalName,(long long) hack->offset);
 
-   if (hack->testForEquality) EnvPrintRouter(theEnv,logicalName,(char*)" = ");
-   else EnvPrintRouter(theEnv,logicalName,(char*)" != ");
+   if (hack->testForEquality) EnvPrintRouter(theEnv,logicalName," = ");
+   else EnvPrintRouter(theEnv,logicalName," != ");
 
    PrintAtom(theEnv,logicalName,GetFirstArgument()->type,GetFirstArgument()->value);
-   EnvPrintRouter(theEnv,logicalName,(char*)")");
+   EnvPrintRouter(theEnv,logicalName,")");
 #else
 #endif
   }

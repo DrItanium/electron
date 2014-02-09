@@ -87,56 +87,56 @@ globle void DefruleCommands(
   void *theEnv)
   {
 #if ! RUN_TIME
-   EnvDefineFunction2(theEnv,(char*)"run",'v', PTIEF RunCommand,(char*)"RunCommand", (char*)"*1i");
-   EnvDefineFunction2(theEnv,(char*)"halt",'v', PTIEF HaltCommand,(char*)"HaltCommand",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"focus",'b', PTIEF FocusCommand,(char*)"FocusCommand", (char*)"1*w");
-   EnvDefineFunction2(theEnv,(char*)"clear-focus-stack",'v',PTIEF ClearFocusStackCommand,
-                                       (char*)"ClearFocusStackCommand",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"get-focus-stack",'m',PTIEF GetFocusStackFunction,
-                                     (char*)"GetFocusStackFunction",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"pop-focus",'w',PTIEF PopFocusFunction,
-                               (char*)"PopFocusFunction",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"get-focus",'w',PTIEF GetFocusFunction,
-                               (char*)"GetFocusFunction",(char*)"00");
+   EnvDefineFunction2(theEnv,"run",'v', PTIEF RunCommand,"RunCommand", "*1i");
+   EnvDefineFunction2(theEnv,"halt",'v', PTIEF HaltCommand,"HaltCommand","00");
+   EnvDefineFunction2(theEnv,"focus",'b', PTIEF FocusCommand,"FocusCommand", "1*w");
+   EnvDefineFunction2(theEnv,"clear-focus-stack",'v',PTIEF ClearFocusStackCommand,
+                                       "ClearFocusStackCommand","00");
+   EnvDefineFunction2(theEnv,"get-focus-stack",'m',PTIEF GetFocusStackFunction,
+                                     "GetFocusStackFunction","00");
+   EnvDefineFunction2(theEnv,"pop-focus",'w',PTIEF PopFocusFunction,
+                               "PopFocusFunction","00");
+   EnvDefineFunction2(theEnv,"get-focus",'w',PTIEF GetFocusFunction,
+                               "GetFocusFunction","00");
 #if DEBUGGING_FUNCTIONS
-   EnvDefineFunction2(theEnv,(char*)"set-break",'v', PTIEF SetBreakCommand,
-                               (char*)"SetBreakCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"remove-break",'v', PTIEF RemoveBreakCommand,
-                                  (char*)"RemoveBreakCommand", (char*)"*1w");
-   EnvDefineFunction2(theEnv,(char*)"show-breaks",'v', PTIEF ShowBreaksCommand,
-                                 (char*)"ShowBreaksCommand", (char*)"01w");
-   EnvDefineFunction2(theEnv,(char*)"matches",'v',PTIEF MatchesCommand,(char*)"MatchesCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"join-activity",'g',PTIEF JoinActivityCommand,(char*)"JoinActivityCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"matches-count",'v',PTIEF MatchesCountCommand,(char*)"MatchesCountCommand",(char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"list-focus-stack",'v', PTIEF ListFocusStackCommand,
-                                      (char*)"ListFocusStackCommand", (char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"dependencies", 'v', PTIEF DependenciesCommand,
-                                   (char*)"DependenciesCommand", (char*)"11h");
-   EnvDefineFunction2(theEnv,(char*)"dependents",   'v', PTIEF DependentsCommand,
-                                   (char*)"DependentsCommand", (char*)"11h");
-   EnvDefineFunction2(theEnv,(char*)"timetag",   'g', PTIEF TimetagFunction,
-                                   (char*)"TimetagFunction", (char*)"11h");
+   EnvDefineFunction2(theEnv,"set-break",'v', PTIEF SetBreakCommand,
+                               "SetBreakCommand","11w");
+   EnvDefineFunction2(theEnv,"remove-break",'v', PTIEF RemoveBreakCommand,
+                                  "RemoveBreakCommand", "*1w");
+   EnvDefineFunction2(theEnv,"show-breaks",'v', PTIEF ShowBreaksCommand,
+                                 "ShowBreaksCommand", "01w");
+   EnvDefineFunction2(theEnv,"matches",'v',PTIEF MatchesCommand,"MatchesCommand","11w");
+   EnvDefineFunction2(theEnv,"join-activity",'g',PTIEF JoinActivityCommand,"JoinActivityCommand","11w");
+   EnvDefineFunction2(theEnv,"matches-count",'v',PTIEF MatchesCountCommand,"MatchesCountCommand","11w");
+   EnvDefineFunction2(theEnv,"list-focus-stack",'v', PTIEF ListFocusStackCommand,
+                                      "ListFocusStackCommand", "00");
+   EnvDefineFunction2(theEnv,"dependencies", 'v', PTIEF DependenciesCommand,
+                                   "DependenciesCommand", "11h");
+   EnvDefineFunction2(theEnv,"dependents",   'v', PTIEF DependentsCommand,
+                                   "DependentsCommand", "11h");
+   EnvDefineFunction2(theEnv,"timetag",   'g', PTIEF TimetagFunction,
+                                   "TimetagFunction", "11h");
 #endif /* DEBUGGING_FUNCTIONS */
 
-   EnvDefineFunction2(theEnv,(char*)"get-incremental-reset",'b',
-                   GetIncrementalResetCommand,(char*)"GetIncrementalResetCommand",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"set-incremental-reset",'b',
-                   SetIncrementalResetCommand,(char*)"SetIncrementalResetCommand",(char*)"11");
+   EnvDefineFunction2(theEnv,"get-incremental-reset",'b',
+                   GetIncrementalResetCommand,"GetIncrementalResetCommand","00");
+   EnvDefineFunction2(theEnv,"set-incremental-reset",'b',
+                   SetIncrementalResetCommand,"SetIncrementalResetCommand","11");
 
-   EnvDefineFunction2(theEnv,(char*)"get-beta-memory-resizing",'b',
-                   GetBetaMemoryResizingCommand,(char*)"GetBetaMemoryResizingCommand",(char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"set-beta-memory-resizing",'b',
-                   SetBetaMemoryResizingCommand,(char*)"SetBetaMemoryResizingCommand",(char*)"11");
+   EnvDefineFunction2(theEnv,"get-beta-memory-resizing",'b',
+                   GetBetaMemoryResizingCommand,"GetBetaMemoryResizingCommand","00");
+   EnvDefineFunction2(theEnv,"set-beta-memory-resizing",'b',
+                   SetBetaMemoryResizingCommand,"SetBetaMemoryResizingCommand","11");
 
-   EnvDefineFunction2(theEnv,(char*)"get-strategy", 'w', PTIEF GetStrategyCommand,  (char*)"GetStrategyCommand", (char*)"00");
-   EnvDefineFunction2(theEnv,(char*)"set-strategy", 'w', PTIEF SetStrategyCommand,  (char*)"SetStrategyCommand", (char*)"11w");
+   EnvDefineFunction2(theEnv,"get-strategy", 'w', PTIEF GetStrategyCommand,  "GetStrategyCommand", "00");
+   EnvDefineFunction2(theEnv,"set-strategy", 'w', PTIEF SetStrategyCommand,  "SetStrategyCommand", "11w");
 
 #if DEVELOPER && (! BLOAD_ONLY)
-   EnvDefineFunction2(theEnv,(char*)"rule-complexity",'l', PTIEF RuleComplexityCommand,(char*)"RuleComplexityCommand", (char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"show-joins",   'v', PTIEF ShowJoinsCommand,    (char*)"ShowJoinsCommand", (char*)"11w");
-   EnvDefineFunction2(theEnv,(char*)"show-aht",   'v', PTIEF ShowAlphaHashTable,    (char*)"ShowAlphaHashTable", (char*)"00");
+   EnvDefineFunction2(theEnv,"rule-complexity",'l', PTIEF RuleComplexityCommand,"RuleComplexityCommand", "11w");
+   EnvDefineFunction2(theEnv,"show-joins",   'v', PTIEF ShowJoinsCommand,    "ShowJoinsCommand", "11w");
+   EnvDefineFunction2(theEnv,"show-aht",   'v', PTIEF ShowAlphaHashTable,    "ShowAlphaHashTable", "00");
 #if DEBUGGING_FUNCTIONS
-   AddWatchItem(theEnv,(char*)"rule-analysis",0,&DefruleData(theEnv)->WatchRuleAnalysis,0,NULL,NULL);
+   AddWatchItem(theEnv,"rule-analysis",0,&DefruleData(theEnv)->WatchRuleAnalysis,0,NULL,NULL);
 #endif
 #endif /* DEVELOPER && (! BLOAD_ONLY) */
 
@@ -187,7 +187,7 @@ globle int SetBetaMemoryResizingCommand(
    /* Check for the correct number of arguments. */
    /*============================================*/
 
-   if (EnvArgCountCheck(theEnv,(char*)"set-beta-memory-resizing",EXACTLY,1) == -1)
+   if (EnvArgCountCheck(theEnv,"set-beta-memory-resizing",EXACTLY,1) == -1)
      { return(oldValue); }
 
    /*=================================================*/
@@ -220,7 +220,7 @@ globle int GetBetaMemoryResizingCommand(
 
    oldValue = EnvGetBetaMemoryResizing(theEnv);
 
-   if (EnvArgCountCheck(theEnv,(char*)"get-beta-memory-resizing",EXACTLY,0) == -1)
+   if (EnvArgCountCheck(theEnv,"get-beta-memory-resizing",EXACTLY,0) == -1)
      { return(oldValue); }
 
    return(oldValue);
@@ -238,13 +238,13 @@ globle void MatchesCommand(
    char *ruleName;
    void *rulePtr;
 
-   ruleName = GetConstructName(theEnv,(char*)"matches",(char*)"rule name");
+   ruleName = GetConstructName(theEnv,"matches","rule name");
    if (ruleName == NULL) return;
 
    rulePtr = EnvFindDefrule(theEnv,ruleName);
    if (rulePtr == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defrule",ruleName);
+      CantFindItemErrorMessage(theEnv,"defrule",ruleName);
       return;
      }
 
@@ -296,7 +296,7 @@ globle intBool EnvMatches(
    /*===================*/
 
    rulePtr = tmpPtr;
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"Activations\n");
+   EnvPrintRouter(theEnv,WDISPLAY,"Activations\n");
    flag = 1;
    for (agendaPtr = (struct activation *) EnvGetNextActivation(theEnv,NULL);
         agendaPtr != NULL;
@@ -308,11 +308,11 @@ globle intBool EnvMatches(
         {
          flag = 0;
          PrintPartialMatch(theEnv,WDISPLAY,GetActivationBasis(agendaPtr));
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+         EnvPrintRouter(theEnv,WDISPLAY,"\n");
         }
      }
 
-   if (flag) EnvPrintRouter(theEnv,WDISPLAY,(char*)" None\n");
+   if (flag) EnvPrintRouter(theEnv,WDISPLAY," None\n");
 
    return(TRUE);
   }
@@ -336,14 +336,14 @@ static int ListAlphaMatches(
      { 
       priorPatterns++;
 
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)"Matches for Pattern ");
+      EnvPrintRouter(theEnv,WDISPLAY,"Matches for Pattern ");
       PrintLongInteger(theEnv,WDISPLAY,(long int) priorPatterns);
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+      EnvPrintRouter(theEnv,WDISPLAY,"\n");
      
       if (theJoin->rightMemory->beta[0]->children != NULL)
-        { EnvPrintRouter(theEnv,WDISPLAY,(char*)"*\n"); }
+        { EnvPrintRouter(theEnv,WDISPLAY,"*\n"); }
       else
-        { EnvPrintRouter(theEnv,WDISPLAY,(char*)" None\n"); }
+        { EnvPrintRouter(theEnv,WDISPLAY," None\n"); }
      
       return(priorPatterns); 
      }
@@ -361,9 +361,9 @@ static int ListAlphaMatches(
    if (GetHaltExecution(theEnv) == TRUE)
      { return(priorPatterns); }
    
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"Matches for Pattern ");
+   EnvPrintRouter(theEnv,WDISPLAY,"Matches for Pattern ");
    PrintLongInteger(theEnv,WDISPLAY,(long int) priorPatterns);
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+   EnvPrintRouter(theEnv,WDISPLAY,"\n");
 
    for (flag = 1;
         listOfHashNodes != NULL;
@@ -378,12 +378,12 @@ static int ListAlphaMatches(
                  
          flag = 0;
          PrintPartialMatch(theEnv,WDISPLAY,listOfMatches);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+         EnvPrintRouter(theEnv,WDISPLAY,"\n");
          listOfMatches = listOfMatches->nextInMemory;
         }
      }
            
-   if (flag) EnvPrintRouter(theEnv,WDISPLAY,(char*)" None\n");
+   if (flag) EnvPrintRouter(theEnv,WDISPLAY," None\n");
    
    return(priorPatterns);
   }
@@ -454,12 +454,12 @@ static void PrintMatchesMemory(
      { return; }
      
    matchesDisplayed = 0;
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"Partial matches for CEs ");
+   EnvPrintRouter(theEnv,WDISPLAY,"Partial matches for CEs ");
    PrintLongInteger(theEnv,WDISPLAY,(long int) startCE);
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)" - ");
+   EnvPrintRouter(theEnv,WDISPLAY," - ");
    PrintLongInteger(theEnv,WDISPLAY,(long int) endCE);
    
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+   EnvPrintRouter(theEnv,WDISPLAY,"\n");
 
    for (b = 0; b < theMemory->size; b++)
      {
@@ -472,13 +472,13 @@ static void PrintMatchesMemory(
 
          matchesDisplayed++;
          PrintPartialMatch(theEnv,WDISPLAY,listOfMatches);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+         EnvPrintRouter(theEnv,WDISPLAY,"\n");
     
          listOfMatches = listOfMatches->nextInMemory;
         }
      }
 
-   if (matchesDisplayed == 0) { EnvPrintRouter(theEnv,WDISPLAY,(char*)" None\n"); }
+   if (matchesDisplayed == 0) { EnvPrintRouter(theEnv,WDISPLAY," None\n"); }
   }
 
  
@@ -492,13 +492,13 @@ globle long long JoinActivityCommand(
    char *ruleName;
    void *rulePtr;
 
-   ruleName = GetConstructName(theEnv,(char*)"join-activity",(char*)"rule name");
+   ruleName = GetConstructName(theEnv,"join-activity","rule name");
    if (ruleName == NULL) return(0);
 
    rulePtr = EnvFindDefrule(theEnv,ruleName);
    if (rulePtr == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defrule",ruleName);
+      CantFindItemErrorMessage(theEnv,"defrule",ruleName);
       return(0);
      }
 
@@ -573,13 +573,13 @@ static int ListBetaJoinActivity(
       
    if ((priorLeftPatterns > 1) || (theJoin->joinFromTheRight))
      {
-      /* EnvPrintRouter(theEnv,WDISPLAY,(char*)"Join Activity for CEs "); */
+      /* EnvPrintRouter(theEnv,WDISPLAY,"Join Activity for CEs "); */
       
       if (priorLeftPatterns > 1)
         {
         /*
          PrintLongInteger(theEnv,WDISPLAY,(long int) blockStart);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)" - ");
+         EnvPrintRouter(theEnv,WDISPLAY," - ");
          PrintLongInteger(theEnv,WDISPLAY,(long int) priorLeftPatterns);
          */
         }
@@ -587,20 +587,20 @@ static int ListBetaJoinActivity(
         {
         /*
          PrintLongInteger(theEnv,WDISPLAY,(long int) blockStart + priorLeftPatterns);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)" - ");
+         EnvPrintRouter(theEnv,WDISPLAY," - ");
          PrintLongInteger(theEnv,WDISPLAY,(long int) blockStart + priorLeftPatterns + (priorRightPatterns - 1));
          */
         }
   
       *activity += theJoin->memoryCompares + theJoin->memoryAdds + theJoin->memoryDeletes;
       /*
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)": C ");
+      EnvPrintRouter(theEnv,WDISPLAY,": C ");
       PrintLongInteger(theEnv,WDISPLAY,theJoin->memoryCompares);
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)"/ A ");
+      EnvPrintRouter(theEnv,WDISPLAY,"/ A ");
       PrintLongInteger(theEnv,WDISPLAY,theJoin->memoryAdds);
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)"/ D ");
+      EnvPrintRouter(theEnv,WDISPLAY,"/ D ");
       PrintLongInteger(theEnv,WDISPLAY,theJoin->memoryDeletes);
-      EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+      EnvPrintRouter(theEnv,WDISPLAY,"\n");
       */
      }
    
@@ -620,13 +620,13 @@ globle void MatchesCountCommand(
    char *ruleName;
    void *rulePtr;
 
-   ruleName = GetConstructName(theEnv,(char*)"matches-count",(char*)"rule name");
+   ruleName = GetConstructName(theEnv,"matches-count","rule name");
    if (ruleName == NULL) return;
 
    rulePtr = EnvFindDefrule(theEnv,ruleName);
    if (rulePtr == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defrule",ruleName);
+      CantFindItemErrorMessage(theEnv,"defrule",ruleName);
       return;
      }
 
@@ -703,9 +703,9 @@ globle intBool EnvMatchesCount(
             return(TRUE);
            }
 
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"Matches for Pattern ");
+         EnvPrintRouter(theEnv,WDISPLAY,"Matches for Pattern ");
          PrintLongInteger(theEnv,WDISPLAY,(long int) i + 1);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)": ");
+         EnvPrintRouter(theEnv,WDISPLAY,": ");
 
          count = 0;
          for (listOfHashNodes = theAlphaStorage[i];
@@ -728,7 +728,7 @@ globle intBool EnvMatchesCount(
            }
            
          PrintLongInteger(theEnv,WDISPLAY,count);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+         EnvPrintRouter(theEnv,WDISPLAY,"\n");
         }
 
       genfree(theEnv,theAlphaStorage,(unsigned) (depth * sizeof(struct alphaMemoryHash *)));
@@ -762,9 +762,9 @@ globle intBool EnvMatchesCount(
 
          /* count = 0; */
 
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"Partial matches for CEs 1 - ");
+         EnvPrintRouter(theEnv,WDISPLAY,"Partial matches for CEs 1 - ");
          PrintLongInteger(theEnv,WDISPLAY,(long int) i + 1);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)": ");
+         EnvPrintRouter(theEnv,WDISPLAY,": ");
          theMemory = theStorage[i];
 		 /*
 		 for (b = 0; b < theMemory->size; b++)
@@ -787,7 +787,7 @@ globle intBool EnvMatchesCount(
          count = theMemory->count;
          PrintLongInteger(theEnv,WDISPLAY,count);
 
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n"); 
+         EnvPrintRouter(theEnv,WDISPLAY,"\n"); 
         }
 
       genfree(theEnv,theStorage,(unsigned) (depth * sizeof(struct betaMemory *)));
@@ -798,7 +798,7 @@ globle intBool EnvMatchesCount(
    /*===================*/
 
    rulePtr = tmpPtr;
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"Activations: ");
+   EnvPrintRouter(theEnv,WDISPLAY,"Activations: ");
    count = 0;
    for (agendaPtr = (struct activation *) EnvGetNextActivation(theEnv,NULL);
         agendaPtr != NULL;
@@ -811,7 +811,7 @@ globle intBool EnvMatchesCount(
      }
 
    PrintLongInteger(theEnv,WDISPLAY,count);
-   EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+   EnvPrintRouter(theEnv,WDISPLAY,"\n");
 
    return(TRUE);
   }
@@ -826,9 +826,9 @@ globle long long TimetagFunction(
    DATA_OBJECT item;
    void *ptr;
 
-   if (EnvArgCountCheck(theEnv,(char*)"timetag",EXACTLY,1) == -1) return(-1LL);
+   if (EnvArgCountCheck(theEnv,"timetag",EXACTLY,1) == -1) return(-1LL);
 
-   ptr = GetFactOrInstanceArgument(theEnv,1,&item,(char*)"timetag");
+   ptr = GetFactOrInstanceArgument(theEnv,1,&item,"timetag");
 
    if (ptr == NULL) return(-1);
 
@@ -848,13 +848,13 @@ globle long RuleComplexityCommand(
    char *ruleName;
    struct defrule *rulePtr;
 
-   ruleName = GetConstructName(theEnv,(char*)"rule-complexity",(char*)"rule name");
+   ruleName = GetConstructName(theEnv,"rule-complexity","rule name");
    if (ruleName == NULL) return(-1);
 
    rulePtr = (struct defrule *) EnvFindDefrule(theEnv,ruleName);
    if (rulePtr == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defrule",ruleName);
+      CantFindItemErrorMessage(theEnv,"defrule",ruleName);
       return(-1);
      }
 
@@ -871,13 +871,13 @@ globle void ShowJoinsCommand(
    char *ruleName;
    void *rulePtr;
 
-   ruleName = GetConstructName(theEnv,(char*)"show-joins",(char*)"rule name");
+   ruleName = GetConstructName(theEnv,"show-joins","rule name");
    if (ruleName == NULL) return;
 
    rulePtr = EnvFindDefrule(theEnv,ruleName);
    if (rulePtr == NULL)
      {
-      CantFindItemErrorMessage(theEnv,(char*)"defrule",ruleName);
+      CantFindItemErrorMessage(theEnv,"defrule",ruleName);
       return;
      }
 
@@ -952,7 +952,7 @@ static void ShowJoins(
                                      (joinList[numberOfJoins]->logicalJoin) ? 'l' : ' ');
          EnvPrintRouter(theEnv,WDISPLAY,buffer);
          PrintExpression(theEnv,WDISPLAY,joinList[numberOfJoins]->networkTest);
-         EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+         EnvPrintRouter(theEnv,WDISPLAY,"\n");
          
          if (joinList[numberOfJoins]->secondaryNetworkTest != NULL)
            {
@@ -963,9 +963,9 @@ static void ShowJoins(
          
          if (joinList[numberOfJoins]->leftHash != NULL)
            {
-            EnvPrintRouter(theEnv,WDISPLAY,(char*)"    LH : ");
+            EnvPrintRouter(theEnv,WDISPLAY,"    LH : ");
             PrintExpression(theEnv,WDISPLAY,joinList[numberOfJoins]->leftHash);
-            EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+            EnvPrintRouter(theEnv,WDISPLAY,"\n");
            }
          
          numberOfJoins--;
@@ -976,7 +976,7 @@ static void ShowJoins(
       /*===============================*/
 
       rulePtr = rulePtr->disjunct;
-      if (rulePtr != NULL) EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+      if (rulePtr != NULL) EnvPrintRouter(theEnv,WDISPLAY,"\n");
      }
   }
 
@@ -1018,10 +1018,10 @@ globle void ShowAlphaHashTable(
              gensprintf(buffer," %4d",count);
              EnvPrintRouter(theEnv,WDISPLAY,buffer);
              if (theEntry->owner->rightHash == NULL)
-               { EnvPrintRouter(theEnv,WDISPLAY,(char*)"*"); }
+               { EnvPrintRouter(theEnv,WDISPLAY,"*"); }
             }
           
-          EnvPrintRouter(theEnv,WDISPLAY,(char*)"\n");
+          EnvPrintRouter(theEnv,WDISPLAY,"\n");
          }
       }
     gensprintf(buffer,"Total Count: %ld\n",totalCount);

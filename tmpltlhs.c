@@ -77,7 +77,7 @@ globle struct lhsParseNode *DeftemplateLHSParse(
    GetToken(theEnv,readSource,&theToken);
    if ((theToken.type == OR_CONSTRAINT) || (theToken.type == AND_CONSTRAINT))
      {
-      SyntaxErrorMessage(theEnv,(char*)"deftemplate patterns");
+      SyntaxErrorMessage(theEnv,"deftemplate patterns");
       return(NULL);
      }
 
@@ -141,7 +141,7 @@ static struct lhsParseNode *GetLHSSlots(
    while (tempToken->type != RPAREN)
      {
       PPBackup(theEnv);
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       SavePPBuffer(theEnv,tempToken->printForm);
 
       /*=================================================*/
@@ -151,7 +151,7 @@ static struct lhsParseNode *GetLHSSlots(
       if (tempToken->type != LPAREN)
         {
          *error = TRUE;
-         SyntaxErrorMessage(theEnv,(char*)"deftemplate patterns");
+         SyntaxErrorMessage(theEnv,"deftemplate patterns");
          ReturnLHSParseNodes(theEnv,firstSlot);
          return(NULL);
         }
@@ -164,7 +164,7 @@ static struct lhsParseNode *GetLHSSlots(
       if (tempToken->type != SYMBOL)
         {
          *error = TRUE;
-         SyntaxErrorMessage(theEnv,(char*)"deftemplate patterns");
+         SyntaxErrorMessage(theEnv,"deftemplate patterns");
          ReturnLHSParseNodes(theEnv,firstSlot);
          return(NULL);
         }
@@ -252,7 +252,7 @@ static struct lhsParseNode *GetSingleLHSSlot(
    /*================================================*/
 
    slotName = (SYMBOL_HN *) tempToken->value;
-   SavePPBuffer(theEnv,(char*)" ");
+   SavePPBuffer(theEnv," ");
    GetToken(theEnv,readSource,tempToken);
 
    /*====================================*/
@@ -311,9 +311,9 @@ static struct lhsParseNode *GetSingleLHSSlot(
    if (tempToken->type != RPAREN)
      {
       PPBackup(theEnv);
-      SavePPBuffer(theEnv,(char*)" ");
+      SavePPBuffer(theEnv," ");
       SavePPBuffer(theEnv,tempToken->printForm);
-      SyntaxErrorMessage(theEnv,(char*)"deftemplate patterns");
+      SyntaxErrorMessage(theEnv,"deftemplate patterns");
       *error = TRUE;
       ReturnLHSParseNodes(theEnv,nextSlot);
       return(NULL);
@@ -328,7 +328,7 @@ static struct lhsParseNode *GetSingleLHSSlot(
      {
       PPBackup(theEnv);
       PPBackup(theEnv);
-      SavePPBuffer(theEnv,(char*)")");
+      SavePPBuffer(theEnv,")");
      }
 
    /*=================================*/
@@ -354,7 +354,7 @@ static intBool MultiplyDefinedLHSSlots(
      {
       if (theSlots->slot == slotName)
         {
-         AlreadyParsedErrorMessage(theEnv,(char*)"slot ",ValueToString(slotName));
+         AlreadyParsedErrorMessage(theEnv,"slot ",ValueToString(slotName));
          return(TRUE);
         }
      }

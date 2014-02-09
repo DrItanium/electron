@@ -313,7 +313,7 @@ globle intBool EnvIsDefclassDeletable(
 globle void UndefclassCommand(
   void *theEnv)
   {
-   UndefconstructCommand(theEnv,(char*)"undefclass",DefclassData(theEnv)->DefclassConstruct);
+   UndefconstructCommand(theEnv,"undefclass",DefclassData(theEnv)->DefclassConstruct);
   }
 
 /********************************************************
@@ -360,7 +360,7 @@ globle intBool EnvUndefclass(
 globle void PPDefclassCommand(
   void *theEnv)
   {   
-   PPConstructCommand(theEnv,(char*)"ppdefclass",DefclassData(theEnv)->DefclassConstruct);
+   PPConstructCommand(theEnv,"ppdefclass",DefclassData(theEnv)->DefclassConstruct);
   }
 
 /***************************************************
@@ -374,7 +374,7 @@ globle void PPDefclassCommand(
 globle void ListDefclassesCommand(
   void *theEnv)
   {
-   ListConstructCommand(theEnv,(char*)"list-defclasses",DefclassData(theEnv)->DefclassConstruct);
+   ListConstructCommand(theEnv,"list-defclasses",DefclassData(theEnv)->DefclassConstruct);
   }
 
 /***************************************************
@@ -546,7 +546,7 @@ globle void GetDefclassListFunction(
   void *theEnv,
   DATA_OBJECT_PTR returnValue)
   {
-   GetConstructListFunction(theEnv,(char*)"get-defclass-list",returnValue,DefclassData(theEnv)->DefclassConstruct);
+   GetConstructListFunction(theEnv,"get-defclass-list",returnValue,DefclassData(theEnv)->DefclassConstruct);
   }
 
 /***************************************************************
@@ -675,7 +675,7 @@ static void SaveDefclass(
    if (ppForm != NULL)
      {
       PrintInChunks(theEnv,logName,ppForm);
-      EnvPrintRouter(theEnv,logName,(char*)"\n");
+      EnvPrintRouter(theEnv,logName,"\n");
       hnd = EnvGetNextDefmessageHandler(theEnv,(void *) theDefclass,0);
       while (hnd != 0)
         {
@@ -683,7 +683,7 @@ static void SaveDefclass(
          if (ppForm != NULL)
            {
             PrintInChunks(theEnv,logName,ppForm);
-            EnvPrintRouter(theEnv,logName,(char*)"\n");
+            EnvPrintRouter(theEnv,logName,"\n");
            }
          hnd = EnvGetNextDefmessageHandler(theEnv,(void *) theDefclass,hnd);
         }
@@ -724,7 +724,7 @@ globle unsigned short EnvGetClassDefaultsMode(
 globle void *GetClassDefaultsModeCommand(
   void *theEnv)
   {
-   EnvArgCountCheck(theEnv,(char*)"get-class-defaults-mode",EXACTLY,0);
+   EnvArgCountCheck(theEnv,"get-class-defaults-mode",EXACTLY,0);
 
    return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetClassDefaultsModeName(EnvGetClassDefaultsMode(theEnv))));
   }
@@ -746,10 +746,10 @@ globle void *SetClassDefaultsModeCommand(
    /* Check for the correct number and type of arguments. */
    /*=====================================================*/
 
-   if (EnvArgCountCheck(theEnv,(char*)"set-class-defaults-mode",EXACTLY,1) == -1)
+   if (EnvArgCountCheck(theEnv,"set-class-defaults-mode",EXACTLY,1) == -1)
      { return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetClassDefaultsModeName(EnvGetClassDefaultsMode(theEnv)))); }
 
-   if (EnvArgTypeCheck(theEnv,(char*)"set-class-defaults-mode",1,SYMBOL,&argPtr) == FALSE)
+   if (EnvArgTypeCheck(theEnv,"set-class-defaults-mode",1,SYMBOL,&argPtr) == FALSE)
      { return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetClassDefaultsModeName(EnvGetClassDefaultsMode(theEnv)))); }
 
    argument = DOToString(argPtr);
@@ -764,8 +764,8 @@ globle void *SetClassDefaultsModeCommand(
      { EnvSetClassDefaultsMode(theEnv,CONVENIENCE_MODE); }
    else
      {
-      ExpectedTypeError1(theEnv,(char*)"set-class-defaults-mode",1,
-      (char*)"symbol with value conservation or convenience");
+      ExpectedTypeError1(theEnv,"set-class-defaults-mode",1,
+      "symbol with value conservation or convenience");
       return((SYMBOL_HN *) EnvAddSymbol(theEnv,GetClassDefaultsModeName(EnvGetClassDefaultsMode(theEnv))));
      }
 
@@ -789,13 +789,13 @@ static char *GetClassDefaultsModeName(
    switch (mode)
      {
       case CONSERVATION_MODE:
-        sname = (char*)"conservation";
+        sname = "conservation";
         break;
       case CONVENIENCE_MODE:
-        sname = (char*)"convenience";
+        sname = "convenience";
         break;
       default:
-        sname = (char*)"unknown";
+        sname = "unknown";
         break;
      }
 

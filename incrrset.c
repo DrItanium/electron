@@ -567,7 +567,7 @@ globle int SetIncrementalResetCommand(
    /* Check for the correct number of arguments. */
    /*============================================*/
 
-   if (EnvArgCountCheck(theEnv,(char*)"set-incremental-reset",EXACTLY,1) == -1)
+   if (EnvArgCountCheck(theEnv,"set-incremental-reset",EXACTLY,1) == -1)
      { return(oldValue); }
 
    /*=========================================*/
@@ -585,8 +585,8 @@ globle int SetIncrementalResetCommand(
       if (EnvGetNextDefrule(theEnv,NULL) != NULL)
         {
          RestoreCurrentModule(theEnv);
-         PrintErrorID(theEnv,(char*)"INCRRSET",1,FALSE);
-         EnvPrintRouter(theEnv,WERROR,(char*)"The incremental reset behavior cannot be changed with rules loaded.\n");
+         PrintErrorID(theEnv,"INCRRSET",1,FALSE);
+         EnvPrintRouter(theEnv,WERROR,"The incremental reset behavior cannot be changed with rules loaded.\n");
          SetEvaluationError(theEnv,TRUE);
          return(oldValue);
         }
@@ -624,7 +624,7 @@ globle int GetIncrementalResetCommand(
 
    oldValue = EnvGetIncrementalReset(theEnv);
 
-   if (EnvArgCountCheck(theEnv,(char*)"get-incremental-reset",EXACTLY,0) == -1)
+   if (EnvArgCountCheck(theEnv,"get-incremental-reset",EXACTLY,0) == -1)
      { return(oldValue); }
 
    return(oldValue);

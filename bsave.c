@@ -93,8 +93,8 @@ globle int BsaveCommand(
 #if (! RUN_TIME) && BLOAD_AND_BSAVE
    char *fileName;
 
-   if (EnvArgCountCheck(theEnv,(char*)"bsave",EXACTLY,1) == -1) return(FALSE);
-   fileName = GetFileName(theEnv,(char*)"bsave",1);
+   if (EnvArgCountCheck(theEnv,"bsave",EXACTLY,1) == -1) return(FALSE);
+   fileName = GetFileName(theEnv,"bsave",1);
    if (fileName != NULL)
      { if (EnvBsave(theEnv,fileName)) return(TRUE); }
 #else
@@ -124,9 +124,9 @@ globle intBool EnvBsave(
 
    if (Bloaded(theEnv))
      {
-      PrintErrorID(theEnv,(char*)"BSAVE",1,FALSE);
+      PrintErrorID(theEnv,"BSAVE",1,FALSE);
       EnvPrintRouter(theEnv,WERROR,
-          (char*)"Cannot perform a binary save while a binary load is in effect.\n");
+          "Cannot perform a binary save while a binary load is in effect.\n");
       return(0);
      }
 
@@ -134,9 +134,9 @@ globle intBool EnvBsave(
    /* Open the file. */
    /*================*/
 
-   if ((fp = GenOpen(theEnv,fileName,(char*)"wb")) == NULL)
+   if ((fp = GenOpen(theEnv,fileName,"wb")) == NULL)
      {
-      OpenErrorMessage(theEnv,(char*)"bsave",fileName);
+      OpenErrorMessage(theEnv,"bsave",fileName);
       return(0);
      }
 

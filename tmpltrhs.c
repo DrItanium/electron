@@ -47,7 +47,7 @@
 #include "tmpltlhs.h"
 
 #include "tmpltrhs.h"
-#define __convert(x) (char*) x
+#define __convert(x)  x
 /***************************************/
 /* LOCAL INTERNAL FUNCTION DEFINITIONS */
 /***************************************/
@@ -467,7 +467,7 @@ static struct expr *GetSlotAssertValues(
    struct expr *slotItem;
    struct expr *newArg, *tempArg;
    DATA_OBJECT theDefault;
-   char *nullBitMap = (char*)"\0";
+   char *nullBitMap = "\0";
 
    /*==================================================*/
    /* Determine if the slot is assigned in the assert. */
