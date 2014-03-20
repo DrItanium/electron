@@ -67,7 +67,7 @@
 #endif
 
 #ifndef APPLICATION_NAME
-#define APPLICATION_NAME "electron"
+#define APPLICATION_NAME "electron-glow"
 #endif
 
 #ifndef COMMAND_PROMPT
