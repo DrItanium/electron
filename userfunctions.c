@@ -42,10 +42,14 @@
 /***************************************************************************/
 
 #include "clips.h"
-
+#include <wiringPi.h>
+#include <piGlow.h>
 void UserFunctions(void);
 void EnvUserFunctions(void *);
-
+void PiGlowOne(void*);
+void PiGlowLeg(void*);
+void PiGlowRing(void*);
+void PiGlowDelay(void*);
 /*********************************************************/
 /* UserFunctions: Informs the expert system environment  */
 /*   of any user defined functions. In the default case, */
@@ -66,5 +70,72 @@ void UserFunctions() {   }
 /*   included in another file.                             */
 /***********************************************************/
 void EnvUserFunctions(void *theEnv) {
+   /* initialization */
+   wiringPiSetupSys();
+   piGlowSetup(0);
+   /* functions */
+   EnvDefineFunction2(theEnv, "piglow-one", 'v', PTIEF PiGlowOne, "PiGlowOne", "33i");
+   EnvDefineFunction2(theEnv, "piglow-leg", 'v', PTIEF PiGlowLeg, "PiGlowLeg", "22i");
+   EnvDefineFunction2(theEnv, "piglow-ring", 'v', PTIEF PiGlowRing, "PiGlowRing", "22i");
+   EnvDefineFunction2(theEnv, "piglow-delay", 'v', PTIEF PiGlowDelay, "PiGlowDelay", "11i");
 }
 
+void PiGlowOne(void* theEnv) {
+   int leg, ring, intensity;
+   leg = EnvRtnLong(theEnv, 1);
+   if(leg < 0 || leg > 2) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Target leg out of range\n");
+      return;
+   }
+   ring = EnvRtnLong(theEnv, 2);
+   if(ring < 0 || ring > 5) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Target leg out of range\n");
+      return;
+   }
+   intensity = EnvRtnLong(theEnv, 3);
+   if(intensity < 0 || intensity > 255) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Intensity out of range\n");
+      return;
+   }
+   piGlow1(leg, ring, intensity);
+}
+
+void PiGlowLeg(void* theEnv) {
+   int leg, intensity;
+   leg = EnvRtnLong(theEnv, 1);
+   if(leg < 0 || leg > 2) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Target leg out of range\n");
+      return;
+   }
+   intensity = EnvRtnLong(theEnv, 2);
+   if(intensity < 0 || intensity > 255) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Intensity out of range\n");
+      return;
+   }
+   piGlowLeg(leg, intensity);
+}
+
+void PiGlowRing(void* theEnv) {
+   int ring, intensity;
+   ring = EnvRtnLong(theEnv, 1);
+   if(ring < 0 || ring > 5) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Target ring out of range\n");
+      return;
+   }
+   intensity = EnvRtnLong(theEnv, 2);
+   if(intensity < 0 || intensity > 255) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Intensity out of range\n");
+      return;
+   }
+   piGlowRing(ring, intensity);
+}
+
+void PiGlowDelay(void* theEnv) {
+   int amount;
+   amount = EnvRtnLong(theEnv, 1);
+   if(amount < 0) {
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Delay amount out of range\n");
+      return;
+   }
+   delay(amount);
+}
