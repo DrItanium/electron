@@ -46,10 +46,10 @@
 #include <piGlow.h>
 void UserFunctions(void);
 void EnvUserFunctions(void *);
-void PiGlowOne(void*);
-void PiGlowLeg(void*);
-void PiGlowRing(void*);
-void PiGlowDelay(void*);
+void ElectronGlowOne(void*);
+void ElectronGlowLeg(void*);
+void ElectronGlowRing(void*);
+void ElectronGlowDelay(void*);
 /*********************************************************/
 /* UserFunctions: Informs the expert system environment  */
 /*   of any user defined functions. In the default case, */
@@ -74,13 +74,13 @@ void EnvUserFunctions(void *theEnv) {
    wiringPiSetupSys();
    piGlowSetup(0);
    /* functions */
-   EnvDefineFunction2(theEnv, "piglow-one", 'v', PTIEF PiGlowOne, "PiGlowOne", "33i");
-   EnvDefineFunction2(theEnv, "piglow-leg", 'v', PTIEF PiGlowLeg, "PiGlowLeg", "22i");
-   EnvDefineFunction2(theEnv, "piglow-ring", 'v', PTIEF PiGlowRing, "PiGlowRing", "22i");
-   EnvDefineFunction2(theEnv, "piglow-delay", 'v', PTIEF PiGlowDelay, "PiGlowDelay", "11i");
+   EnvDefineFunction2(theEnv, "electron-glow-one", 'v', PTIEF ElectronGlowOne, "ElectronGlowOne", "33i");
+   EnvDefineFunction2(theEnv, "electron-glow-leg", 'v', PTIEF ElectronGlowLeg, "ElectronGlowLeg", "22i");
+   EnvDefineFunction2(theEnv, "electron-glow-ring", 'v', PTIEF ElectronGlowRing, "ElectronGlowRing", "22i");
+   EnvDefineFunction2(theEnv, "electron-glow-delay", 'v', PTIEF ElectronGlowDelay, "ElectronGlowDelay", "11i");
 }
 
-void PiGlowOne(void* theEnv) {
+void ElectronGlowOne(void* theEnv) {
    int leg, ring, intensity;
    leg = EnvRtnLong(theEnv, 1);
    if(leg < 0 || leg > 2) {
@@ -100,7 +100,7 @@ void PiGlowOne(void* theEnv) {
    piGlow1(leg, ring, intensity);
 }
 
-void PiGlowLeg(void* theEnv) {
+void ElectronGlowLeg(void* theEnv) {
    int leg, intensity;
    leg = EnvRtnLong(theEnv, 1);
    if(leg < 0 || leg > 2) {
@@ -115,7 +115,7 @@ void PiGlowLeg(void* theEnv) {
    piGlowLeg(leg, intensity);
 }
 
-void PiGlowRing(void* theEnv) {
+void ElectronGlowRing(void* theEnv) {
    int ring, intensity;
    ring = EnvRtnLong(theEnv, 1);
    if(ring < 0 || ring > 5) {
@@ -130,7 +130,7 @@ void PiGlowRing(void* theEnv) {
    piGlowRing(ring, intensity);
 }
 
-void PiGlowDelay(void* theEnv) {
+void ElectronGlowDelay(void* theEnv) {
    int amount;
    amount = EnvRtnLong(theEnv, 1);
    if(amount < 0) {
