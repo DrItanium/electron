@@ -3,6 +3,8 @@ electron
 electron.exe
 libelectron.so
 libelectron.a
+electron-glow
+libelectron-glow.so
 
 *.a
 *.o
