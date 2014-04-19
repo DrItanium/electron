@@ -89,7 +89,7 @@ void ElectronGlowOne(void* theEnv) {
    }
    ring = EnvRtnLong(theEnv, 2);
    if(ring < 0 || ring > 5) {
-      EnvPrintRouter(theEnv, WERROR, "ERROR: Target leg out of range\n");
+      EnvPrintRouter(theEnv, WERROR, "ERROR: Target ring out of range\n");
       return;
    }
    intensity = EnvRtnLong(theEnv, 3);
