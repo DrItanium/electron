@@ -219,13 +219,6 @@
 
 typedef long int FACT_ID;
 
-/*************************/
-/* Macintosh Definitions */
-/*************************/
-
-#define CREATOR_STRING "CLIS"
-#define CREATOR_CODE   'CLIS'
-
 #endif
 
 
