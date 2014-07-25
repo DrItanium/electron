@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.30  10/19/06            */
+   /*             CLIPS Version 6.30  07/21/14            */
    /*                                                     */
    /*                 RETE UTILITY MODULE                 */
    /*******************************************************/
@@ -47,6 +47,7 @@
 #include "pattern.h"
 #include "retract.h"
 #include "router.h"
+#include "rulecom.h"
 
 #include "reteutil.h"
 
@@ -219,7 +220,10 @@ globle void UpdateBetaPMLinks(
      }
      
    theMemory->count++;
-   join->memoryAdds++;
+   if (side == LHS)
+    { join->memoryLeftAdds++; }
+   else
+    { join->memoryRightAdds++; }
    
    thePM->owner = join;
 
@@ -325,7 +329,11 @@ globle void UnlinkBetaPMFromNodeAndLineage(
    /*=============================================*/
    
    theMemory->count--;
-   join->memoryDeletes++;
+
+   if (side == LHS)
+    { join->memoryLeftDeletes++; }
+   else
+    { join->memoryRightDeletes++; }
 
    betaLocation = thePM->hashValue % theMemory->size;
    
@@ -379,7 +387,11 @@ globle void UnlinkNonLeftLineage(
    /*=============================================*/
    
    theMemory->count--;
-   join->memoryDeletes++;
+
+   if (side == LHS)
+    { join->memoryLeftDeletes++; }
+   else
+    { join->memoryRightDeletes++; }
 
    betaLocation = thePM->hashValue % theMemory->size;
    
@@ -1493,7 +1505,75 @@ static void ResetBetaMemory(
       theMemory->last = lastAdd;
      }
   }
-  
+
+/********************/
+/* PrintBetaMemory: */
+/********************/
+globle unsigned long PrintBetaMemory(
+  void *theEnv,
+  char *logName,
+  struct betaMemory *theMemory,
+  int indentFirst,
+  char *indentString,
+  int output)
+  {
+   struct partialMatch *listOfMatches;
+   unsigned long b, count = 0;
+
+   if (GetHaltExecution(theEnv) == TRUE)
+     { return count; }
+
+   for (b = 0; b < theMemory->size; b++)
+     {
+      listOfMatches = theMemory->beta[b];
+
+      while (listOfMatches != NULL)
+        {
+         /*=========================================*/
+         /* Check to see if the user is attempting  */
+         /* to stop the display of partial matches. */
+         /*=========================================*/
+
+         if (GetHaltExecution(theEnv) == TRUE)
+           { return count; }
+
+         /*=========================================================*/
+         /* The first partial match may have already been indented. */
+         /* Subsequent partial matches will always be indented with */
+         /* the indentation string.                                 */
+         /*=========================================================*/
+         
+         if (output == VERBOSE)
+           {
+            if (indentFirst)
+              { EnvPrintRouter(theEnv,logName,indentString); }
+            else
+              { indentFirst = TRUE; }
+           }
+
+         /*==========================*/
+         /* Print the partial match. */
+         /*==========================*/
+         
+         if (output == VERBOSE)
+           {
+            PrintPartialMatch(theEnv,logName,listOfMatches);
+            EnvPrintRouter(theEnv,logName,"\n");
+           }
+           
+         count++;
+    
+         /*============================*/
+         /* Move on to the next match. */
+         /*============================*/
+         
+         listOfMatches = listOfMatches->nextInMemory;
+        }
+     }
+     
+   return count;
+  }
+
 #if (CONSTRUCT_COMPILER || BLOAD_AND_BSAVE) && (! RUN_TIME)
 
 /*************************************************************/

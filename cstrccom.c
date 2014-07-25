@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.24  07/01/05            */
+   /*             CLIPS Version 6.30  07/22/14            */
    /*                                                     */
    /*              CONSTRUCT COMMANDS MODULE              */
    /*******************************************************/
@@ -523,7 +523,8 @@ globle intBool Undefconstruct(
 
       if ((UtilityData(theEnv)->CurrentGarbageFrame->topLevel) &&
           (! CommandLineData(theEnv)->EvaluatingTopLevelCommand) &&
-          (EvaluationData(theEnv)->CurrentExpression == NULL))
+          (EvaluationData(theEnv)->CurrentExpression == NULL) &&
+          (UtilityData(theEnv)->GarbageCollectionLocks == 0))
         {
          CleanCurrentGarbageFrame(theEnv,NULL);
          CallPeriodicTasks(theEnv);
@@ -563,7 +564,8 @@ globle intBool Undefconstruct(
 
    if ((UtilityData(theEnv)->CurrentGarbageFrame->topLevel) &&
        (! CommandLineData(theEnv)->EvaluatingTopLevelCommand) &&
-       (EvaluationData(theEnv)->CurrentExpression == NULL))
+       (EvaluationData(theEnv)->CurrentExpression == NULL) &&
+       (UtilityData(theEnv)->GarbageCollectionLocks == 0))
      {
       CleanCurrentGarbageFrame(theEnv,NULL);
       CallPeriodicTasks(theEnv);

@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.30  10/19/06            */
+   /*             CLIPS Version 6.30  07/22/14            */
    /*                                                     */
    /*                  EVALUATION MODULE                  */
    /*******************************************************/
@@ -553,6 +553,7 @@ globle void PrintDataObject(
       case INTEGER:
       case FLOAT:
       case EXTERNAL_ADDRESS:
+      case DATA_OBJECT_ARRAY: // TBD Remove with AddPrimitive
       case FACT_ADDRESS:
 #if OBJECT_SYSTEM
       case INSTANCE_NAME:
@@ -782,7 +783,7 @@ globle int FunctionCall2(
    /*=============================================*/
 
    if ((UtilityData(theEnv)->CurrentGarbageFrame->topLevel) && (! CommandLineData(theEnv)->EvaluatingTopLevelCommand) &&
-       (EvaluationData(theEnv)->CurrentExpression == NULL))
+       (EvaluationData(theEnv)->CurrentExpression == NULL) && (UtilityData(theEnv)->GarbageCollectionLocks == 0))
      {
       CleanCurrentGarbageFrame(theEnv,NULL);
       CallPeriodicTasks(theEnv);

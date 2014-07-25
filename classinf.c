@@ -567,7 +567,7 @@ globle void EnvClassSubclasses(
   DATA_OBJECT *result,
   int inhp)
   {
-   register unsigned i;
+   register int i; // Bug fix 2014-07-18: Previously unsigned and SetpDOEnd decremented to -1.
    register int id;
 
    if ((id = GetTraversalID(theEnv)) == -1)
@@ -604,7 +604,7 @@ globle void ClassSubclassAddresses(
   DATA_OBJECT *result,
   int inhp)
   {
-   register unsigned i;
+   register int i; // Bug fix 2014-07-18: Previously unsigned and SetpDOEnd decremented to -1.
    register int id;
 
    if ((id = GetTraversalID(theEnv)) == -1)

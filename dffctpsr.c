@@ -85,7 +85,7 @@ globle int ParseDeffacts(
 
    deffactsName = GetConstructNameAndComment(theEnv,readSource,&inputToken,"deffacts",
                                              EnvFindDeffacts,EnvUndeffacts,"$",TRUE,
-                                             TRUE,TRUE);
+                                             TRUE,TRUE,FALSE);
    if (deffactsName == NULL) { return(TRUE); }
 
    /*===============================================*/

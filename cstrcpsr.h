@@ -55,8 +55,17 @@
                                          struct token *,char *,
                                          void *(*)(void *,char *),
                                          int (*)(void *,void *),
-                                         char *,int,int,int);
+                                         char *,int,int,int,int);
    LOCALE void                           ImportExportConflictMessage(void *,char *,char *,char *,char *);
+   LOCALE void                           FlushParsingMessages(void *);
+   LOCALE char                          *EnvGetParsingFileName(void *);
+   LOCALE void                           EnvSetParsingFileName(void *,char *);
+   LOCALE char                          *EnvGetErrorFileName(void *);
+   LOCALE void                           EnvSetErrorFileName(void *,char *);
+   LOCALE char                          *EnvGetWarningFileName(void *);
+   LOCALE void                           EnvSetWarningFileName(void *,char *);
+   LOCALE void                           CreateErrorCaptureRouter(void *);
+   LOCALE void                           DeleteErrorCaptureRouter(void *);
 
 #endif
 

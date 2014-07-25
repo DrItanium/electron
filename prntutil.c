@@ -45,6 +45,7 @@
 #include "router.h"
 #include "multifun.h"
 #include "factmngr.h"
+#include "cstrcpsr.h"
 #include "inscom.h"
 #include "insmngr.h"
 #include "memalloc.h"
@@ -153,6 +154,17 @@ globle void PrintAtom(
           }
         break;
 
+      case DATA_OBJECT_ARRAY:
+        if (PrintUtilityData(theEnv)->AddressesToStrings) EnvPrintRouter(theEnv,logicalName,"\"");
+        
+        EnvPrintRouter(theEnv,logicalName,"<Pointer-");
+        gensprintf(buffer,"%p",value);
+        EnvPrintRouter(theEnv,logicalName,buffer);
+        EnvPrintRouter(theEnv,logicalName,">");
+          
+        if (PrintUtilityData(theEnv)->AddressesToStrings) EnvPrintRouter(theEnv,logicalName,"\"");
+        break;
+
       case EXTERNAL_ADDRESS:
         theAddress = (struct externalAddressHashNode *) value;
         
@@ -233,6 +245,9 @@ globle void PrintErrorID(
   int errorID,
   int printCR)
   {
+   FlushParsingMessages(theEnv);
+   EnvSetErrorFileName(theEnv,EnvGetParsingFileName(theEnv));
+   ConstructData(theEnv)->ErrLineNumber = GetLineCount(theEnv);
    if (printCR) EnvPrintRouter(theEnv,WERROR,"\n");
    EnvPrintRouter(theEnv,WERROR,"[");
    EnvPrintRouter(theEnv,WERROR,module);
@@ -250,6 +265,9 @@ globle void PrintWarningID(
   int warningID,
   int printCR)
   {
+   FlushParsingMessages(theEnv);
+   EnvSetWarningFileName(theEnv,EnvGetParsingFileName(theEnv));
+   ConstructData(theEnv)->WrnLineNumber = GetLineCount(theEnv);
    if (printCR) EnvPrintRouter(theEnv,WWARNING,"\n");
    EnvPrintRouter(theEnv,WWARNING,"[");
    EnvPrintRouter(theEnv,WWARNING,module);

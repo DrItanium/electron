@@ -1,7 +1,7 @@
    /*******************************************************/
    /*      "C" Language Integrated Production System      */
    /*                                                     */
-   /*             CLIPS Version 6.30  10/19/06            */
+   /*             CLIPS Version 6.30  07/22/14            */
    /*                                                     */
    /*                 FACT MANAGER MODULE                 */
    /*******************************************************/
@@ -253,6 +253,7 @@ static void DeallocateFactData(
      }
    DeallocateCallListWithArg(theEnv,FactData(theEnv)->ListOfAssertFunctions);
    DeallocateCallListWithArg(theEnv,FactData(theEnv)->ListOfRetractFunctions);
+   DeallocateCallListWithArg(theEnv,FactData(theEnv)->ListOfModifyFunctions);
   }
 
 /**********************************************/
@@ -587,7 +588,7 @@ globle intBool EnvRetract(
    /*===========================================*/
 
    if ((UtilityData(theEnv)->CurrentGarbageFrame->topLevel) && (! CommandLineData(theEnv)->EvaluatingTopLevelCommand) &&
-       (EvaluationData(theEnv)->CurrentExpression == NULL))
+       (EvaluationData(theEnv)->CurrentExpression == NULL) && (UtilityData(theEnv)->GarbageCollectionLocks == 0))
      { CleanCurrentGarbageFrame(theEnv,NULL); }
 
    /*==================================*/
@@ -823,7 +824,7 @@ globle void *EnvAssert(
    /*==========================================*/
 
    if ((UtilityData(theEnv)->CurrentGarbageFrame->topLevel) && (! CommandLineData(theEnv)->EvaluatingTopLevelCommand) &&
-       (EvaluationData(theEnv)->CurrentExpression == NULL))
+       (EvaluationData(theEnv)->CurrentExpression == NULL) && (UtilityData(theEnv)->GarbageCollectionLocks == 0))
      {
       CleanCurrentGarbageFrame(theEnv,NULL);
       CallPeriodicTasks(theEnv);
@@ -1625,10 +1626,10 @@ globle struct fact *FindIndexedFact(
   }
 
 #if ALLOW_ENVIRONMENT_GLOBALS
-/********************************************/
+/**************************************/
 /* AddAssertFunction: Adds a function */
 /*   to the ListOfAssertFunctions.    */
-/********************************************/
+/**************************************/
 globle intBool AddAssertFunction(
   char *name,
   void (*functionPtr)(void *,void *),
@@ -1645,10 +1646,10 @@ globle intBool AddAssertFunction(
   }
 #endif
 
-/***********************************************/
+/*****************************************/
 /* EnvAddAssertFunction: Adds a function */
 /*   to the ListOfAssertFunctions.       */
-/***********************************************/
+/*****************************************/
 globle intBool EnvAddAssertFunction(
   void *theEnv,
   char *name,
@@ -1662,10 +1663,10 @@ globle intBool EnvAddAssertFunction(
    return(1);
   }
     
-/**************************************************/
+/********************************************/
 /* EnvAddAssertFunctionWithContext: Adds a  */
 /*   function to the ListOfAssertFunctions. */
-/**************************************************/
+/********************************************/
 globle intBool EnvAddAssertFunctionWithContext(
   void *theEnv,
   char *name,
@@ -1680,10 +1681,10 @@ globle intBool EnvAddAssertFunctionWithContext(
    return(1);
   }
     
-/*****************************************************/
+/***********************************************/
 /* EnvRemoveAssertFunction: Removes a function */
 /*   from the ListOfAssertFunctions.           */
-/*****************************************************/
+/***********************************************/
 globle intBool EnvRemoveAssertFunction(
   void *theEnv,
   char *name)
@@ -1699,10 +1700,10 @@ globle intBool EnvRemoveAssertFunction(
   }
   
 #if ALLOW_ENVIRONMENT_GLOBALS
-/********************************************/
+/***************************************/
 /* AddRetractFunction: Adds a function */
 /*   to the ListOfRetractFunctions.    */
-/********************************************/
+/***************************************/
 globle intBool AddRetractFunction(
   char *name,
   void (*functionPtr)(void *,void *),
@@ -1719,10 +1720,10 @@ globle intBool AddRetractFunction(
   }
 #endif
 
-/************************************************/
+/******************************************/
 /* EnvAddRetractFunction: Adds a function */
 /*   to the ListOfRetractFunctions.       */
-/************************************************/
+/******************************************/
 globle intBool EnvAddRetractFunction(
   void *theEnv,
   char *name,
@@ -1736,10 +1737,10 @@ globle intBool EnvAddRetractFunction(
    return(1);
   }
     
-/***************************************************/
+/*********************************************/
 /* EnvAddRetractFunctionWithContext: Adds a  */
 /*   function to the ListOfRetractFunctions. */
-/***************************************************/
+/*********************************************/
 globle intBool EnvAddRetractFunctionWithContext(
   void *theEnv,
   char *name,
@@ -1754,10 +1755,10 @@ globle intBool EnvAddRetractFunctionWithContext(
    return(1);
   }
     
-/******************************************************/
+/************************************************/
 /* EnvRemoveRetractFunction: Removes a function */
 /*   from the ListOfRetractFunctions.           */
-/******************************************************/
+/************************************************/
 globle intBool EnvRemoveRetractFunction(
   void *theEnv,
   char *name)
@@ -1772,6 +1773,81 @@ globle intBool EnvRemoveRetractFunction(
    return(FALSE);
   }
 
+
+#if ALLOW_ENVIRONMENT_GLOBALS
+/**************************************/
+/* AddModifyFunction: Adds a function */
+/*   to the ListOfModifyFunctions.    */
+/**************************************/
+globle intBool AddModifyFunction(
+  char *name,
+  void (*functionPtr)(void *,void *,void *),
+  int priority)
+  {
+   void *theEnv;
+   
+   theEnv = GetCurrentEnvironment();
+
+   FactData(theEnv)->ListOfModifyFunctions =
+       AddFunctionToCallListWithArg(theEnv,name,priority,(void (*)(void *, void *)) functionPtr,
+                             FactData(theEnv)->ListOfModifyFunctions,TRUE);
+   return(1);
+  }
+#endif
+
+/*****************************************/
+/* EnvAddModifyFunction: Adds a function */
+/*   to the ListOfModifyFunctions.       */
+/*****************************************/
+globle intBool EnvAddModifyFunction(
+  void *theEnv,
+  char *name,
+  void (*functionPtr)(void *, void *, void *),
+  int priority)
+  {
+   FactData(theEnv)->ListOfModifyFunctions =
+      AddFunctionToCallListWithArg(theEnv,name,priority,
+                                              (void (*)(void *, void *)) functionPtr,
+                                              FactData(theEnv)->ListOfModifyFunctions,TRUE);
+   return(1);
+  }
+    
+/********************************************/
+/* EnvAddModifyFunctionWithContext: Adds a  */
+/*   function to the ListOfModifyFunctions. */
+/********************************************/
+globle intBool EnvAddModifyFunctionWithContext(
+  void *theEnv,
+  char *name,
+  void (*functionPtr)(void *, void *, void *),
+  int priority,
+  void *context)
+  {
+   FactData(theEnv)->ListOfModifyFunctions =
+      AddFunctionToCallListWithArgWithContext(theEnv,name,priority,
+                                       (void (*)(void *, void *)) functionPtr,
+                                       FactData(theEnv)->ListOfModifyFunctions,
+                                       TRUE,context);
+   return(1);
+  }
+    
+/***********************************************/
+/* EnvRemoveModifyFunction: Removes a function */
+/*   from the ListOfModifyFunctions.           */
+/***********************************************/
+globle intBool EnvRemoveModifyFunction(
+  void *theEnv,
+  char *name)
+  {
+   int found;
+
+   FactData(theEnv)->ListOfModifyFunctions =
+      RemoveFunctionFromCallListWithArg(theEnv,name,FactData(theEnv)->ListOfModifyFunctions,&found);
+
+   if (found) return(TRUE);
+
+   return(FALSE);
+  }
 
 #endif /* DEFTEMPLATE_CONSTRUCT && DEFRULE_CONSTRUCT */
 
